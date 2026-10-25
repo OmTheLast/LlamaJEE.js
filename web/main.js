@@ -22,7 +22,7 @@ function state(label, kind = '') {
 function status(message) { $('model-status').textContent = message; }
 function refreshControls() {
   $('load-button').disabled = !navigator.gpu || modelReady || modelLoading || solving;
-  $('load-button').textContent = modelReady ? 'Model ready ✓' : modelLoading ? 'Loading model…' : 'Download browser model ↓';
+  $('load-button').textContent = modelReady ? 'Model loaded' : modelLoading ? 'Loading model…' : 'Download and load model';
   $('solve-button').disabled = !modelReady || solving;
   $('model-choice').disabled = modelLoading || solving;
   $('stop-button').disabled = !modelLoading && !solving && !modelReady;
@@ -55,7 +55,7 @@ worker.addEventListener('message', ({ data }) => {
     modelReady = true;
     modelLoading = false;
     $('download-track').hidden = true;
-    status(selection() === 'demo' ? 'Ready. The separate 0.8B demo runs locally with Transformers.js.' : 'Ready. Original 9B weights run locally with ONNX Runtime WebGPU and a Transformers.js tokenizer.');
+    status(selection() === 'demo' ? 'Ready. The separate 0.8B demo will answer on this device.' : 'Ready. The selected 9B version will answer on this device.');
     if (!solving) state('Ready', 'active');
     refreshControls();
   }
@@ -82,7 +82,7 @@ worker.addEventListener('message', ({ data }) => {
     $('format-checks').replaceChildren();
     if (issues.length) {
       const title = document.createElement('strong');
-      title.textContent = 'Review signals (format and limited browser checks):';
+      title.textContent = 'Items to check:';
       const list = document.createElement('ul');
       for (const issue of issues) { const item = document.createElement('li'); item.textContent = issue; list.append(item); }
       $('format-checks').append(title, list);
@@ -105,18 +105,18 @@ function describeModel() {
   const demo = selection() === 'demo';
   $('model-label').textContent = demo ? 'Qwen3.5 0.8B · separate demo' : ARCHIVED_MODELS[selection()];
   $('model-detail').textContent = demo ? 'Unchanged lightweight model; not one of our trained checkpoints.' : 'Original compressed 9B weights; archived adapters are experimental.';
-  $('download-size').textContent = demo ? 'Roughly 850 MB. Requires WebGPU and sufficient memory.' : 'Up to 5.7 GB for text; images add 1.84 GB. Desktop preview; phone support is unverified. Images are resized to 384 × 384; crop a single question.';
+  $('download-size').textContent = demo ? 'About 850 MB. Your browser also needs enough working memory to run the model.' : 'Up to 5.7 GB for text and adapters; images add 1.84 GB. Tested on a 64 GiB Mac. Phone support is unverified.';
 }
 $('model-choice').addEventListener('change', () => {
   // Reset when changing runtimes; same-runtime adapter switches reuse loaded graphs.
   const next = selection() === 'demo' ? 'demo' : 'archive';
   if (next !== $('model-choice').dataset.runtime) resetWorker();
   $('model-choice').dataset.runtime = next; describeModel();
-  status(modelReady ? 'Checkpoint selected. The next solve uses its saved adapter.' : 'Choose Download to load the selected model.'); refreshControls();
+  status(modelReady ? 'Model selected. The next question uses this version.' : 'Select “Download and load model” to prepare this model.'); refreshControls();
 });
 $('model-choice').dataset.runtime = 'archive'; describeModel();
 $('stop-button').addEventListener('click', () => {
-  resetWorker(); state('Stopped', 'error'); status('Model worker terminated. Download again to reload cached files; the visible output is retained.');
+  resetWorker(); state('Stopped', 'error'); status('Stopped and released model memory. Load the model again to continue; the response remains visible.');
 });
 
 function setImage(file) {
@@ -176,12 +176,12 @@ $('solve-form').addEventListener('submit', async (event) => {
   $('result-empty').hidden = true;
   solving = true;
   state('Solving', 'active');
-  status(`Reading as ${classification.subject}; constructing a plan and answer locally…`);
+  status(`Subject: ${classification.subject}. Generating a response in this browser…`);
   refreshControls();
   const request = { type: 'solve', checkpoint: selection(), prompt, imageBuffer, imageType: selectedFile?.type, maxNewTokens: Number($('budget').value) };
   worker.postMessage(request, imageBuffer ? [imageBuffer] : []);
 });
 
-if (navigator.gpu) status('WebGPU detected. Click “Download browser model” to start the one-time download.');
+if (navigator.gpu) status('Browser graphics support detected. Select “Download and load model” to begin.');
 else { status('WebGPU not detected. Try current Chrome or Edge on a supported device.'); $('load-button').disabled = true; state('WebGPU needed', 'error'); }
 refreshControls();
