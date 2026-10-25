@@ -12,6 +12,8 @@ tags:
 
 <h1 align="center">LlamaJEE.js</h1>
 
+[Portfolio case study](https://ompatnaik.com/jee/) · [Live browser solver](https://ompatnaik.com/llamajee/)
+
 A browser-first JEE solver project by Om Patnaik, with a preserved record of its Qwen model experiments.
 
 **Inspect five MLX LoRA adapters, their tradeoffs against the unchanged 9B base, and the gates that kept them experimental.**
