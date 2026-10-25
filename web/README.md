@@ -1,5 +1,7 @@
 # LlamaJEE.js browser application
 
+The public page has one purpose: load a model and use it to answer a question. Experiment history and technical reports remain in this repository, outside the solver interface.
+
 LlamaJEE.js is Om Patnaik's experimental project for solving JEE Main and Advanced questions. JEE is India's engineering entrance examination. This application lets visitors run the original Qwen3.5-9B model, compare five saved training checkpoints, and try a separate, smaller 0.8B model.
 
 **Current result:** the 9B model and its saved adapters run inside the browser. We have not established that additional training made a generally better JEE solver. Image answers remain unreliable, and phone operation has not been tested.
@@ -76,6 +78,6 @@ The conversion source is recorded under [conversion_lab](../conversion_lab/). It
 
 `npm run build` produces `dist/`. Serve those built files, not the source HTML. Vite uses a relative base so assets resolve under `/llamajee/`.
 
-The canonical deployment is in `OmTheLast/omthelast.github.io`, under `llamajee/`. Copy the built `index.html`, `assets/` and `charts/` there without changing unrelated portfolio files or its root domain configuration. The project repository's `docs/` directory serves the alternate standalone address and retains its separate `CNAME`. Do not copy that `CNAME` into the portfolio deployment.
+The canonical deployment is in `OmTheLast/omthelast.github.io`, under `llamajee/`. Copy the built `index.html` and `assets/` there without changing unrelated portfolio files or its root domain configuration. The project repository's `docs/` directory serves the alternate standalone address and retains its separate `CNAME`. Do not copy that `CNAME` into the portfolio deployment.
 
 No private JEE question corpus, answer keys, review records or user attempts are bundled in this website.

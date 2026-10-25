@@ -104,8 +104,8 @@ createWorker();
 function describeModel() {
   const demo = selection() === 'demo';
   $('model-label').textContent = demo ? 'Qwen3.5 0.8B · separate demo' : ARCHIVED_MODELS[selection()];
-  $('model-detail').textContent = demo ? 'Unchanged lightweight model; not one of our trained checkpoints.' : 'Original compressed 9B weights; archived adapters are experimental.';
-  $('download-size').textContent = demo ? 'About 850 MB. Your browser also needs enough working memory to run the model.' : 'Up to 5.7 GB for text and adapters; images add 1.84 GB. Tested on a 64 GiB Mac. Phone support is unverified.';
+  $('model-detail').textContent = demo ? 'Smaller download.' : 'Larger model. Best used on a desktop with enough memory.';
+  $('download-size').textContent = demo ? 'About 850 MB to download.' : 'Up to 5.7 GB to download. Using an image adds 1.84 GB.';
 }
 $('model-choice').addEventListener('change', () => {
   // Reset when changing runtimes; same-runtime adapter switches reuse loaded graphs.
