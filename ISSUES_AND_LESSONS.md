@@ -67,3 +67,10 @@ A correct numerical solution can coexist with a wrong option label, a generic un
 ## 19 October 2026 — Repair the proof, retain the question
 
 A correct answer can hide a source-symbol error, an unsupported bound, an irrelevant verification task or a wrong option mapping. Rebuild every linked teaching view and check the original image. Correct external answers can also contain bad intermediate explanations; model agreement is not a substitute for evidence. Keep source ambiguity separate from repaired targets, and keep those cases out of release eligibility. Each batch closes with hashed artifacts so progress survives interruption. [Complete repair report](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
+
+
+## 30 October 2026 — Final selection still needs source and target checks
+
+Previously supported data contained neighbouring-question crops, irrelevant instructions and verification text that merely referred to an answer reference. The first balanced draft passed structural and processor checks but failed target inspection. Version 2 excludes all 15 additional pilot issues, preserving the failed draft and original questions. Processor success shows that the model can receive the input and target; it does not establish that the teaching is scientifically correct.
+
+Balance also has several meanings: equal problem counts do not imply equal target-token counts or actual training exposure. The selected data gives complete solving 49.4% of stored target tokens, planning 36.5% and checking 14.0%. Sampling and loss weighting remain to be frozen. [Full report](research/PILOT120_DATASET_2026_10_30.md).

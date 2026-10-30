@@ -1,0 +1,24 @@
+{
+  "measurement": "Measured assistant-target tokens in one copy of every packaged view; not a training schedule",
+  "total_target_tokens": 78922,
+  "by_state": [
+    {
+      "state": "atomic_verify",
+      "views": 120,
+      "target_tokens": 11085,
+      "percent": 14.045513
+    },
+    {
+      "state": "compose_method",
+      "views": 120,
+      "target_tokens": 28815,
+      "percent": 36.510732
+    },
+    {
+      "state": "solve_commit",
+      "views": 120,
+      "target_tokens": 39022,
+      "percent": 49.443755
+    }
+  ]
+}

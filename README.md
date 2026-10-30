@@ -82,7 +82,7 @@ The original MLX adapters are project-specific artifacts. The browser package pr
 
 ## Inspect the next research gate
 
-The 4B curriculum and repair reports are data milestones, not training gains. No 4B optimizer update has run in the recorded program; frozen no-regression, confirmation, and export-parity gates remain required. [Current research](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
+The 4B curriculum and repair reports are data milestones, not training gains. No 4B optimizer update has run in the recorded program; frozen no-regression, confirmation, and export-parity gates remain required. [Current dataset report and percentage graphs](research/PILOT120_DATASET_2026_10_30.md). The frozen pilot contains 120 source-problem families and 360 exercises, balanced equally across subjects and Main/Advanced. [Earlier repair report](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
 
 ## Notes from building it
 

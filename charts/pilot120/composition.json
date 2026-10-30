@@ -1,0 +1,815 @@
+{
+  "schema_version": 1,
+  "title": "4B pilot dataset composition",
+  "families": 120,
+  "teaching_views": 360,
+  "count_unit": "Independent original problem family; three teaching views are counted separately",
+  "subject_counts": {
+    "chemistry": 40,
+    "mathematics": 40,
+    "physics": 40
+  },
+  "exam_counts": {
+    "advanced": 60,
+    "main": 60
+  },
+  "subject_exam_counts": {
+    "chemistry/advanced": 20,
+    "chemistry/main": 20,
+    "mathematics/advanced": 20,
+    "mathematics/main": 20,
+    "physics/advanced": 20,
+    "physics/main": 20
+  },
+  "atomic_verdict_counts": {
+    "fail": 60,
+    "pass": 60
+  },
+  "answer_mode_counts": {
+    "matching": 3,
+    "multiple_choice": 23,
+    "numeric": 24,
+    "single_choice": 69,
+    "unknown": 1
+  },
+  "estimated_reasoning_demand_counts": {
+    "direct": 23,
+    "multi_constraint": 30,
+    "routine_linked": 67
+  },
+  "primary_method_counts": {
+    "algebraic_reduction": 17,
+    "calculus": 11,
+    "case_analysis": 7,
+    "conservation_balance": 11,
+    "counting_probability": 6,
+    "direct_application": 12,
+    "geometry_vectors": 13,
+    "graph_table_interpretation": 9,
+    "model_composition": 13,
+    "reaction_sequence": 5,
+    "statement_comparison": 10,
+    "structure_classification": 6
+  },
+  "visual_role_counts": {
+    "diagram": 19,
+    "graph": 5,
+    "mixed": 3,
+    "none": 88,
+    "structure": 3,
+    "table": 2
+  },
+  "primary_topic_counts_by_subject": {
+    "physics": {
+      "Atomic and nuclear physics": 2,
+      "Current electricity": 2,
+      "Electrostatics and capacitance": 3,
+      "Fluids": 3,
+      "Gravitation": 2,
+      "Kinematics": 3,
+      "Laws of motion": 2,
+      "Magnetism and induction": 1,
+      "Momentum and collisions": 2,
+      "Optics": 2,
+      "Oscillations and waves": 3,
+      "Rotational mechanics": 4,
+      "Thermal physics": 3,
+      "Thermodynamics": 1,
+      "Units and measurement": 4,
+      "Work and energy": 3
+    },
+    "chemistry": {
+      "Atomic structure": 2,
+      "Chemical bonding": 1,
+      "Chemical equilibrium": 1,
+      "Chemical kinetics": 2,
+      "Chemical thermodynamics": 3,
+      "Coordination compounds": 2,
+      "Electrochemistry": 2,
+      "General organic chemistry": 2,
+      "Hydrocarbons": 1,
+      "Hydrogen and its compounds": 1,
+      "Ionic equilibrium": 3,
+      "Metallurgy": 2,
+      "Mole concept and stoichiometry": 1,
+      "Organic reaction mechanisms": 4,
+      "Periodic properties": 1,
+      "Qualitative analysis": 2,
+      "Redox reactions": 1,
+      "Solid state": 2,
+      "Solutions": 2,
+      "States of matter": 1,
+      "Surface chemistry": 1,
+      "d- and f-block elements": 2,
+      "p-Block elements": 1
+    },
+    "mathematics": {
+      "Algebra and inequalities": 1,
+      "Binomial theorem": 1,
+      "Complex numbers": 3,
+      "Conic sections": 3,
+      "Coordinate geometry": 2,
+      "Differential calculus": 2,
+      "Differential equations": 3,
+      "Functions and equations": 1,
+      "Integral calculus": 1,
+      "Inverse trigonometry": 1,
+      "Limits and continuity": 1,
+      "Matrices and determinants": 2,
+      "Permutations and combinations": 4,
+      "Probability": 3,
+      "Quadratic equations": 2,
+      "Sequences and series": 1,
+      "Statistics": 2,
+      "Trigonometry": 4,
+      "Vectors and 3D geometry": 3
+    }
+  },
+  "limits": [
+    "Dataset proportions are not model accuracy.",
+    "Primary topic is one assigned label per family; other concepts can overlap.",
+    "Reasoning demand is a provisional source-based estimate, not calibrated student difficulty.",
+    "No model training occurred in preparing this dataset."
+  ],
+  "percentage_rows": [
+    {
+      "group": "subject",
+      "label": "chemistry",
+      "count": 40,
+      "denominator": 120,
+      "percent": 33.333333
+    },
+    {
+      "group": "subject",
+      "label": "mathematics",
+      "count": 40,
+      "denominator": 120,
+      "percent": 33.333333
+    },
+    {
+      "group": "subject",
+      "label": "physics",
+      "count": 40,
+      "denominator": 120,
+      "percent": 33.333333
+    },
+    {
+      "group": "exam",
+      "label": "advanced",
+      "count": 60,
+      "denominator": 120,
+      "percent": 50.0
+    },
+    {
+      "group": "exam",
+      "label": "main",
+      "count": 60,
+      "denominator": 120,
+      "percent": 50.0
+    },
+    {
+      "group": "subject_exam",
+      "label": "chemistry/advanced",
+      "count": 20,
+      "denominator": 120,
+      "percent": 16.666667
+    },
+    {
+      "group": "subject_exam",
+      "label": "chemistry/main",
+      "count": 20,
+      "denominator": 120,
+      "percent": 16.666667
+    },
+    {
+      "group": "subject_exam",
+      "label": "mathematics/advanced",
+      "count": 20,
+      "denominator": 120,
+      "percent": 16.666667
+    },
+    {
+      "group": "subject_exam",
+      "label": "mathematics/main",
+      "count": 20,
+      "denominator": 120,
+      "percent": 16.666667
+    },
+    {
+      "group": "subject_exam",
+      "label": "physics/advanced",
+      "count": 20,
+      "denominator": 120,
+      "percent": 16.666667
+    },
+    {
+      "group": "subject_exam",
+      "label": "physics/main",
+      "count": 20,
+      "denominator": 120,
+      "percent": 16.666667
+    },
+    {
+      "group": "atomic_verdict",
+      "label": "fail",
+      "count": 60,
+      "denominator": 120,
+      "percent": 50.0
+    },
+    {
+      "group": "atomic_verdict",
+      "label": "pass",
+      "count": 60,
+      "denominator": 120,
+      "percent": 50.0
+    },
+    {
+      "group": "answer_mode",
+      "label": "matching",
+      "count": 3,
+      "denominator": 120,
+      "percent": 2.5
+    },
+    {
+      "group": "answer_mode",
+      "label": "multiple_choice",
+      "count": 23,
+      "denominator": 120,
+      "percent": 19.166667
+    },
+    {
+      "group": "answer_mode",
+      "label": "numeric",
+      "count": 24,
+      "denominator": 120,
+      "percent": 20.0
+    },
+    {
+      "group": "answer_mode",
+      "label": "single_choice",
+      "count": 69,
+      "denominator": 120,
+      "percent": 57.5
+    },
+    {
+      "group": "answer_mode",
+      "label": "unknown",
+      "count": 1,
+      "denominator": 120,
+      "percent": 0.833333
+    },
+    {
+      "group": "reasoning_demand",
+      "label": "direct",
+      "count": 23,
+      "denominator": 120,
+      "percent": 19.166667
+    },
+    {
+      "group": "reasoning_demand",
+      "label": "multi_constraint",
+      "count": 30,
+      "denominator": 120,
+      "percent": 25.0
+    },
+    {
+      "group": "reasoning_demand",
+      "label": "routine_linked",
+      "count": 67,
+      "denominator": 120,
+      "percent": 55.833333
+    },
+    {
+      "group": "method",
+      "label": "algebraic_reduction",
+      "count": 17,
+      "denominator": 120,
+      "percent": 14.166667
+    },
+    {
+      "group": "method",
+      "label": "calculus",
+      "count": 11,
+      "denominator": 120,
+      "percent": 9.166667
+    },
+    {
+      "group": "method",
+      "label": "case_analysis",
+      "count": 7,
+      "denominator": 120,
+      "percent": 5.833333
+    },
+    {
+      "group": "method",
+      "label": "conservation_balance",
+      "count": 11,
+      "denominator": 120,
+      "percent": 9.166667
+    },
+    {
+      "group": "method",
+      "label": "counting_probability",
+      "count": 6,
+      "denominator": 120,
+      "percent": 5.0
+    },
+    {
+      "group": "method",
+      "label": "direct_application",
+      "count": 12,
+      "denominator": 120,
+      "percent": 10.0
+    },
+    {
+      "group": "method",
+      "label": "geometry_vectors",
+      "count": 13,
+      "denominator": 120,
+      "percent": 10.833333
+    },
+    {
+      "group": "method",
+      "label": "graph_table_interpretation",
+      "count": 9,
+      "denominator": 120,
+      "percent": 7.5
+    },
+    {
+      "group": "method",
+      "label": "model_composition",
+      "count": 13,
+      "denominator": 120,
+      "percent": 10.833333
+    },
+    {
+      "group": "method",
+      "label": "reaction_sequence",
+      "count": 5,
+      "denominator": 120,
+      "percent": 4.166667
+    },
+    {
+      "group": "method",
+      "label": "statement_comparison",
+      "count": 10,
+      "denominator": 120,
+      "percent": 8.333333
+    },
+    {
+      "group": "method",
+      "label": "structure_classification",
+      "count": 6,
+      "denominator": 120,
+      "percent": 5.0
+    },
+    {
+      "group": "visual_role",
+      "label": "diagram",
+      "count": 19,
+      "denominator": 120,
+      "percent": 15.833333
+    },
+    {
+      "group": "visual_role",
+      "label": "graph",
+      "count": 5,
+      "denominator": 120,
+      "percent": 4.166667
+    },
+    {
+      "group": "visual_role",
+      "label": "mixed",
+      "count": 3,
+      "denominator": 120,
+      "percent": 2.5
+    },
+    {
+      "group": "visual_role",
+      "label": "none",
+      "count": 88,
+      "denominator": 120,
+      "percent": 73.333333
+    },
+    {
+      "group": "visual_role",
+      "label": "structure",
+      "count": 3,
+      "denominator": 120,
+      "percent": 2.5
+    },
+    {
+      "group": "visual_role",
+      "label": "table",
+      "count": 2,
+      "denominator": 120,
+      "percent": 1.666667
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Atomic and nuclear physics",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Current electricity",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Electrostatics and capacitance",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Fluids",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Gravitation",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Kinematics",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Laws of motion",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Magnetism and induction",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Momentum and collisions",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Optics",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Oscillations and waves",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Rotational mechanics",
+      "count": 4,
+      "denominator": 40,
+      "percent": 10.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Thermal physics",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Thermodynamics",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Units and measurement",
+      "count": 4,
+      "denominator": 40,
+      "percent": 10.0
+    },
+    {
+      "group": "primary_topic/physics",
+      "label": "Work and energy",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Atomic structure",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Chemical bonding",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Chemical equilibrium",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Chemical kinetics",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Chemical thermodynamics",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Coordination compounds",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Electrochemistry",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "General organic chemistry",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Hydrocarbons",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Hydrogen and its compounds",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Ionic equilibrium",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Metallurgy",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Mole concept and stoichiometry",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Organic reaction mechanisms",
+      "count": 4,
+      "denominator": 40,
+      "percent": 10.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Periodic properties",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Qualitative analysis",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Redox reactions",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Solid state",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Solutions",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "States of matter",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "Surface chemistry",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "d- and f-block elements",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/chemistry",
+      "label": "p-Block elements",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Algebra and inequalities",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Binomial theorem",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Complex numbers",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Conic sections",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Coordinate geometry",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Differential calculus",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Differential equations",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Functions and equations",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Integral calculus",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Inverse trigonometry",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Limits and continuity",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Matrices and determinants",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Permutations and combinations",
+      "count": 4,
+      "denominator": 40,
+      "percent": 10.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Probability",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Quadratic equations",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Sequences and series",
+      "count": 1,
+      "denominator": 40,
+      "percent": 2.5
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Statistics",
+      "count": 2,
+      "denominator": 40,
+      "percent": 5.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Trigonometry",
+      "count": 4,
+      "denominator": 40,
+      "percent": 10.0
+    },
+    {
+      "group": "primary_topic/mathematics",
+      "label": "Vectors and 3D geometry",
+      "count": 3,
+      "denominator": 40,
+      "percent": 7.5
+    }
+  ]
+}

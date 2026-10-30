@@ -61,3 +61,8 @@ Created a private300-family/900-view inventory with separate question/exercise c
 ## 19 October 2026 — All teaching repairs staged
 
 The complete 95-family repair queue was reworked in eight batches: 285 exercises, 83 families with repair checks complete and 12 with remaining clearance. No questions were discarded. The combined pool now has 241 provisionally supported families; 59 remain excluded. No training, loss or accuracy measurement occurred. [Aggregate report](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
+
+
+## 30 October 2026 — Balanced 4B pilot frozen
+
+Selected 120 distinct source-problem families and 360 related exercises, with 40 families per subject and 60 per exam. All 32 independent audit checks and 360 processor checks passed. Ten additional input/source issues and five defective verification targets were excluded; the first failed selection and original archive remain saved. This is a data milestone, with no new training or accuracy result. [Report and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).

@@ -1,0 +1,98 @@
+group,label,count,denominator,percent
+subject,chemistry,40,120,33.333333
+subject,mathematics,40,120,33.333333
+subject,physics,40,120,33.333333
+exam,advanced,60,120,50.0
+exam,main,60,120,50.0
+subject_exam,chemistry/advanced,20,120,16.666667
+subject_exam,chemistry/main,20,120,16.666667
+subject_exam,mathematics/advanced,20,120,16.666667
+subject_exam,mathematics/main,20,120,16.666667
+subject_exam,physics/advanced,20,120,16.666667
+subject_exam,physics/main,20,120,16.666667
+atomic_verdict,fail,60,120,50.0
+atomic_verdict,pass,60,120,50.0
+answer_mode,matching,3,120,2.5
+answer_mode,multiple_choice,23,120,19.166667
+answer_mode,numeric,24,120,20.0
+answer_mode,single_choice,69,120,57.5
+answer_mode,unknown,1,120,0.833333
+reasoning_demand,direct,23,120,19.166667
+reasoning_demand,multi_constraint,30,120,25.0
+reasoning_demand,routine_linked,67,120,55.833333
+method,algebraic_reduction,17,120,14.166667
+method,calculus,11,120,9.166667
+method,case_analysis,7,120,5.833333
+method,conservation_balance,11,120,9.166667
+method,counting_probability,6,120,5.0
+method,direct_application,12,120,10.0
+method,geometry_vectors,13,120,10.833333
+method,graph_table_interpretation,9,120,7.5
+method,model_composition,13,120,10.833333
+method,reaction_sequence,5,120,4.166667
+method,statement_comparison,10,120,8.333333
+method,structure_classification,6,120,5.0
+visual_role,diagram,19,120,15.833333
+visual_role,graph,5,120,4.166667
+visual_role,mixed,3,120,2.5
+visual_role,none,88,120,73.333333
+visual_role,structure,3,120,2.5
+visual_role,table,2,120,1.666667
+primary_topic/physics,Atomic and nuclear physics,2,40,5.0
+primary_topic/physics,Current electricity,2,40,5.0
+primary_topic/physics,Electrostatics and capacitance,3,40,7.5
+primary_topic/physics,Fluids,3,40,7.5
+primary_topic/physics,Gravitation,2,40,5.0
+primary_topic/physics,Kinematics,3,40,7.5
+primary_topic/physics,Laws of motion,2,40,5.0
+primary_topic/physics,Magnetism and induction,1,40,2.5
+primary_topic/physics,Momentum and collisions,2,40,5.0
+primary_topic/physics,Optics,2,40,5.0
+primary_topic/physics,Oscillations and waves,3,40,7.5
+primary_topic/physics,Rotational mechanics,4,40,10.0
+primary_topic/physics,Thermal physics,3,40,7.5
+primary_topic/physics,Thermodynamics,1,40,2.5
+primary_topic/physics,Units and measurement,4,40,10.0
+primary_topic/physics,Work and energy,3,40,7.5
+primary_topic/chemistry,Atomic structure,2,40,5.0
+primary_topic/chemistry,Chemical bonding,1,40,2.5
+primary_topic/chemistry,Chemical equilibrium,1,40,2.5
+primary_topic/chemistry,Chemical kinetics,2,40,5.0
+primary_topic/chemistry,Chemical thermodynamics,3,40,7.5
+primary_topic/chemistry,Coordination compounds,2,40,5.0
+primary_topic/chemistry,Electrochemistry,2,40,5.0
+primary_topic/chemistry,General organic chemistry,2,40,5.0
+primary_topic/chemistry,Hydrocarbons,1,40,2.5
+primary_topic/chemistry,Hydrogen and its compounds,1,40,2.5
+primary_topic/chemistry,Ionic equilibrium,3,40,7.5
+primary_topic/chemistry,Metallurgy,2,40,5.0
+primary_topic/chemistry,Mole concept and stoichiometry,1,40,2.5
+primary_topic/chemistry,Organic reaction mechanisms,4,40,10.0
+primary_topic/chemistry,Periodic properties,1,40,2.5
+primary_topic/chemistry,Qualitative analysis,2,40,5.0
+primary_topic/chemistry,Redox reactions,1,40,2.5
+primary_topic/chemistry,Solid state,2,40,5.0
+primary_topic/chemistry,Solutions,2,40,5.0
+primary_topic/chemistry,States of matter,1,40,2.5
+primary_topic/chemistry,Surface chemistry,1,40,2.5
+primary_topic/chemistry,d- and f-block elements,2,40,5.0
+primary_topic/chemistry,p-Block elements,1,40,2.5
+primary_topic/mathematics,Algebra and inequalities,1,40,2.5
+primary_topic/mathematics,Binomial theorem,1,40,2.5
+primary_topic/mathematics,Complex numbers,3,40,7.5
+primary_topic/mathematics,Conic sections,3,40,7.5
+primary_topic/mathematics,Coordinate geometry,2,40,5.0
+primary_topic/mathematics,Differential calculus,2,40,5.0
+primary_topic/mathematics,Differential equations,3,40,7.5
+primary_topic/mathematics,Functions and equations,1,40,2.5
+primary_topic/mathematics,Integral calculus,1,40,2.5
+primary_topic/mathematics,Inverse trigonometry,1,40,2.5
+primary_topic/mathematics,Limits and continuity,1,40,2.5
+primary_topic/mathematics,Matrices and determinants,2,40,5.0
+primary_topic/mathematics,Permutations and combinations,4,40,10.0
+primary_topic/mathematics,Probability,3,40,7.5
+primary_topic/mathematics,Quadratic equations,2,40,5.0
+primary_topic/mathematics,Sequences and series,1,40,2.5
+primary_topic/mathematics,Statistics,2,40,5.0
+primary_topic/mathematics,Trigonometry,4,40,10.0
+primary_topic/mathematics,Vectors and 3D geometry,3,40,7.5
