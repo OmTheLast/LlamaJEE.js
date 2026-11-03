@@ -74,3 +74,7 @@ Two fresh executions of the same family update reached identical step-one state.
 ## 3 November 2026 — First 4B learning block paused after 30 updates
 
 On 24 reused development problems, final answers rose from 15 to 19 correct. The method score rose from 34 to 37 out of 48. Repetitive replies rose from 7 to 10, and usable answer formats fell from 24 to 23. All ten protected answers remained correct. The project retained the checkpoint for diagnosis and reserved the independent 120-problem test. [Full paired comparison](research/PILOT120_FIRST_BLOCK_2026_11_03.md).
+
+## 3 November 2026 — Testing a repetition warning on both 4B models
+
+On 48 saved responses, a fixed passage-matching rule detected 3 of 7 reviewed loops on the unchanged model and 6 of 10 after 30 training updates. It could interrupt correct solutions because repeating an equation sometimes helps repair an earlier mistake. [4B diagnostic results](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
