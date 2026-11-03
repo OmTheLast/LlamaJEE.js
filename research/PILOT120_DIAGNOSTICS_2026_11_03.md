@@ -35,3 +35,23 @@ No previously correct submission became wrong on these questions. Three already-
 The original training comparison remains 15 versus 19. The separate result of 20 uses a different submission instruction on the same development set.
 
 **A source check limits the interpretation of both scores.** We compared all 24 recorded answer types with the instructions in their six original exam papers. The papers had 18 single-choice, two multiple-select and four numerical questions. The experimental input labeled one of those multiple-select questions as single-choice. The dataset builder had inferred its answer type from the number of correct choices in the key. That disclosed to both models that exactly one choice was correct on this question. It was a different question from the option-submission failure. We retained the original scores as historical results. Any comparison on repaired inputs must take answer types from the printed instructions and retest both models. [Printed exam section](https://jeeadv.ac.in/past_qps/2025_2_English.pdf#page=10)
+
+## Does asking the solver to stop after the decisive work help?
+
+We generated fresh responses with the same two frozen models. We tested an instruction to finish as soon as the required work was complete and to move past checks it had already performed. Four questions were chosen because step 30 had begun looping on them after training. Two additional questions, one numerical and one single-choice, served as controls. We evaluated the first responses on their own. Reviewers graded the new working with the model labels hidden.
+
+| Four questions selected for earlier looping | Unchanged model, original → revised instruction | Step 30, original → revised instruction |
+|---|---:|---:|
+| Responses with a reasoning loop | 0/4 → 3/4 | 4/4 → 4/4 |
+| First responses with the correct final answer | 2/4 → 1/4 | 1/4 → 1/4 |
+| Points for the written method | 6/8 → 5/8 | 6/8 → 5/8 |
+
+Both models still solved both control questions with sufficient working and without looping. We rejected this instruction. It failed to remove any of the four targeted loops and introduced loops on the unchanged model. The six deliberately selected questions do not estimate the rate of looping across JEE.
+
+## What happened when we removed the answer-count hint?
+
+We reran the affected physics question on both frozen models using the printed multiple-select instructions. With the original single-choice hint, both models submitted the correct option after their first responses reached the length limit. When told that one or more options could be correct, both first responses again reached the limit. The unchanged model's short answer pass selected all four options in a format the parser rejected. Step 30 used a valid format but selected the correct option plus an incorrect one. Both lost the point.
+
+Changing the question's instructions affected the model's answer independently of the other question's option-submission error. The original 15/24 and 19/24 include the answer-count hint. The separate 20/24 submission experiment also used that original input. This single-question rerun shows why the hint matters. It does not give a new 24-question benchmark.
+
+**Training remains paused at step 30.** Next, build the answer-type field from the printed exam section and check that question inputs never derive it from a private answer key. Test the option-submission instruction on additional development questions before deciding whether to train another block. The independent set of 120 remains reserved.

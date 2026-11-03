@@ -86,7 +86,7 @@ The original MLX adapters are project-specific artifacts. The browser package pr
 
 ## Inspect the next research gate
 
-The 4B training pilot contains 120 problem families and 360 exercises. The first block used 30 families. The project is testing repeat checking and final-answer formatting separately with both models held fixed. A separate 120-problem test with 20 questions in each subject and exam group remains unused. [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Dataset and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).
+The 4B training pilot contains 120 problem families and 360 exercises. The first block used 30 families. Tests with both models held fixed found that a revised submission instruction helped on one development question. A separate check found one answer-count hint in the original inputs. The next step is to correct how answer types are assigned and test submission on more development questions. A separate 120-problem test with 20 questions in each subject and exam group remains unused. [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Dataset and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).
 
 ## Notes from building it
 

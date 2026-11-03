@@ -82,3 +82,7 @@ On 48 saved responses, a fixed passage-matching rule detected 3 of 7 reviewed lo
 ## 3 November 2026 — Testing option submission with two fixed models
 
 With the existing drafts and a type-specific submission instruction, the unchanged model still scored 15/24 and step 30 scored 20/24. This is separate from the original 15/24 versus 19/24 training comparison. A source check found one different question disclosed the number of correct choices to both models. [Submission test and source audit](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
+
+## 3 November 2026 — Live looping and input-format checks
+
+A prompt to stop after decisive work failed on the four questions selected for repetition. A separate rerun using the printed multiple-select instructions cost both models a point on a question they had solved with a single-choice hint. The training run remains paused. [Diagnostic experiments and next step](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
