@@ -26,7 +26,7 @@ By Om Patnaik · repository created September 2026.
 
 ## Latest research result
 
-One Qwen3.5-4B adapter update survived a fresh-process restart. Desktop Chrome reproduced the change it made to next-token scores on one synthetic text input and one image. The 120-family learning run has taken zero updates. Its confirmation plan still needs at least 59 additional Advanced families. [Engineering results, limits and next steps](research/PILOT120_ENGINEERING_2026_11_03.md).
+The first 30 Qwen3.5-4B training updates raised correct answers from 15 to 19 on the same 24 development problems. Answers with sufficient working rose from 11 to 13. Repetitive replies rose from 7 to 10, and one reply lost the required format. Training paused at step 30. [Comparison and decision](research/PILOT120_FIRST_BLOCK_2026_11_03.md).
 
 ## Public 9B browser conversion
 
@@ -86,7 +86,7 @@ The original MLX adapters are project-specific artifacts. The browser package pr
 
 ## Inspect the next research gate
 
-The frozen 4B training pilot has 120 source-problem families and 360 exercises. Each of the six subject and exam groups has 20 families. The engineering test used one family. A learning run still requires a fresh unchanged-model comparison, an independent confirmation set and a separate release. [Dataset report and percentage graphs](research/PILOT120_DATASET_2026_10_30.md) · [Teaching repairs](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
+The 4B training pilot contains 120 problem families and 360 exercises. The first block used 30 families. The next investigation compares repeat checking and final-answer formatting under matched settings. A separate 120-problem test with 20 questions in each subject and exam group remains unused. [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Dataset and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).
 
 ## Notes from building it
 

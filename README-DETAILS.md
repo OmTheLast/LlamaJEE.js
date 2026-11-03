@@ -12,7 +12,7 @@ tags:
 
 # Historical model card for the 9B MLX adapters
 
-This card preserves the model-selection and deployment status recorded through 19 October 2026. The original 9B model and five adapters subsequently reached the public browser solver. On 3 November, a separate 4B engineering test verified one learned update in desktop Chrome. [Current project overview](README.md) · [4B engineering results](research/PILOT120_ENGINEERING_2026_11_03.md).
+This card preserves the model-selection and deployment status recorded through 19 October 2026. The original 9B model and five adapters subsequently reached the public browser solver. On 3 November, a separate 4B engineering test verified one learned update in desktop Chrome. A later 30-update training block paused after development review. [Current project overview](README.md) · [4B engineering results](research/PILOT120_ENGINEERING_2026_11_03.md) · [First 4B training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md).
 
 **Research archive; no checkpoint is selected as an improved JEE solver.** These are five small LoRA adapters trained on the pinned MLX 4-bit [Qwen3.5-9B base](https://huggingface.co/mlx-community/Qwen3.5-9B-4bit). The original upstream model is [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B). Weights for the unchanged base are not duplicated here. The vision encoder and base weights remained frozen during these experiments.
 
