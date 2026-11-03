@@ -24,7 +24,11 @@ The browser runtime supports our original 9B base and five archived adapters, pl
 
 By Om Patnaik · repository created September 2026.
 
-## Latest conversion milestone
+## Latest research result
+
+One Qwen3.5-4B adapter update survived a fresh-process restart. Desktop Chrome reproduced the change it made to next-token scores on one synthetic text input and one image. The 120-family learning run has taken zero updates. Its confirmation plan still needs at least 59 additional Advanced families. [Engineering results, limits and next steps](research/PILOT120_ENGINEERING_2026_11_03.md).
+
+## Public 9B browser conversion
 
 [Original 9B browser conversion](research/EXPORT09B04_ORIGINAL_BROWSER_RELEASE.md): preserving original MLX compressed weights and separate adapters passed 18 complete CPU and 10 Chrome synthetic comparisons. These checks include the original model's image mistakes; they are not a JEE accuracy benchmark. [Earlier prototype](research/EXPORT09B02_BROWSER_PROTOTYPE.md) and [image diagnosis](research/EXPORT09B03_IMAGE_DIAGNOSTICS.md) remain in the history.
 
@@ -82,7 +86,7 @@ The original MLX adapters are project-specific artifacts. The browser package pr
 
 ## Inspect the next research gate
 
-The 4B curriculum and repair reports are data milestones, not training gains. No 4B optimizer update has run in the recorded program; frozen no-regression, confirmation, and export-parity gates remain required. [Current dataset report and percentage graphs](research/PILOT120_DATASET_2026_10_30.md). The frozen pilot contains 120 source-problem families and 360 exercises, balanced equally across subjects and Main/Advanced. [Earlier repair report](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
+The frozen 4B training pilot has 120 source-problem families and 360 exercises. Each of the six subject and exam groups has 20 families. The engineering test used one family. A learning run still requires a fresh unchanged-model comparison, an independent confirmation set and a separate release. [Dataset report and percentage graphs](research/PILOT120_DATASET_2026_10_30.md) · [Teaching repairs](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md).
 
 ## Notes from building it
 

@@ -10,13 +10,15 @@ tags:
   - experimental
 ---
 
-# Experimental JEE solver adapter history (MLX)
+# Historical model card for the 9B MLX adapters
+
+This card preserves the model-selection and deployment status recorded through 19 October 2026. The original 9B model and five adapters subsequently reached the public browser solver. On 3 November, a separate 4B engineering test verified one learned update in desktop Chrome. [Current project overview](README.md) · [4B engineering results](research/PILOT120_ENGINEERING_2026_11_03.md).
 
 **Research archive; no checkpoint is selected as an improved JEE solver.** These are five small LoRA adapters trained on the pinned MLX 4-bit [Qwen3.5-9B base](https://huggingface.co/mlx-community/Qwen3.5-9B-4bit). The original upstream model is [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B). Weights for the unchanged base are not duplicated here. The vision encoder and base weights remained frozen during these experiments.
 
 This repository exists to show the actual progression, including regressions. **Do not choose a checkpoint just because one metric looks better.** All five included adapters are experimental; our frozen selection rule promoted none from this latest series. They are MLX-VLM-specific adapters, not a standalone model and not standard PEFT adapters. The [browser preview](https://ompatnaik.com/JEE_9B_MODEL/) runs a separate unchanged 0.8B model on the visitor's device; the [matching Hugging Face archive](https://huggingface.co/OmTheLast/jee-solver-experimental-mlx-adapters) does not host an inference endpoint. See `load_mlx.py` for a command-line 9B loader and [EXPERIMENT_HISTORY.md](EXPERIMENT_HISTORY.md) for the preceding studies.
 
-## Latest data milestone — 19 October 2026
+## Data milestone on 19 October 2026
 
 [All 95 teaching-family repairs are now staged](research/TEACHING_REPAIR_COMPLETE_2026_10_19.md): 285 exercises reworked, 83 families with repair checks complete, 12 still needing clearance, and zero source questions discarded. The full pool has 241 provisionally supported families and 59 holds. **No new model training or accuracy result**; a balanced, frozen pilot release and matched comparison remain the next gates.
 
@@ -39,7 +41,7 @@ The first graph keeps separate validation slices in separate panels. The second 
 
 For the main problems encountered while building and testing this system, read [Issues and lessons](ISSUES_AND_LESSONS.md). The longer [9B training retrospective](TRAINING_RETROSPECTIVE.md) explains why some adapters regressed, which explanations are measured versus hypothetical, and the safeguards being carried into the approximately 4B program.
 
-## Current 4B-class model selection and export work
+## Earlier 4B-class model selection and export work
 
 The next model is not being chosen by parameter label or one accuracy number. The [staged selection plan](research/MODEL_SELECTION_4B_PLAN.md) screens Qwen3.5-4B, Gemma3n E4B-it and LFM2.5-VL-3B, with narrowly chosen challengers, on reasoning, procedure, image fidelity, completion, memory, latency, licensing, trainability and a reproducible trained-weight browser path. Exact model revisions are recorded in the [candidate manifest](research/candidate-manifest-v1.json).
 
@@ -51,11 +53,11 @@ The first unchanged-model screen and matched 24-question development pilot are n
 
 A follow-up [completion-control experiment](research/COMPLETION_CONTROL_RESULT.md) showed why the raw scores understate usable work. Another natural-language request for a short final failed. A forced answer serializer plus deterministic format normalization recovered supported answers without changing weights, producing provisional trigger-only effective scores of 15/24 for 4B and 19/24 for 9B. This is a harness gain on reused development data, not training or benchmark evidence. It motivates separate solve, verify and commit states before the next adapter run.
 
-The 4B program is now explicitly [locked behind no-regression gates](research/TRAINING_SAFETY_GATES_V1.md). The unchanged base remains immutable; experimental adapters cannot replace it unless they preserve every canary, avoid cell/procedure/output regressions, improve on development under a frozen rule and then pass a fresh 120-family confirmation plus export parity. No 4B optimizer update has been authorized.
+The 4B program is now explicitly [locked behind no-regression gates](research/TRAINING_SAFETY_GATES_V1.md). The unchanged base remains immutable; experimental adapters cannot replace it unless they preserve every canary, avoid cell/procedure/output regressions, improve on development under a frozen rule and then pass a fresh 120-family confirmation plus export parity. At that point, the project had authorized no 4B optimizer updates.
 
 The first [solve→verify→commit diagnostic](research/VERIFICATION_DIAGNOSTICS_RESULT.md) found a useful boundary. Atomic one-claim calls produced 24/24 parseable, uncapped checks across unchanged 4B and 9B, but only 1/12 and 3/12 decisive chemistry facts were coordinator-correct on three deliberately difficult reused questions. Atomic checking is therefore a stopping/format primitive, not a correctness oracle. The [harness contract](research/HARNESS_STATE_MACHINE_V1.md) now keeps independent checks separate from the solver answer and routes unresolved science to abstention or trusted evidence.
 
-The [4B curriculum candidate](research/CURRICULUM_300_FAMILY_MILESTONE.md) has now reached its planned scale: 300 independent balanced families produce 900 linked atomic-check, method-composition and solve/commit views. All 20 expansion batches were closed separately and the aggregate image/hash/split/target/processor audit passed twice identically. Seven unusable or non-unique source records were rejected and replaced in the same exam cell. No 4B optimizer update has run; private questions and answers are excluded. Risk-based review coverage and a separately frozen release remain required before training. The earlier [60-family tranche](research/FIRST_4B_CURRICULUM_TRANCHE.md) remains as the first auditable milestone.
+The [4B curriculum candidate](research/CURRICULUM_300_FAMILY_MILESTONE.md) has now reached its planned scale: 300 independent balanced families produce 900 linked atomic-check, method-composition and solve/commit views. All 20 expansion batches were closed separately and the aggregate image/hash/split/target/processor audit passed twice identically. Seven unusable or non-unique source records were rejected and replaced in the same exam cell. At that curriculum milestone, the 4B model had taken zero optimizer updates. Private questions and answers stayed outside the release. Risk-based review coverage and a separately frozen release remain required before training. The earlier [60-family tranche](research/FIRST_4B_CURRICULUM_TRANCHE.md) remains as the first auditable milestone.
 
 The [first risk-based review batch](research/EXPERT_REVIEW_BATCH01.md) found one substantive target defect and one physics-convention disagreement. Because human adjudication is unavailable, the project adopted a documented [machine-review fallback](research/MACHINE_REVIEW_BATCH01_RESULT.md): the disputed family was quarantined and a separately reviewed family from the same curriculum cell replaced it. The candidate remains 300 families/900 views, every item remains `training_ready:false`, and no model weights changed. This is machine-reviewed evidence, not human-expert certification.
 

@@ -66,3 +66,7 @@ The complete 95-family repair queue was reworked in eight batches: 285 exercises
 ## 30 October 2026 — Balanced 4B pilot frozen
 
 Selected 120 distinct source-problem families and 360 related exercises, with 40 families per subject and 60 per exam. All 32 independent audit checks and 360 processor checks passed. Ten additional input/source issues and five defective verification targets were excluded; the first failed selection and original archive remain saved. This is a data milestone, with no new training or accuracy result. [Report and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).
+
+## 3 November 2026 — One 4B update restored and exported
+
+Two fresh executions of the same family update reached identical step-one state. CPU ONNX and desktop Chrome reproduced its effect on full-vocabulary output scores for a synthetic text input and a fixed image at matched precision. The 120-family learning run has taken zero updates. A 24-question matched control and an independent 120-family confirmation set are still required. [Engineering report](research/PILOT120_ENGINEERING_2026_11_03.md).
