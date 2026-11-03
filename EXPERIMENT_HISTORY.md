@@ -78,3 +78,7 @@ On 24 reused development problems, final answers rose from 15 to 19 correct. The
 ## 3 November 2026 — Testing a repetition warning on both 4B models
 
 On 48 saved responses, a fixed passage-matching rule detected 3 of 7 reviewed loops on the unchanged model and 6 of 10 after 30 training updates. It could interrupt correct solutions because repeating an equation sometimes helps repair an earlier mistake. [4B diagnostic results](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
+
+## 3 November 2026 — Testing option submission with two fixed models
+
+With the existing drafts and a type-specific submission instruction, the unchanged model still scored 15/24 and step 30 scored 20/24. This is separate from the original 15/24 versus 19/24 training comparison. A source check found one different question disclosed the number of correct choices to both models. [Submission test and source audit](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
