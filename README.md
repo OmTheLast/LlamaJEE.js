@@ -26,7 +26,7 @@ By Om Patnaik · repository created September 2026.
 
 ## Latest research result
 
-The first 30 Qwen3.5-4B training updates raised correct answers from 15 to 19 on the same 24 development problems. Answers with sufficient working rose from 11 to 13. Repetitive replies rose from 7 to 10, and one reply lost the required format. Training paused at step 30. [Comparison and decision](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [4B diagnostic results](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
+After correcting three question-input rules, the unchanged 4B model answers 15/24 and step 30 answers 19/24 with the same type-specific submission pass. Both have 12 answers supported by sufficient working, while repetitive responses are 8 versus 11. This is a reused development comparison. It does not establish performance on fresh JEE questions. No further training ran. [Corrected-input ablation](research/PILOT120_ABLATION_2026_11_04.md) · [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Earlier diagnostics](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
 
 ## Public 9B browser conversion
 

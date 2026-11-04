@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-04",
+  "model": "mlx-community/Qwen3.5-4B-4bit",
+  "base_revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+  "adapter_step": 30,
+  "adapter_sha256": "242e26eb3d61d28983be4cd86fa136cc479fcf86a41e633b2875521523f171cb",
+  "scope": "Same 24 reused development questions. Exact-condition stored outputs are reused. No fresh independent evaluation.",
+  "new_inference_calls": 8,
+  "new_training_updates": 0,
+  "input_changes": {
+    "multiple_select_corrections": 1,
+    "numeric_precision_corrections": 2
+  },
+  "metrics": {
+    "base": {
+      "historical": {
+        "questions": 24,
+        "direct_correct": 13,
+        "direct_caps": 11,
+        "direct_tokens": 63770,
+        "legacy_correct": 15,
+        "typed_correct": 15,
+        "legacy_valid": 24,
+        "typed_valid": 24,
+        "procedure_points": 34,
+        "max_procedure_points": 48,
+        "loops": 7,
+        "unresolved_verification": 13,
+        "sufficient_methods": 11,
+        "correct_with_sufficient_method": {
+          "legacy": 11,
+          "typed": 11
+        }
+      },
+      "type_only": {
+        "questions": 24,
+        "direct_correct": 13,
+        "direct_caps": 11,
+        "direct_tokens": 63770,
+        "legacy_correct": 14,
+        "typed_correct": 14,
+        "legacy_valid": 23,
+        "typed_valid": 23,
+        "procedure_points": 34,
+        "max_procedure_points": 48,
+        "loops": 8,
+        "unresolved_verification": 13,
+        "sufficient_methods": 11,
+        "correct_with_sufficient_method": {
+          "legacy": 11,
+          "typed": 11
+        }
+      },
+      "source_corrected": {
+        "questions": 24,
+        "direct_correct": 14,
+        "direct_caps": 10,
+        "direct_tokens": 61197,
+        "legacy_correct": 15,
+        "typed_correct": 15,
+        "legacy_valid": 23,
+        "typed_valid": 23,
+        "procedure_points": 35,
+        "max_procedure_points": 48,
+        "loops": 8,
+        "unresolved_verification": 12,
+        "sufficient_methods": 12,
+        "correct_with_sufficient_method": {
+          "legacy": 12,
+          "typed": 12
+        }
+      }
+    },
+    "candidate-step030": {
+      "historical": {
+        "questions": 24,
+        "direct_correct": 14,
+        "direct_caps": 10,
+        "direct_tokens": 60220,
+        "legacy_correct": 19,
+        "typed_correct": 20,
+        "legacy_valid": 23,
+        "typed_valid": 24,
+        "procedure_points": 37,
+        "max_procedure_points": 48,
+        "loops": 10,
+        "unresolved_verification": 12,
+        "sufficient_methods": 13,
+        "correct_with_sufficient_method": {
+          "legacy": 12,
+          "typed": 13
+        }
+      },
+      "type_only": {
+        "questions": 24,
+        "direct_correct": 14,
+        "direct_caps": 10,
+        "direct_tokens": 60220,
+        "legacy_correct": 18,
+        "typed_correct": 19,
+        "legacy_valid": 23,
+        "typed_valid": 24,
+        "procedure_points": 37,
+        "max_procedure_points": 48,
+        "loops": 10,
+        "unresolved_verification": 12,
+        "sufficient_methods": 13,
+        "correct_with_sufficient_method": {
+          "legacy": 12,
+          "typed": 13
+        }
+      },
+      "source_corrected": {
+        "questions": 24,
+        "direct_correct": 13,
+        "direct_caps": 11,
+        "direct_tokens": 63289,
+        "legacy_correct": 18,
+        "typed_correct": 19,
+        "legacy_valid": 23,
+        "typed_valid": 24,
+        "procedure_points": 36,
+        "max_procedure_points": 48,
+        "loops": 11,
+        "unresolved_verification": 13,
+        "sufficient_methods": 12,
+        "correct_with_sufficient_method": {
+          "legacy": 11,
+          "typed": 12
+        }
+      }
+    }
+  },
+  "procedure_sensitivity": "Scoring a trained draft only on its correct core raises the corrected trained method total by1 and its correct-with-sufficient-working count by1. The primary full-draft rubric retains its later uncorrected error.",
+  "plan_sha256": "25cccb9836d368acd745d1ca45d6bd355028113d1c685eb3e561705bd1c2dac7",
+  "machine_result_sha256": "8fdda8d36b6fb85cb17a06b51e6cf55f86876d5afb2cd3a24dc92f8bf4fd1210"
+}

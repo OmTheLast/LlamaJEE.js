@@ -86,3 +86,7 @@ With the existing drafts and a type-specific submission instruction, the unchang
 ## 3 November 2026 — Live looping and input-format checks
 
 A prompt to stop after decisive work failed on the four questions selected for repetition. A separate rerun using the printed multiple-select instructions cost both models a point on a question they had solved with a single-choice hint. The training run remains paused. [Diagnostic experiments and next step](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
+
+## 4 November 2026 — Corrected-input ablation on the fixed 4B models
+
+Corrected one multiple-select rule and two numerical precision rules using the printed papers. On the same 24 development questions, the original submission instruction gave 15 correct for the base and 18 for step 30. With the type-specific submission instruction, the scores were 15 and 19, with four trained gains and no losses. The base supplied more correct answers in its first response, 14 versus 13, so the trained model depended more on the submission pass. Correct answers with sufficient working tied at 12/24, while repetitive responses rose from 8 to 11. Eight new inference calls completed the comparison, with other exact-condition outputs reused and checked. No further training ran, and the independent 120-question test remains reserved. [Ablation report](research/PILOT120_ABLATION_2026_11_04.md).

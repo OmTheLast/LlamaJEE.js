@@ -84,3 +84,10 @@ The confirmation audit found that earlier screening and harness use had consumed
 ## 3 November 2026 — Correct answers, sound working and reliable completion can move differently
 
 Five answers improved and one regressed, but only one additional answer was both correct and sufficiently justified. In the lost case, the model calculated the correct value and its short answer pass returned it where the question needed an option number. Four new loops appeared and one earlier loop resolved. Checking the saved outputs against the source also corrected an old diagram explanation and one baseline loop call. An early archive scanner was repaired to filter year and role before decoding question text. [Full paired comparison](research/PILOT120_FIRST_BLOCK_2026_11_03.md).
+
+
+## 4 November 2026 — Use the paper to define answer format
+
+A singleton key does not make a multiple-select question single-choice. An integer answer does not make a two-decimal numerical question integer-only. Three development inputs had these key-derived restrictions. The corrected resolver uses the printed rules and preserves the accepted answer values for separate scoring.
+
+Ablation separated these input repairs from answer submission and trained weights. On the corrected inputs, step 30 had more final answers right but the same number with sufficient supporting work, alongside more repetition. Keep these outcomes separate. [Report and limitations](research/PILOT120_ABLATION_2026_11_04.md).
