@@ -100,3 +100,8 @@ Model training and the surrounding answering harness are being developed separat
 ## 6 November 2026 — Original 4B step-30 adapter published
 
 Published the exact experimental 4B step-30 adapter with a dedicated MLX loader, pinned base identity and file checksums. The corrected development result remains 15/24 base versus 19/24 step 30, with 12 sufficiently justified correct answers each and more repetition at step 30. Adapter integrity and actual native loading were verified. This upload is an MLX artifact, not a browser deployment. [Checkpoint and loading instructions](adapters/qwen35-4b-pilot120-step030/).
+
+
+## 6 November 2026 — Bounded harness comparison completed
+
+On the same 24 reused development questions, a bounded continuation changed the unchanged 4B score from 15 to 17 and step 30 from 19 to 20. A more structured recovery scored 16 and 19. The supported gain was one shared maths problem; two other base answer gains still had faulty chemistry explanations. No previously correct answers were lost, but some final formats worsened. No further training ran. A separate short-task Chrome check used the actual 4B and step-30 factors without an inference API; full-question browser performance remains unproven. Detailed plans and review evidence remain internal.
