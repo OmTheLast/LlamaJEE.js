@@ -95,3 +95,8 @@ Corrected one multiple-select rule and two numerical precision rules using the p
 ## 6 November 2026 — Model and harness development
 
 Model training and the surrounding answering harness are being developed separately. Detailed development plans are kept internally.
+
+
+## 6 November 2026 — Original 4B step-30 adapter published
+
+Published the exact experimental 4B step-30 adapter with a dedicated MLX loader, pinned base identity and file checksums. The corrected development result remains 15/24 base versus 19/24 step 30, with 12 sufficiently justified correct answers each and more repetition at step 30. Adapter integrity and actual native loading were verified. This upload is an MLX artifact, not a browser deployment. [Checkpoint and loading instructions](adapters/qwen35-4b-pilot120-step030/).

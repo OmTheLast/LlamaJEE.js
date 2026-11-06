@@ -1,0 +1,7 @@
+Qwen3.5-4B JEE pilot adapter, step 30
+
+This package contains experimental LoRA weight changes produced for the LlamaJEE.js project by Om Patnaik in 2026. The original base weights remain a separate download.
+
+Upstream Qwen3.5-4B is provided by Alibaba Cloud under the Apache License, Version 2.0. The included LICENSE is the upstream license text retrieved from https://huggingface.co/Qwen/Qwen3.5-4B/raw/main/LICENSE on 6 November 2026. The required quantized base is the separately pinned MLX community conversion identified in jee_adapter.json.
+
+This project modifies selected language-model MLP projections through adapter tensors. No change to the upstream vision encoder or original base weight files is included. These changes are experimental and carry no general JEE accuracy claim.

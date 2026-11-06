@@ -1,0 +1,78 @@
+{
+  "name": "Qwen3.5-4B JEE pilot, step 30",
+  "status": "experimental_not_promoted",
+  "format": "mlx-vlm-project-specific-lora",
+  "adapter_file": "adapter.safetensors",
+  "adapter_sha256": "242e26eb3d61d28983be4cd86fa136cc479fcf86a41e633b2875521523f171cb",
+  "adapter_bytes": 1697893,
+  "adapter_parameters": 423936,
+  "adapter_arrays": 18,
+  "adapter_precision": "float32",
+  "base": {
+    "repo": "mlx-community/Qwen3.5-4B-4bit",
+    "revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+    "upstream_model": "Qwen/Qwen3.5-4B",
+    "upstream_license": "apache-2.0",
+    "files_sha256": {
+      ".gitattributes": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930",
+      "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "config.json": "f3efc81b2ea8d96a45301037d3ccccbcccdef44a961845c87f286aaddbc6eaaa",
+      "model.safetensors": "5fb9acd0246866381cf8c5c354c6db1019f6498eec4ccb4f5edcc71ffeacb2db",
+      "model.safetensors.index.json": "52e534c41f7b97708329c85f762e5882bf48bd5955a422c6ae74eba321e6048a",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "processor_config.json": "14932921ca485d458a04dafd8069fbb0a4505622a48208d19ed247115801385b",
+      "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+      "tokenizer_config.json": "e98f1901ac6f0adff67b1d540bfa0c36ac1a0cf59eb72ed78146ef89aafa1182",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+    }
+  },
+  "layer_indices": [
+    29,
+    30,
+    31
+  ],
+  "last_language_layers": 3,
+  "mlp_projections": [
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "rank": 4,
+  "scale": 2.0,
+  "scale_semantics": "MLX LoRALinear multiplier applied directly to (x @ lora_a) @ lora_b",
+  "dropout": 0.0,
+  "training": {
+    "optimizer_updates": 30,
+    "independent_families": 30,
+    "teaching_views": 90,
+    "loss_coefficients": {
+      "solve_commit": 0.6,
+      "compose_method": 0.2,
+      "atomic_verify": 0.2
+    },
+    "optimizer": "AdamW",
+    "learning_rate": 2e-06,
+    "weight_decay": 0.0,
+    "global_norm_clip": 1.0,
+    "batch_size": 1,
+    "scheduler": "constant",
+    "base_and_vision_frozen": true
+  },
+  "tested_runtime": {
+    "python": "3.13.11",
+    "mlx": "0.32.2",
+    "mlx-metal": "0.32.2",
+    "mlx-vlm": "0.7.1",
+    "transformers": "5.17.0",
+    "huggingface_hub": "1.31.0",
+    "torch": "2.14.0",
+    "torchvision": "0.29.0",
+    "Pillow": "12.3.0",
+    "numpy": "2.5.3",
+    "safetensors": "0.8.0"
+  },
+  "browser_format": false,
+  "standalone_full_model": false,
+  "loader_scope": "Direct exploratory inference only; does not reproduce the separate evaluation submission controller."
+}

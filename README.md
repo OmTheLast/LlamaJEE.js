@@ -1,6 +1,8 @@
 ---
 license: apache-2.0
-base_model: mlx-community/Qwen3.5-9B-4bit
+base_model:
+  - mlx-community/Qwen3.5-9B-4bit
+  - mlx-community/Qwen3.5-4B-4bit
 pipeline_tag: image-text-to-text
 tags:
   - mlx
@@ -16,7 +18,7 @@ tags:
 
 A browser-first JEE solver project by Om Patnaik, with a preserved record of its Qwen model experiments.
 
-**Inspect five MLX LoRA adapters, their tradeoffs against the unchanged 9B base, and the gates that kept them experimental.**
+The repository contains five archived 9B adapters and the experimental [4B step-30 adapter](adapters/qwen35-4b-pilot120-step030/), with their measured results.
 
 [Original 9B lab setup](local_lab/README.md#run-it) · [Public browser solver: 9B + 0.8B](https://ompatnaik.com/llamajee/) · [Archived 9B adapters](https://huggingface.co/OmTheLast/jee-solver-experimental-mlx-adapters)
 
@@ -27,6 +29,10 @@ By Om Patnaik · repository created September 2026.
 ## Latest research result
 
 After correcting three question-input rules, the unchanged 4B model answers 15/24 and step 30 answers 19/24 with the same type-specific submission pass. Both have 12 answers supported by sufficient working, while repetitive responses are 8 versus 11. This is a reused development comparison. It does not establish performance on fresh JEE questions. No further training ran. [Corrected-input ablation](research/PILOT120_ABLATION_2026_11_04.md) · [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Earlier diagnostics](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
+
+## Current 4B checkpoint
+
+[Download and load the exact step-30 adapter](adapters/qwen35-4b-pilot120-step030/). This 1.70 MB MLX adapter requires its pinned 4B base and the dedicated loader in that folder. Its native format cannot be loaded directly by Transformers.js. The existing public browser remains the separate 9B/0.8B application.
 
 ## Public 9B browser conversion
 

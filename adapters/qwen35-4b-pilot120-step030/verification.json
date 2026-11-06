@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-06",
+  "status": "adapter integrity and actual native load verified",
+  "cpu_checks": [
+    "18 FP32 tensors, 423,936 finite parameters and exact artifact SHA-256",
+    "One-byte corruption rejected",
+    "Missing or incompatible base rejected"
+  ],
+  "native_checks": [
+    "All 11 pinned base file hashes verified",
+    "All 18 loaded adapter tensors equal the released tensors",
+    "One synthetic text prompt completed normally"
+  ],
+  "synthetic_prompt": "Compute 1 + 2. Answer only the number.",
+  "synthetic_output": "3",
+  "synthetic_output_tokens": 2,
+  "native_peak_memory_gb": 3.221461252,
+  "adapter_sha256": "242e26eb3d61d28983be4cd86fa136cc479fcf86a41e633b2875521523f171cb",
+  "loader_sha256": "755c7fc6972c6e54e56b2c66b91a046fa055acf05f548247f39b7394ddb1a2c3",
+  "metadata_sha256": "ff7ce4e7e9e4429b78c26105590e5d0fd0901995b8547e269484be5c543eafc2",
+  "scope": "Functionality smoke only. No JEE benchmark, browser test or new training performed for this package check."
+}
