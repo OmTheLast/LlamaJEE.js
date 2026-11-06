@@ -20,7 +20,8 @@ export function suggestSubject(question, hint = 'auto') {
 }
 
 export function buildSolverPrompt({ question, hasImage, subjectHint, exam, answerType }) {
-  const clean = (question || '').trim().slice(0, MAX_QUESTION_CHARS);
+  const clean = (question || '').trim();
+  if (clean.length > MAX_QUESTION_CHARS) throw new Error(`Keep the full question under ${MAX_QUESTION_CHARS} characters; nothing was truncated.`);
   if (!clean && !hasImage) throw new Error('Add question text or an image.');
   const subject = suggestSubject(clean, subjectHint);
   const context = [
@@ -69,7 +70,6 @@ export function inspectSolution(raw, answerType = 'infer') {
   if (!sections.CHECK) issues.push('No consistency check was produced.');
   if (final && answerType === 'numeric' && !/[+-]?\d/.test(final) && !/unresolved|cannot|unclear/i.test(final)) issues.push('The final line does not appear to contain a number.');
   if (final && answerType === 'numeric' && /^[A-D]\s*:/i.test(final)) issues.push('The numeric final line has an option-style prefix; inspect the intended answer.');
-  if (final && answerType === 'multiple' && /^[A-D]$/i.test(final)) issues.push('Only one option was listed for a multiple-correct question; inspect it.');
   return { final, sections, issues, formatComplete: Boolean(final && sections.PLAN && sections.CHECK) };
 }
 
@@ -87,4 +87,31 @@ export function checkRestAccelerationDisplacement(question, final) {
   if (!Number.isFinite(expected) || !Number.isFinite(observed)) return null;
   const agrees = Math.abs(observed - expected) <= Math.max(1e-6, Math.abs(expected) * 0.01);
   return { expected, observed, agrees, issue: agrees ? '' : `Independent constant-acceleration check gives ${expected} m, while the model's final number is ${observed}. Check the displacement formula.` };
+}
+
+// Display typed recovery answers plainly while preserving the raw response below.
+export function displayFinalAnswer(raw) {
+  try {
+    const value = JSON.parse(raw);
+    if (typeof value === 'string') return value;
+    if (value?.type === 'numeric' && typeof value.value === 'string') return value.value;
+    if (value?.type === 'options' && Array.isArray(value.selected_options) && value.selected_options.every((v) => typeof v === 'string')) return value.selected_options.join(', ');
+    if (value?.type === 'abstain') return 'The model did not establish a supported answer.';
+  } catch { /* Original free-text answers remain readable as supplied. */ }
+  return raw;
+}
+
+
+// Checks only the recovery submission's public format contract, never scientific correctness.
+export function inspectRecoveryAnswer(terminalText, answerType = 'infer') {
+  const warning = 'The recovery step did not return the expected answer format. Check the final answer against the working.';
+  try {
+    const answer = JSON.parse(String(terminalText).replace(/^\s*FINAL_ANSWER:\s*/, ''));
+    if (!answer || typeof answer !== 'object' || Array.isArray(answer)) return warning;
+    if (answer.type === 'abstain' && Object.keys(answer).length === 1) return '';
+    if (answer.type === 'numeric' && Object.keys(answer).length === 2 && typeof answer.value === 'string' && /^-?\d+(?:\.\d+)?$/.test(answer.value) && ['infer', 'numeric'].includes(answerType)) return '';
+    const labels = answer.selected_options;
+    if (answer.type === 'options' && Object.keys(answer).length === 2 && Array.isArray(labels) && labels.length > 0 && labels.every(v => typeof v === 'string' && v.trim()) && new Set(labels).size === labels.length && answerType !== 'numeric' && (answerType !== 'single' || labels.length === 1)) return '';
+  } catch { /* Malformed submissions remain visible for review. */ }
+  return warning;
 }

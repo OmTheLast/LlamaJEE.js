@@ -67,7 +67,7 @@ export class Original9B {
     const [w, s, b] = this.embeddings.get(chunk);
     return unpackEmbedding(w.subarray(row * 512, (row + 1) * 512), s.subarray(row * 64, (row + 1) * 64), b.subarray(row * 64, (row + 1) * 64));
   }
-  async prepare(prompt, imageBuffer, imageType) {
+  async prepare(prompt, imageBuffer, imageType, assistantPrefix = '') {
     let pixels = null; const content = [];
     if (imageBuffer) {
       const image = await createImageBitmap(new Blob([imageBuffer], { type: imageType }));
@@ -80,13 +80,14 @@ export class Original9B {
     content.push({ type: 'text', text: prompt });
     let text = this.tokenizer.apply_chat_template([{ role: 'user', content }], { tokenize: false, add_generation_prompt: true, enable_thinking: false });
     if (pixels) text = text.replace('<|image_pad|>', '<|image_pad|>'.repeat(144));
+    text += assistantPrefix;
     const ids = this.tokenizer(text, { add_special_tokens: false }).input_ids.tolist()[0].map(Number);
     if (ids.length > 1536) throw new Error('This desktop preview supports up to 1,536 input tokens. Shorten the question or crop the image.');
     return { ids, pixels, ...makePositions(ids, pixels ? 248056 : null) };
   }
-  async solve({ prompt, imageBuffer, imageType, maxNewTokens = 384, checkpoint = 'base', prepared = null }) {
+  async solve({ prompt, imageBuffer, imageType, maxNewTokens = 384, checkpoint = 'base', prepared = null, assistantPrefix = '', signal, deadlineMs = 600000 }) {
     await this.load(); this.cancelled = false;
-    const input = prepared || await this.prepare(prompt, imageBuffer, imageType), adapters = await this.adapter(checkpoint);
+    const input = prepared || await this.prepare(prompt, imageBuffer, imageType, assistantPrefix), adapters = await this.adapter(checkpoint);
     let features = null, hidden = null; const cfg = this.manifest.config, states = [];
     if (input.pixels) {
       this.status('Loading the optional image encoder (about 1.84 GB)…');
@@ -100,15 +101,16 @@ export class Original9B {
     const ids = [...input.ids], plen = ids.length, generatedIds = [], start = performance.now(); let imageCursor = 0, text = '', stopReason = 'length', firstTokenScore = null;
     for (const kind of cfg.layer_types) states.push(kind === 'linear_attention' ? [new ort.Tensor('float32', new Float32Array(8192 * 4), [1, 8192, 4]), new ort.Tensor('float32', new Float32Array(32 * 128 * 128), [1, 32, 128, 128])] : [new ort.Tensor('float32', new Float32Array(0), [1, 4, 0, 256]), new ort.Tensor('float32', new Float32Array(0), [1, 4, 0, 256])]);
     try {
-      for (let pos = 0; pos < ids.length; pos++) {
-        if (this.cancelled) { stopReason = 'cancelled'; break; }
-        if (performance.now() - start > 600000) { stopReason = 'time_limit'; break; }
+      tokens: for (let pos = 0; pos < ids.length; pos++) {
+        if (this.cancelled || signal?.aborted) { stopReason = 'cancelled'; break; }
+        if (performance.now() - start > Math.min(600000, deadlineMs)) { stopReason = 'time_limit'; break; }
         const vector = features && pos < plen && ids[pos] === 248056 ? features.subarray(imageCursor++ * 4096, imageCursor * 4096) : await this.embedding(ids[pos]);
         hidden = new ort.Tensor('float32', vector, [1, 1, 4096]);
         const position = input.positions.map((p) => pos < plen ? p[pos] : pos + input.delta), rotary = rotaryAt(position);
         const cos = new ort.Tensor('float32', rotary.cos, [1, 1, 64]), sin = new ort.Tensor('float32', rotary.sin, [1, 1, 64]);
         try {
           for (let i = 0; i < 32; i++) {
+            if (this.cancelled || signal?.aborted) { stopReason = 'cancelled'; break tokens; }
             const rec = cfg.layer_types[i] === 'linear_attention';
             const feed = { ...adapters[i], hidden, ...(rec ? { conv: states[i][0], state: states[i][1] } : { key: states[i][0], value: states[i][1], cos, sin }) };
             const output = await this.layers[i].run(feed); hidden.dispose(); for (const t of states[i]) t.dispose();

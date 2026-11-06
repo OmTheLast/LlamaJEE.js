@@ -20,19 +20,23 @@ A browser-first JEE solver project by Om Patnaik, with a preserved record of its
 
 The repository contains five archived 9B adapters and the experimental [4B step-30 adapter](adapters/qwen35-4b-pilot120-step030/), with their measured results.
 
-[Original 9B lab setup](local_lab/README.md#run-it) · [Public browser solver: 9B + 0.8B](https://ompatnaik.com/llamajee/) · [Archived 9B adapters](https://huggingface.co/OmTheLast/jee-solver-experimental-mlx-adapters)
+[Original 9B lab setup](local_lab/README.md#run-it) · [Public browser solver: 4B, 9B and 0.8B](https://ompatnaik.com/llamajee/) · [Archived 9B adapters](https://huggingface.co/OmTheLast/jee-solver-experimental-mlx-adapters)
 
-The browser runtime supports our original 9B base and five archived adapters, plus a separate unchanged 0.8B option. The original Apple Silicon / MLX harness remains available locally. Private questions and optimizer state are not published.
+The browser runtime includes the 4B base and step-30 checkpoint for text questions, the original 9B base and five archived adapters, and a separate unchanged 0.8B option. Harness choices reuse the loaded model. The original Apple Silicon / MLX harness remains available locally. Private questions and optimizer state are not published.
 
 By Om Patnaik · repository created September 2026.
 
-## Latest research result
+## Latest completed harness comparison
 
-After correcting three question-input rules, the unchanged 4B model answers 15/24 and step 30 answers 19/24 with the same type-specific submission pass. Both have 12 answers supported by sufficient working, while repetitive responses are 8 versus 11. This is a reused development comparison. It does not establish performance on fresh JEE questions. No further training ran. [Corrected-input ablation](research/PILOT120_ABLATION_2026_11_04.md) · [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Earlier diagnostics](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
+On the same 24 reused development questions, the existing type-specific submission gave 15 correct answers for the unchanged 4B and 19 for step 30. Plain continuation gave 17 and 20; targeted recovery gave 16 and 19. The supported improvement was one shared maths problem. Two other base answer gains retained faulty chemistry explanations. No previously correct answers were lost, but some final formats worsened. No further training ran, and these native results are not browser or fresh-question accuracy measurements.
+
+[Harness methods, code and tests](harnesses/) · [Comparison and method history](research/HARNESS_COMPARISON_2026_11_06.md) · [Earlier corrected-input comparison](research/PILOT120_ABLATION_2026_11_04.md).
 
 ## Current 4B checkpoint
 
-[Download and load the exact step-30 adapter](adapters/qwen35-4b-pilot120-step030/). This 1.70 MB MLX adapter requires its pinned 4B base and the dedicated loader in that folder. Its native format cannot be loaded directly by Transformers.js. The existing public browser remains the separate 9B/0.8B application.
+- [Exact step-30 adapter and native loader](adapters/qwen35-4b-pilot120-step030/), also on [Hugging Face](https://huggingface.co/OmTheLast/LlamaJEE-4B-MLX-Step30). This 1.70 MB MLX adapter requires its pinned 4B base.
+- [4B browser package](https://huggingface.co/OmTheLast/LlamaJEE-4B-ONNX-WebGPU). This separate custom ONNX package preserves the model weights and adapter factors for browser execution; MLX files do not load directly through Transformers.js.
+- [Open the solver](https://ompatnaik.com/llamajee/). The 4B release accepts text questions. Its image export is not suitable for question screenshots; other model options retain their existing image paths.
 
 ## Public 9B browser conversion
 
@@ -42,11 +46,11 @@ After correcting three question-input rules, the unchanged 4B model answers 15/2
 
 [Open LlamaJEE.js at ompatnaik.com/llamajee/](https://ompatnaik.com/llamajee/).
 
-Select the unchanged 9B base, one of five experimental snapshots, or the separate 0.8B demo. Models compute on your device; no account, inference API, or local server is needed. The 9B package uses our custom ONNX Runtime WebGPU engine and a Transformers.js tokenizer; it is not a standard Transformers.js model loader.
+Select 4B base or step 30, the unchanged 9B base or one of its five experimental snapshots, or the separate 0.8B demo. Models compute on your device; no account, inference API, or local server is needed. The 4B and 9B packages use custom ONNX Runtime WebGPU engines with a Transformers.js tokenizer; they are not standard Transformers.js model loaders.
 
-**Desktop experimental preview:** up to 5.7 GB of text weights/adapters, plus 1.84 GB for images. Tested on a 64 GiB Mac; phones and minimum-memory requirements are unverified. Screenshot recognition remains unreliable. No trained checkpoint has been promoted as a generally better JEE solver.
+**Desktop experimental preview:** the full 4B text package is about 3.08 GB; the 9B path uses up to 5.7 GB for text/adapters and about 1.84 GB more for images. Running needs additional memory. Tested on an Apple Silicon Mac with 64 GiB; phones and minimum-memory requirements remain unverified. Image answers can be unreliable, and the 4B path is text-only. No checkpoint has been promoted as a generally better JEE solver.
 
-[Browser weights and verification](https://huggingface.co/OmTheLast/LlamaJEE-9B-ONNX-WebGPU) · [Browser source](web/) · [Original adapter archive](https://huggingface.co/OmTheLast/jee-solver-experimental-mlx-adapters).
+[4B browser weights](https://huggingface.co/OmTheLast/LlamaJEE-4B-ONNX-WebGPU) · [9B browser weights and verification](https://huggingface.co/OmTheLast/LlamaJEE-9B-ONNX-WebGPU) · [Browser source](web/) · [Original adapter archive](https://huggingface.co/OmTheLast/jee-solver-experimental-mlx-adapters).
 
 ## Open the original 9B models
 
@@ -65,7 +69,7 @@ These `127.0.0.1` links connect to **the computer where you open them** and requ
 
 | Platform / path | Start here |
 | --- | --- |
-| Browser preview | [Try the 9B archive or 0.8B preview](https://ompatnaik.com/llamajee/) |
+| Browser preview | [Try 4B, the 9B archive or 0.8B](https://ompatnaik.com/llamajee/) |
 | Local 9B lab | Follow [local setup](local_lab/README.md) for the pinned base and compatible MLX stack |
 
 Start with `history.csv` and the chart notes without downloading weights. To inspect a 9B adapter, use `load_mlx.py` after installing the compatible stack; it downloads the pinned base separately. None of the latest adapters was promoted as a better solver.
@@ -90,9 +94,9 @@ Rebuild with `python charts/make_charts.py`. [Raw history](history.csv) · [Char
 
 The original MLX adapters are project-specific artifacts. The browser package preserves their matrices as explicit inputs to custom ONNX graphs; it does not load MLX files directly. The local lab retains local attempt history; the public browser works on the visitor's device.
 
-## Inspect the next research gate
+## 4B training record
 
-The 4B training pilot contains 120 problem families and 360 exercises. The first block used 30 families. Tests with both models held fixed found that a revised submission instruction helped on one development question. A separate check found one answer-count hint in the original inputs. The next step is to correct how answer types are assigned and test submission on more development questions. A separate 120-problem test with 20 questions in each subject and exam group remains unused. [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Dataset and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).
+The 4B training pilot contains 120 problem families and 360 exercises. The first block used 30 families. Tests with both models held fixed found that a revised submission instruction helped on one development question. A separate check found one answer-count hint in the original inputs. The source-derived answer types were subsequently corrected and tested in the linked ablation. A separate 120-problem test with 20 questions in each subject and exam group remains unused. [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Dataset and percentage graphs](research/PILOT120_DATASET_2026_10_30.md).
 
 ## Notes from building it
 
@@ -117,6 +121,6 @@ Install the pinned `local_lab/requirements.txt` before running the lab tests; th
 
 ## Credits, license and pointers
 
-Built on Qwen3.5-9B, its MLX community quantization, MLX/MLX-VLM, ONNX Runtime WebGPU, and Transformers.js. Research by Om Patnaik with recorded machine-review assistance. Apache-2.0 is declared in the original model metadata; see [the preserved model card](README-DETAILS.md) and upstream terms.
+Built on Qwen3.5-4B and Qwen3.5-9B, their MLX community quantizations, MLX/MLX-VLM, ONNX Runtime WebGPU, and Transformers.js. Research by Om Patnaik with recorded machine-review assistance. Apache-2.0 is declared in the original model metadata; see [the preserved model card](README-DETAILS.md) and upstream terms.
 
 [Full setup, original notes, and project history](README-DETAILS.md).

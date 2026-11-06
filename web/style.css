@@ -6,3 +6,7 @@
 @media(max-width:800px){.model-setup,.workspace{grid-template-columns:1fr}.model-setup{gap:20px}.model-loading{border-top:1px solid var(--line);padding-top:18px}.card{padding:20px}}
 @media(max-width:520px){.shell{padding-left:18px;padding-right:18px}.topbar{padding-top:16px;padding-bottom:16px;gap:14px}.model-setup{padding:17px}.card{padding:17px}.form-grid{grid-template-columns:1fr}.model-band strong,.model-band small{font-size:12px}.button{font-size:12px}.card-title-row{align-items:start}.state-pill{white-space:normal;max-width:45%;text-align:right}}
 .app-subtitle{font-size:13px;color:var(--muted)}#solver h1{font-size:30px;margin:0 0 10px}.output-card{min-height:440px}@media(max-width:520px){.app-subtitle{font-size:12px}#solver h1{font-size:26px}#solver{padding-top:24px}.output-card{min-height:260px}}
+
+.harness-control { margin: 1rem 0; }
+.harness-control select { width: 100%; }
+#image:disabled { opacity: .5; cursor: not-allowed; }

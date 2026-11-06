@@ -1,10 +1,13 @@
 import './style.css';
 import { ARCHIVED_MODELS } from './archive-config.js';
-import { buildSolverPrompt, checkRestAccelerationDisplacement, inspectSolution, MAX_QUESTION_CHARS, suggestSubject } from './harness.js';
+import { QWEN4B_MODELS } from './qwen4b-config.js';
+import { buildSolverPrompt, checkRestAccelerationDisplacement, inspectSolution, displayFinalAnswer, inspectRecoveryAnswer, MAX_QUESTION_CHARS, suggestSubject } from './harness.js';
 
 const $ = (id) => document.getElementById(id);
 let worker;
 const selection = () => $('model-choice').value;
+const runtimeFor = (choice) => choice.startsWith('4b-') ? '4b' : choice === 'demo' ? 'demo' : 'archive';
+const modelName = () => QWEN4B_MODELS[selection()] || ARCHIVED_MODELS[selection()] || 'Qwen3.5 0.8B · separate demo';
 let modelReady = false;
 let modelLoading = false;
 let solving = false;
@@ -25,6 +28,8 @@ function refreshControls() {
   $('load-button').textContent = modelReady ? 'Model loaded' : modelLoading ? 'Loading model…' : 'Download and load model';
   $('solve-button').disabled = !modelReady || solving;
   $('model-choice').disabled = modelLoading || solving;
+  $('harness-choice').disabled = modelLoading || solving;
+  $('cancel-button').disabled = !solving;
   $('stop-button').disabled = !modelLoading && !solving && !modelReady;
 }
 function showError(message) {
@@ -55,7 +60,7 @@ worker.addEventListener('message', ({ data }) => {
     modelReady = true;
     modelLoading = false;
     $('download-track').hidden = true;
-    status(selection() === 'demo' ? 'Ready. The separate 0.8B demo will answer on this device.' : 'Ready. The selected 9B version will answer on this device.');
+    status(`Ready. ${modelName()} will answer on this device.`);
     if (!solving) state('Ready', 'active');
     refreshControls();
   }
@@ -70,14 +75,17 @@ worker.addEventListener('message', ({ data }) => {
     solving = false;
     $('download-track').hidden = true;
     const raw = data.text || streamed;
-    if (data.generatedIds) $('output-model').textContent += ` · ${data.generatedIds.length} tokens · ${data.seconds.toFixed(1)} s · stop: ${data.stopReason}`;
+    if (typeof data.tokens === 'number') $('output-model').textContent += ` · ${data.tokens} tokens · ${data.seconds.toFixed(1)} s`;
+    $('result-content').dataset.modelLoads = String(data.modelLoads ?? '');
     $('raw-output').textContent = raw;
     const check = inspectSolution(raw, currentAnswerType);
-    const calculation = checkRestAccelerationDisplacement(currentQuestion, check.final);
-    const stopIssue = ['repetition', 'time_limit', 'length', 'cancelled'].includes(data.stopReason) ? [`Generation stopped: ${data.stopReason}. The answer may be incomplete.`] : [];
-    const issues = [...stopIssue, ...check.issues, ...(calculation?.issue ? [calculation.issue] : [])];
+    const finalDisplay = displayFinalAnswer(check.final);
+    const calculation = checkRestAccelerationDisplacement(currentQuestion, finalDisplay);
+    const stopIssue = ['repetition', 'time_limit', 'length', 'cancelled', 'blocked'].includes(data.stopReason) ? [`Generation stopped: ${data.stopReason}. The answer may be incomplete.`] : [];
+    const recoveryFormatIssue = data.harness?.routed && data.harness?.terminalText ? inspectRecoveryAnswer(data.harness.terminalText, currentAnswerType) : '';
+    const issues = [...(recoveryFormatIssue ? [recoveryFormatIssue] : []), ...(data.warnings || []), ...stopIssue, ...check.issues, ...(calculation?.issue ? [calculation.issue] : [])];
     $('final-card').hidden = !check.final;
-    $('final-answer').textContent = check.final;
+    $('final-answer').textContent = finalDisplay;
     $('format-checks').hidden = !issues.length;
     $('format-checks').replaceChildren();
     if (issues.length) {
@@ -89,7 +97,7 @@ worker.addEventListener('message', ({ data }) => {
     }
     const needsReview = !check.formatComplete || issues.length > 0;
     state(needsReview ? 'Review needed' : 'Finished · unverified', needsReview ? 'error' : 'active');
-    status(calculation?.issue ? 'A narrow independent browser calculation disagrees with the model. Inspect the working.' : `Completed. ${check.formatComplete ? 'The requested sections are present.' : 'Some requested sections are missing.'} Most mathematical steps remain unverified.`);
+    status(data.harness?.status === 'cancelled' ? 'Stopped. Saved working is unverified. The model is still loaded.' : data.harness?.status === 'blocked' ? 'The selected approach stopped at a limit. Saved working remains available and is unverified.' : calculation?.issue ? 'A narrow independent browser calculation disagrees with the model. Inspect the working.' : `Completed. ${check.formatComplete ? 'The requested sections are present.' : 'Some requested sections are missing.'} Most mathematical steps remain unverified.`);
     refreshControls();
   }
   if (data.type === 'error') showError(data.message);
@@ -102,19 +110,33 @@ function resetWorker() {
 }
 createWorker();
 function describeModel() {
-  const demo = selection() === 'demo';
-  $('model-label').textContent = demo ? 'Qwen3.5 0.8B · separate demo' : ARCHIVED_MODELS[selection()];
-  $('model-detail').textContent = demo ? 'Smaller download.' : 'Larger model. Best used on a desktop with enough memory.';
-  $('download-size').textContent = demo ? 'About 850 MB to download.' : 'Up to 5.7 GB to download. Using an image adds 1.84 GB.';
+  const kind = runtimeFor(selection());
+  $('model-label').textContent = modelName();
+  $('model-detail').textContent = kind === '4b' ? 'Text questions. Best used on a desktop with enough memory.' : kind === 'demo' ? 'Smaller download. Accepts text and images.' : 'Larger model. Accepts text and images.';
+  $('download-size').textContent = kind === '4b' ? 'Up to 3.1 GB to download. Files can stay in this browser’s cache.' : kind === 'demo' ? 'About 850 MB to download.' : 'Up to 5.7 GB to download. Using an image adds 1.84 GB.';
+  $('image').disabled = kind === '4b';
+  $('image-guidance').textContent = kind === '4b' ? '4B currently accepts text only. Paste the full question, or choose 9B / 0.8B for an image.' : 'PNG or JPEG · up to 10 MB';
 }
 $('model-choice').addEventListener('change', () => {
-  // Reset when changing runtimes; same-runtime adapter switches reuse loaded graphs.
-  const next = selection() === 'demo' ? 'demo' : 'archive';
+  const next = runtimeFor(selection());
   if (next !== $('model-choice').dataset.runtime) resetWorker();
   $('model-choice').dataset.runtime = next; describeModel();
-  status(modelReady ? 'Model selected. The next question uses this version.' : 'Select “Download and load model” to prepare this model.'); refreshControls();
+  status(modelReady ? 'Model selected. The next question uses this version; its model files stay loaded.' : 'Select “Download and load model” to prepare this model.'); refreshControls();
 });
-$('model-choice').dataset.runtime = 'archive'; describeModel();
+$('harness-choice').addEventListener('change', () => {
+  const messages = {
+    direct: 'One bounded response. Answers still need checking.',
+    h0: 'If the response hits its token limit, ask the same model to write a final answer.',
+    h1: 'If unfinished, continue the same response, then ask for a final answer. This adds time.',
+    h2: 'If unfinished, identify the remaining task and try it before submitting. Experimental; this can still be wrong.',
+  };
+  $('harness-detail').textContent = messages[$('harness-choice').value];
+});
+$('model-choice').dataset.runtime = runtimeFor(selection()); describeModel();
+$('cancel-button').addEventListener('click', () => {
+  worker.postMessage({ type: 'cancel' });
+  $('cancel-button').disabled = true; status('Stopping generation and keeping the model loaded…');
+});
 $('stop-button').addEventListener('click', () => {
   resetWorker(); state('Stopped', 'error'); status('Stopped and released model memory. Load the model again to continue; the response remains visible.');
 });
@@ -158,6 +180,7 @@ $('solve-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   if (!modelReady || solving) return;
   const question = $('question').value.trim();
+  if (runtimeFor(selection()) === '4b' && selectedFile) return showError('The 4B browser release accepts text only. Remove the image and paste the full question, or select a 9B/0.8B model.');
   if (question.length > MAX_QUESTION_CHARS) return showError(`Keep the question under ${MAX_QUESTION_CHARS} characters.`);
   let prompt;
   try {
@@ -165,7 +188,7 @@ $('solve-form').addEventListener('submit', async (event) => {
   } catch (error) { return showError(error.message); }
   currentAnswerType = $('answer-type').value;
   currentQuestion = question;
-  $('output-model').textContent = `Output from: ${selection() === 'demo' ? 'Qwen3.5 0.8B separate demo' : ARCHIVED_MODELS[selection()]}`;
+  $('output-model').textContent = `Output from: ${modelName()} · ${$('harness-choice').selectedOptions[0].textContent}`;
   const classification = suggestSubject(question, $('subject').value);
   const imageBuffer = selectedFile ? await selectedFile.arrayBuffer() : null;
   streamed = '';
@@ -178,7 +201,9 @@ $('solve-form').addEventListener('submit', async (event) => {
   state('Solving', 'active');
   status(`Subject: ${classification.subject}. Generating a response in this browser…`);
   refreshControls();
-  const request = { type: 'solve', checkpoint: selection(), prompt, imageBuffer, imageType: selectedFile?.type, maxNewTokens: Number($('budget').value) };
+  const responseTypes = { infer: 'unspecified', single: 'single_select', multiple: 'multi_select', numeric: 'numeric' };
+  const request = { type: 'solve', checkpoint: selection(), harness: $('harness-choice').value,
+    questionContract: { statement: question || '[Question in the attached image]', options: {}, response_type: responseTypes[currentAnswerType], answer_format: {} }, prompt, imageBuffer, imageType: selectedFile?.type, maxNewTokens: Number($('budget').value) };
   worker.postMessage(request, imageBuffer ? [imageBuffer] : []);
 });
 

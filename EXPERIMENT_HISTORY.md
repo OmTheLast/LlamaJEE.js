@@ -110,3 +110,8 @@ On the same 24 reused development questions, a bounded continuation changed the 
 ## 6 November 2026 — Implemented harnesses and their history published
 
 Published the original harness entry points, portable H0/H1/H2 controller, exact tested instructions, historical submission normalizer and aggregate results. The report links each method change to its own measured conditions, including rejected loop controls. Fourteen controller tests, four normalizer tests and a synthetic CLI check passed. No training or new accuracy measurement occurred in this publication step. [Methods and code](harnesses/) · [Full comparison and chronology](research/HARNESS_COMPARISON_2026_11_06.md).
+
+
+## 6 November 2026 — 4B step 30 published for native and browser use
+
+Published the exact native step-30 adapter and a separate 3.08 GB browser text package on Hugging Face. All 183 payload files across both releases were downloaded publicly and checked by hash. The browser interface now offers 4B base/step 30 and original, final-answer recovery, plain continuation and targeted recovery choices. The older model options remain available. Local Chrome checks used one model load across modes, confirmed adapter activation, exercised both recovery paths and cancellation, and retained malformed final formats as review warnings. Public-site verification is recorded separately. [Native artifact](https://huggingface.co/OmTheLast/LlamaJEE-4B-MLX-Step30) · [Browser artifact](https://huggingface.co/OmTheLast/LlamaJEE-4B-ONNX-WebGPU) · [Use the solver](https://ompatnaik.com/llamajee/).

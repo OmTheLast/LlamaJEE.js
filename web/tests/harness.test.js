@@ -43,3 +43,31 @@ test('format inspection does not mistake a parseable answer for verified science
   assert.equal(imageStyle.final, '9');
   assert.equal(imageStyle.formatComplete, true);
 });
+
+
+test('typed recovery answers display without altering their option labels', async () => {
+  const { displayFinalAnswer } = await import('../harness.js');
+  assert.equal(displayFinalAnswer('{"type":"numeric","value":"9"}'), '9');
+  assert.equal(displayFinalAnswer('{"type":"options","selected_options":["1","3"]}'), '1, 3');
+  assert.equal(displayFinalAnswer('9 m'), '9 m');
+});
+
+
+test('oversized questions are rejected instead of silently truncated', () => {
+  assert.throws(() => buildSolverPrompt({ question: 'x'.repeat(9001), hasImage: false }), /nothing was truncated/);
+});
+
+
+test('one selected option can be valid for a one-or-more-options question', () => {
+  const result = inspectSolution('GIVEN: x\nPLAN: compare\nWORK: x\nCHECK: x\nFINAL_ANSWER: A', 'multiple');
+  assert.equal(result.final, 'A');
+  assert.deepEqual(result.issues, []);
+});
+
+
+test('recovery format rejects a bare JSON value but accepts one selected option', async () => {
+  const { inspectRecoveryAnswer } = await import('../harness.js');
+  assert.match(inspectRecoveryAnswer('FINAL_ANSWER: "24"', 'numeric'), /expected answer format/);
+  assert.equal(inspectRecoveryAnswer('FINAL_ANSWER: {"type":"numeric","value":"24"}', 'numeric'), '');
+  assert.equal(inspectRecoveryAnswer('FINAL_ANSWER: {"type":"options","selected_options":["A"]}', 'multiple'), '');
+});
