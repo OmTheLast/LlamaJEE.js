@@ -1,0 +1,1302 @@
+{
+  "date": "2026-11-06",
+  "status": "completed experimental native inference benchmark",
+  "questions_per_condition": 24,
+  "composition": {
+    "subjects": {
+      "physics": 8,
+      "chemistry": 8,
+      "mathematics": 8
+    },
+    "exams": {
+      "Main": 12,
+      "Advanced": 12
+    },
+    "response_types": {
+      "single_select": 18,
+      "multi_select": 2,
+      "numeric": 4
+    }
+  },
+  "input_condition": "Same source-reviewed text rendition for all models; no image or audio input.",
+  "models": {
+    "text": {
+      "repo": "LiquidAI/LFM3-1.7B-MLX-4bit",
+      "revision": "91f34088d6946482cbcae11b85d4657093618c34",
+      "sampling": {
+        "temperature": 1.0,
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0.0,
+        "repetition_penalty": 1.0,
+        "enable_thinking": true,
+        "seed": 0,
+        "repetition_context_size": 20,
+        "prefill_step_size": 512
+      }
+    },
+    "vl": {
+      "repo": "LiquidAI/LFM3-VL-2B-MLX-4bit",
+      "revision": "d0d7edaf1b462161720898e46687c6fdaae6caee",
+      "sampling": {
+        "temperature": 0.1,
+        "top_p": 1.0,
+        "top_k": 50,
+        "min_p": 0.0,
+        "repetition_penalty": 1.1,
+        "enable_thinking": true,
+        "seed": 0,
+        "repetition_context_size": 20,
+        "prefill_step_size": 512
+      }
+    },
+    "omni": {
+      "repo": "LiquidAI/LFM3-Omni-2B-MLX-4bit",
+      "revision": "8f44df46721a4bb3e082193ba8d3e78ec4f026dd",
+      "sampling": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "top_k": 1,
+        "min_p": 0.0,
+        "repetition_penalty": 1.0,
+        "enable_thinking": false,
+        "seed": 0,
+        "repetition_context_size": 20,
+        "prefill_step_size": 512
+      }
+    }
+  },
+  "runtime": {
+    "mlx": "0.32.4",
+    "mlx-vlm": "0.7.12",
+    "transformers": "5.22.2",
+    "hardware_scope": "Native Apple Silicon Mac; not browser execution"
+  },
+  "budgets": {
+    "direct": 4096,
+    "plain": 512,
+    "state": 96,
+    "recover": 416,
+    "submit": 96
+  },
+  "stage_deadlines_seconds": {
+    "direct": 300,
+    "plain": 150,
+    "state": 90,
+    "recover": 150,
+    "submit": 90
+  },
+  "frozen_primary_wire_text": {
+    "text": {
+      "direct": {
+        "n": 24,
+        "correct": 0,
+        "raw_correct": 0,
+        "effective_contract_valid": 0,
+        "terminal_caps": 19,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 24
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h0": {
+        "n": 24,
+        "correct": 13,
+        "raw_correct": 6,
+        "effective_contract_valid": 17,
+        "terminal_caps": 3,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "correct": 13,
+          "invalid": 7,
+          "incorrect": 4
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h1": {
+        "n": 24,
+        "correct": 10,
+        "raw_correct": 6,
+        "effective_contract_valid": 17,
+        "terminal_caps": 1,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "correct": 10,
+          "incorrect": 7,
+          "invalid": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h2": {
+        "n": 24,
+        "correct": 11,
+        "raw_correct": 6,
+        "effective_contract_valid": 17,
+        "terminal_caps": 3,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "correct": 11,
+          "invalid": 7,
+          "incorrect": 6
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      }
+    },
+    "vl": {
+      "direct": {
+        "n": 24,
+        "correct": 0,
+        "raw_correct": 0,
+        "effective_contract_valid": 0,
+        "terminal_caps": 22,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 24
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h0": {
+        "n": 24,
+        "correct": 6,
+        "raw_correct": 2,
+        "effective_contract_valid": 18,
+        "terminal_caps": 2,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "incorrect": 12,
+          "correct": 6,
+          "invalid": 6
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h1": {
+        "n": 24,
+        "correct": 7,
+        "raw_correct": 2,
+        "effective_contract_valid": 18,
+        "terminal_caps": 2,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "incorrect": 11,
+          "correct": 7,
+          "invalid": 6
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h2": {
+        "n": 24,
+        "correct": 6,
+        "raw_correct": 2,
+        "effective_contract_valid": 18,
+        "terminal_caps": 1,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "incorrect": 12,
+          "correct": 6,
+          "invalid": 6
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      }
+    },
+    "omni": {
+      "direct": {
+        "n": 24,
+        "correct": 1,
+        "raw_correct": 1,
+        "effective_contract_valid": 5,
+        "terminal_caps": 4,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 19,
+          "correct": 1,
+          "incorrect": 4
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h0": {
+        "n": 24,
+        "correct": 2,
+        "raw_correct": 1,
+        "effective_contract_valid": 9,
+        "terminal_caps": 0,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 15,
+          "correct": 2,
+          "incorrect": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h1": {
+        "n": 24,
+        "correct": 2,
+        "raw_correct": 1,
+        "effective_contract_valid": 9,
+        "terminal_caps": 0,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 15,
+          "correct": 2,
+          "incorrect": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h2": {
+        "n": 24,
+        "correct": 1,
+        "raw_correct": 1,
+        "effective_contract_valid": 8,
+        "terminal_caps": 1,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 16,
+          "correct": 1,
+          "incorrect": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      }
+    }
+  },
+  "additive_native_final_channel": {
+    "text": {
+      "direct": {
+        "n": 24,
+        "correct": 5,
+        "raw_correct": 5,
+        "effective_contract_valid": 5,
+        "terminal_caps": 19,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 19,
+          "correct": 5
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 3
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h0": {
+        "n": 24,
+        "correct": 18,
+        "raw_correct": 11,
+        "effective_contract_valid": 22,
+        "terminal_caps": 3,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "correct": 18,
+          "incorrect": 4,
+          "invalid": 2
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 3
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 4
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h1": {
+        "n": 24,
+        "correct": 15,
+        "raw_correct": 11,
+        "effective_contract_valid": 22,
+        "terminal_caps": 1,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "correct": 15,
+          "incorrect": 7,
+          "invalid": 2
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 3
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 4
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h2": {
+        "n": 24,
+        "correct": 16,
+        "raw_correct": 11,
+        "effective_contract_valid": 22,
+        "terminal_caps": 3,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "correct": 16,
+          "incorrect": 6,
+          "invalid": 2
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 3
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 4
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      }
+    },
+    "vl": {
+      "direct": {
+        "n": 24,
+        "correct": 1,
+        "raw_correct": 1,
+        "effective_contract_valid": 1,
+        "terminal_caps": 22,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 23,
+          "correct": 1
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 1
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h0": {
+        "n": 24,
+        "correct": 7,
+        "raw_correct": 3,
+        "effective_contract_valid": 19,
+        "terminal_caps": 2,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "incorrect": 12,
+          "correct": 7,
+          "invalid": 5
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h1": {
+        "n": 24,
+        "correct": 8,
+        "raw_correct": 3,
+        "effective_contract_valid": 19,
+        "terminal_caps": 2,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "incorrect": 11,
+          "correct": 8,
+          "invalid": 5
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 3
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h2": {
+        "n": 24,
+        "correct": 7,
+        "raw_correct": 3,
+        "effective_contract_valid": 19,
+        "terminal_caps": 1,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "incorrect": 12,
+          "correct": 7,
+          "invalid": 5
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 2
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      }
+    },
+    "omni": {
+      "direct": {
+        "n": 24,
+        "correct": 1,
+        "raw_correct": 1,
+        "effective_contract_valid": 5,
+        "terminal_caps": 4,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 19,
+          "correct": 1,
+          "incorrect": 4
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h0": {
+        "n": 24,
+        "correct": 2,
+        "raw_correct": 1,
+        "effective_contract_valid": 9,
+        "terminal_caps": 0,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 15,
+          "correct": 2,
+          "incorrect": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h1": {
+        "n": 24,
+        "correct": 2,
+        "raw_correct": 1,
+        "effective_contract_valid": 9,
+        "terminal_caps": 0,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 15,
+          "correct": 2,
+          "incorrect": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 1
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      },
+      "h2": {
+        "n": 24,
+        "correct": 1,
+        "raw_correct": 1,
+        "effective_contract_valid": 8,
+        "terminal_caps": 1,
+        "missing_or_incomplete": 0,
+        "statuses": {
+          "invalid": 16,
+          "correct": 1,
+          "incorrect": 7
+        },
+        "cells": {
+          "chemistry/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "chemistry/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "mathematics/main": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/advanced": {
+            "n": 4,
+            "correct": 0
+          },
+          "physics/main": {
+            "n": 4,
+            "correct": 1
+          }
+        },
+        "procedure": "not_reviewed",
+        "repetition": "Literal witnesses only; no validated loop or overthinking rate."
+      }
+    }
+  },
+  "additive_timing": "Added after inference started but before any new measured predictions or scores were inspected; prompted by parser/tokenizer source inspection.",
+  "paired_answer_channel_changes": {
+    "text": {
+      "h0_vs_direct": {
+        "gained_count": 13,
+        "lost_count": 0
+      },
+      "h1_vs_direct": {
+        "gained_count": 10,
+        "lost_count": 0
+      },
+      "h2_vs_direct": {
+        "gained_count": 11,
+        "lost_count": 0
+      },
+      "h1_vs_h0": {
+        "gained_count": 0,
+        "lost_count": 3
+      },
+      "h2_vs_h0": {
+        "gained_count": 0,
+        "lost_count": 2
+      }
+    },
+    "vl": {
+      "h0_vs_direct": {
+        "gained_count": 6,
+        "lost_count": 0
+      },
+      "h1_vs_direct": {
+        "gained_count": 7,
+        "lost_count": 0
+      },
+      "h2_vs_direct": {
+        "gained_count": 6,
+        "lost_count": 0
+      },
+      "h1_vs_h0": {
+        "gained_count": 2,
+        "lost_count": 1
+      },
+      "h2_vs_h0": {
+        "gained_count": 0,
+        "lost_count": 0
+      }
+    },
+    "omni": {
+      "h0_vs_direct": {
+        "gained_count": 1,
+        "lost_count": 0
+      },
+      "h1_vs_direct": {
+        "gained_count": 1,
+        "lost_count": 0
+      },
+      "h2_vs_direct": {
+        "gained_count": 0,
+        "lost_count": 0
+      },
+      "h1_vs_h0": {
+        "gained_count": 0,
+        "lost_count": 0
+      },
+      "h2_vs_h0": {
+        "gained_count": 0,
+        "lost_count": 1
+      }
+    }
+  },
+  "full_policy_costs": {
+    "text": {
+      "direct": {
+        "calls": 24,
+        "prompt_tokens": 8787,
+        "generation_tokens": 92538,
+        "seconds": 531.3339177109992
+      },
+      "h0": {
+        "calls": 43,
+        "prompt_tokens": 94052,
+        "generation_tokens": 92981,
+        "seconds": 572.3028928780077
+      },
+      "h1": {
+        "calls": 62,
+        "prompt_tokens": 188570,
+        "generation_tokens": 102221,
+        "seconds": 708.2753502519918
+      },
+      "h2": {
+        "calls": 66,
+        "prompt_tokens": 199114,
+        "generation_tokens": 96233,
+        "seconds": 629.8432926269888
+      }
+    },
+    "vl": {
+      "direct": {
+        "calls": 24,
+        "prompt_tokens": 8787,
+        "generation_tokens": 95608,
+        "seconds": 1299.9734894569992
+      },
+      "h0": {
+        "calls": 46,
+        "prompt_tokens": 107291,
+        "generation_tokens": 95964,
+        "seconds": 1377.8196698719985
+      },
+      "h1": {
+        "calls": 68,
+        "prompt_tokens": 216883,
+        "generation_tokens": 107240,
+        "seconds": 1572.2820780890033
+      },
+      "h2": {
+        "calls": 72,
+        "prompt_tokens": 225229,
+        "generation_tokens": 99466,
+        "seconds": 1484.1180265400071
+      }
+    },
+    "omni": {
+      "direct": {
+        "calls": 24,
+        "prompt_tokens": 8811,
+        "generation_tokens": 25382,
+        "seconds": 266.342726960007
+      },
+      "h0": {
+        "calls": 28,
+        "prompt_tokens": 26725,
+        "generation_tokens": 25400,
+        "seconds": 280.2823422930087
+      },
+      "h1": {
+        "calls": 32,
+        "prompt_tokens": 46663,
+        "generation_tokens": 27453,
+        "seconds": 315.13036641800863
+      },
+      "h2": {
+        "calls": 33,
+        "prompt_tokens": 49590,
+        "generation_tokens": 26263,
+        "seconds": 302.8758708730202
+      }
+    }
+  },
+  "execution": {
+    "text": {
+      "completed_questions": 24,
+      "unique_completed_calls": 108,
+      "weights_unchanged": true,
+      "direct_length_caps": 19,
+      "peak_mlx_allocated_gb": 1.604879738,
+      "maximum_stage_input_tokens": 5182,
+      "h2_fallback_reasons": {
+        "malformed state": 15
+      }
+    },
+    "vl": {
+      "completed_questions": 24,
+      "unique_completed_calls": 120,
+      "weights_unchanged": true,
+      "direct_length_caps": 22,
+      "peak_mlx_allocated_gb": 2.223639294,
+      "maximum_stage_input_tokens": 5182,
+      "h2_fallback_reasons": {
+        "malformed state": 15,
+        "state requests unreadable": 1,
+        "state requests submit_supported_result": 2
+      }
+    },
+    "omni": {
+      "completed_questions": 24,
+      "unique_completed_calls": 42,
+      "weights_unchanged": true,
+      "direct_length_caps": 4,
+      "peak_mlx_allocated_gb": 2.586809892,
+      "maximum_stage_input_tokens": 5056,
+      "h2_fallback_reasons": {
+        "malformed state": 2,
+        "state requests unreadable": 1
+      }
+    }
+  },
+  "unique_completed_call_cost": {
+    "calls": 270,
+    "generation_tokens": 245504,
+    "prompt_tokens": 940411,
+    "seconds": 2936.8994850450144
+  },
+  "technical_failure": {
+    "count": 1,
+    "candidate": "text",
+    "reason": "300-second timeout during desktop contention; exact attribution not isolated",
+    "same_settings_retry_count": 1,
+    "failed_output_tokens": 3152,
+    "failed_input_tokens": 281,
+    "failed_seconds": 300.07650670899966,
+    "failed_text_exact_prefix_of_retry": true,
+    "completed_prior_files_preserved": 265
+  },
+  "new_training_updates": 0,
+  "procedure_aggregate": null,
+  "loop_rate": null,
+  "limits": [
+    "Reused development set; possible upstream pretraining exposure.",
+    "No comparison against older Qwen image-input scores.",
+    "Model-native sampling and quantization differ; one seed per configuration.",
+    "Correct extracted answers are not proof of valid working.",
+    "No image/audio, browser, phone or integration test.",
+    "Desktop contention makes timings unsuitable as a controlled speed ranking."
+  ],
+  "plan_sha256": "27821407701ebe51035bd3bf030e16f72a9b8e02163bac3b64cd0bfb26050452",
+  "primary_score_sha256": "359c4683fb2d04f14002ddcdb20428ab60c969c7c2fc37499ab4b179068183c5",
+  "answer_channel_score_sha256": "7d653f90f7e8fd8bc3c5e40e5c2f3e6e54ac0d6f598418a084ac605444d3d546",
+  "channel_rule_sha256": "6a6b061a9fd4160aa210b2fa2e9f575a3802236cd8ca0ec8fd3e1a08993c16db"
+}

@@ -26,6 +26,10 @@ The browser runtime includes the 4B base and step-30 checkpoint for text questio
 
 By Om Patnaik · repository created September 2026.
 
+## LFM3 side benchmark
+
+Three unchanged LiquidAI models were tested on the same 24 source-reviewed text questions with the existing harnesses. The text model plus short final submission produced 18 correct extracted answers; extra continuation did not improve that total. Formatting failures and unsupported working limit the comparison. These are native Mac results, with no LFM browser integration. [Full results, both scoring views and limitations](research/LFM3_PILOT24_2026_11_06.md) · [Aggregate data](research/LFM3_PILOT24_2026_11_06.json).
+
 ## Latest completed harness comparison
 
 On the same 24 reused development questions, the existing type-specific submission gave 15 correct answers for the unchanged 4B and 19 for step 30. Plain continuation gave 17 and 20; targeted recovery gave 16 and 19. The supported improvement was one shared maths problem. Two other base answer gains retained faulty chemistry explanations. No previously correct answers were lost, but some final formats worsened. No further training ran, and these native results are not browser or fresh-question accuracy measurements.
