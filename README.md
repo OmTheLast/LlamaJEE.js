@@ -28,6 +28,8 @@ By Om Patnaik · repository created September 2026.
 
 After correcting three question-input rules, the unchanged 4B model answers 15/24 and step 30 answers 19/24 with the same type-specific submission pass. Both have 12 answers supported by sufficient working, while repetitive responses are 8 versus 11. This is a reused development comparison. It does not establish performance on fresh JEE questions. No further training ran. [Corrected-input ablation](research/PILOT120_ABLATION_2026_11_04.md) · [First training block](research/PILOT120_FIRST_BLOCK_2026_11_03.md) · [Earlier diagnostics](research/PILOT120_DIAGNOSTICS_2026_11_03.md).
 
+[Current model and harness workstreams](research/MODEL_AND_HARNESS_PLAN_2026_11_06.md) describe the next proposed experiments.
+
 ## Public 9B browser conversion
 
 [Original 9B browser conversion](research/EXPORT09B04_ORIGINAL_BROWSER_RELEASE.md): preserving original MLX compressed weights and separate adapters passed 18 complete CPU and 10 Chrome synthetic comparisons. These checks include the original model's image mistakes; they are not a JEE accuracy benchmark. [Earlier prototype](research/EXPORT09B02_BROWSER_PROTOTYPE.md) and [image diagnosis](research/EXPORT09B03_IMAGE_DIAGNOSTICS.md) remain in the history.
