@@ -38,6 +38,8 @@ On the same 24 reused development questions, the existing type-specific submissi
 - [4B browser package](https://huggingface.co/OmTheLast/LlamaJEE-4B-ONNX-WebGPU). This separate custom ONNX package preserves the model weights and adapter factors for browser execution; MLX files do not load directly through Transformers.js.
 - [Open the solver](https://ompatnaik.com/llamajee/). The 4B release accepts text questions. Its image export is not suitable for question screenshots; other model options retain their existing image paths.
 
+The public 4B step-30 runtime was checked on one elementary physics question. At the normal 768-token setting it returned the correct 24 m; an artificial 128-token cap produced the wrong 12, which the interface flagged. Both used identical weights, with no new training. The first cold load timed out; later partially cached and warm-cache runs completed. These checks establish public execution, not general JEE accuracy or phone support. [Release report, artifacts and loading limits](research/STEP30_BROWSER_RELEASE_2026_11_06.md).
+
 ## Public 9B browser conversion
 
 [Original 9B browser conversion](research/EXPORT09B04_ORIGINAL_BROWSER_RELEASE.md): preserving original MLX compressed weights and separate adapters passed 18 complete CPU and 10 Chrome synthetic comparisons. These checks include the original model's image mistakes; they are not a JEE accuracy benchmark. [Earlier prototype](research/EXPORT09B02_BROWSER_PROTOTYPE.md) and [image diagnosis](research/EXPORT09B03_IMAGE_DIAGNOSTICS.md) remain in the history.
