@@ -92,6 +92,6 @@ A prompt to stop after decisive work failed on the four questions selected for r
 Corrected one multiple-select rule and two numerical precision rules using the printed papers. On the same 24 development questions, the original submission instruction gave 15 correct for the base and 18 for step 30. With the type-specific submission instruction, the scores were 15 and 19, with four trained gains and no losses. The base supplied more correct answers in its first response, 14 versus 13, so the trained model depended more on the submission pass. Correct answers with sufficient working tied at 12/24, while repetitive responses rose from 8 to 11. Eight new inference calls completed the comparison, with other exact-condition outputs reused and checked. No further training ran, and the independent 120-question test remains reserved. [Ablation report](research/PILOT120_ABLATION_2026_11_04.md).
 
 
-## 6 November 2026 — Model training and harness workstreams
+## 6 November 2026 — Model and harness development
 
-Separated learned model changes from the controller that runs the model. Proposed a solve-only 30-update ablation with the current harness fixed, and a bounded targeted-recovery comparison with both current models fixed. Browser feasibility is an early harness requirement. This is a plan, with no new model calls, training or accuracy result. [Workstream plan](research/MODEL_AND_HARNESS_PLAN_2026_11_06.md).
+Model training and the surrounding answering harness are being developed separately. Detailed development plans are kept internally.
