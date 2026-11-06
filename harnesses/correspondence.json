@@ -1,0 +1,64 @@
+{
+  "portable_version": "recovery01-portable-v1",
+  "policy_scope": "Implemented direct/H0/H1/H2 control flow, not a claim of byte-identical runtime output",
+  "source_identities": {
+    "direct_instruction": {
+      "sha256": "9fa6071d6ed28b686835d26e75853c84c662e9e1d809cb4605fe9c4d3782d0e9"
+    },
+    "submission_instruction": {
+      "sha256": "480994a95a348a077ea1588618e395648a5d2f95b16078d32f6aada687c63bd9"
+    },
+    "typed_instructions": {
+      "sha256": "d9e1af4c99d93a8f197b41c4a9fa8ab20c089c8e6cff240a24c5dd8cc37764b3"
+    },
+    "state_and_recovery_instructions": {
+      "sha256": "0839d4cdb921447cf3b9381ac4451b6b40054122c5ff4a830a1a6b7300711004"
+    },
+    "native_control": {
+      "sha256": "427e108207f796e0827934a1cf6cedc3045ab2a056771e813f79bb2964ccf04c"
+    },
+    "native_prompt_builders": {
+      "sha256": "be8cdfcc861a2d2f6945f5a0d44507ae21d4ce0f452a0e768c7ead798e0ea5af"
+    },
+    "native_submission_normalizer": {
+      "sha256": "67cb51429824419060251f6cc37e90df36def23859de34337c6c20c7bf32af44"
+    }
+  },
+  "instruction_correspondence": {
+    "direct": "Copied verbatim, surrounding whitespace stripped",
+    "submit": "Copied verbatim, surrounding whitespace stripped",
+    "typed_single_select": "Copied verbatim",
+    "typed_multi_select": "Copied verbatim",
+    "typed_numeric": "Copied verbatim",
+    "state": "Copied verbatim",
+    "recover": "Copied verbatim",
+    "typed_unspecified": "Additional portable/browser adaptation; not evaluated in native experiment"
+  },
+  "intentional_port_differences": [
+    "Native measured H0 reused committed direct and typed-submission receipts. Live controller generates a direct draft unless supplied; H2 computes H0 only when fallback is needed.",
+    "Generation/chat rendering, assets and fixed model identity are enforced by the injected runtime adapter.",
+    "String question or directPrompt override can preserve an existing browser prompt; these are not the measured native direct instructions.",
+    "Browser input/time/output guards may be lower; blocked or cancelled work is preserved and never scored as completed recovery.",
+    "CPU controller tests use synthetic adapters. Native accuracy belongs to native-results.json, not to the portable implementation or browser.",
+    "Historical normalizer is published as an offline reference only, not silently added to the live browser or used to rewrite new receipts.",
+    "Original/direct-only mode can preserve a legacy browser deadline up to 600 seconds; this override is rejected for measured H0/H1/H2 modes."
+  ],
+  "original_code_links": {
+    "local_9b_lab": "../local_lab/worker.py",
+    "local_9b_entry": "../local_lab/start.py",
+    "original_browser_prompt": "../web/harness.js"
+  },
+  "bounded_budgets": {
+    "direct": 4096,
+    "plain": 512,
+    "state": 96,
+    "recover": 416,
+    "submit": 96
+  },
+  "state_fallbacks": [
+    "malformed strict JSON",
+    "next_task unreadable",
+    "next_task submit_supported_result"
+  ],
+  "normalizer_correspondence": "The original choice, labels and normalize functions plus their two regex constants are copied unchanged; private grading imports and dataset CLI are omitted."
+}

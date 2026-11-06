@@ -1,0 +1,129 @@
+{
+  "date": "2026-11-06",
+  "scope": "24 reused source-corrected development questions; native MLX measurement, not browser accuracy",
+  "model": "Qwen3.5-4B",
+  "native_snapshot": "mlx-community/Qwen3.5-4B-4bit",
+  "revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+  "adapter_sha256": "242e26eb3d61d28983be4cd86fa136cc479fcf86a41e633b2875521523f171cb",
+  "new_training_updates": 0,
+  "new_calls": 99,
+  "summary": {
+    "base": {
+      "direct_correct": 14,
+      "H0": {
+        "n": 24,
+        "correct": 15,
+        "valid": 23,
+        "capped_subset_n": 10,
+        "capped_subset_correct": 1,
+        "added_calls": 0,
+        "added_output_tokens": 0,
+        "added_input_tokens": 0,
+        "added_seconds": 0,
+        "gained_count": 0,
+        "lost_count": 0
+      },
+      "H1_plain": {
+        "n": 24,
+        "correct": 17,
+        "valid": 24,
+        "capped_subset_n": 10,
+        "capped_subset_correct": 3,
+        "added_calls": 20,
+        "added_output_tokens": 5214,
+        "added_input_tokens": 106933,
+        "added_seconds": 117.77780621000238,
+        "gained_count": 2,
+        "lost_count": 0
+      },
+      "H2_targeted": {
+        "n": 24,
+        "correct": 16,
+        "valid": 23,
+        "capped_subset_n": 10,
+        "capped_subset_correct": 2,
+        "added_calls": 26,
+        "added_output_tokens": 4079,
+        "added_input_tokens": 134883,
+        "added_seconds": 127.62923170999784,
+        "gained_count": 1,
+        "lost_count": 0
+      }
+    },
+    "candidate-step030": {
+      "direct_correct": 13,
+      "H0": {
+        "n": 24,
+        "correct": 19,
+        "valid": 24,
+        "capped_subset_n": 11,
+        "capped_subset_correct": 6,
+        "added_calls": 0,
+        "added_output_tokens": 0,
+        "added_input_tokens": 0,
+        "added_seconds": 0,
+        "gained_count": 0,
+        "lost_count": 0
+      },
+      "H1_plain": {
+        "n": 24,
+        "correct": 20,
+        "valid": 23,
+        "capped_subset_n": 11,
+        "capped_subset_correct": 7,
+        "added_calls": 22,
+        "added_output_tokens": 5644,
+        "added_input_tokens": 118184,
+        "added_seconds": 470.7246839969939,
+        "gained_count": 1,
+        "lost_count": 0
+      },
+      "H2_targeted": {
+        "n": 24,
+        "correct": 19,
+        "valid": 22,
+        "capped_subset_n": 11,
+        "capped_subset_correct": 6,
+        "added_calls": 31,
+        "added_output_tokens": 5000,
+        "added_input_tokens": 164460,
+        "added_seconds": 722.598910961,
+        "gained_count": 0,
+        "lost_count": 0
+      }
+    }
+  },
+  "scientific_review": {
+    "selected_combined_traces": 7,
+    "fully_blinded": false,
+    "external_expert_certification": false,
+    "supported_new_correct_answers": {
+      "base_plain": 1,
+      "base_targeted": 0,
+      "step30_plain": 1,
+      "step30_targeted": 0
+    },
+    "all_recovery_procedure_score_measured": false,
+    "all_recovery_loop_rate_measured": false
+  },
+  "state_proposals": 21,
+  "valid_state_proposals": 18,
+  "plain_work_caps": {
+    "count": 20,
+    "total": 21
+  },
+  "targeted_work_caps": {
+    "count": 17,
+    "total": 18
+  },
+  "new_input_tokens": 524460,
+  "new_output_tokens": 19937,
+  "input_tokens_per_stage_range": [
+    4469,
+    6075
+  ],
+  "native_peak_memory_gb": 5.37791449,
+  "minimum_sampled_free_memory_percent": 86,
+  "timing_limitation": "Varying desktop/graphics load; elapsed times are observations, not controlled intrinsic model-speed comparisons.",
+  "private_native_result_sha256": "defe7379a56587e018735c8a3695d1668081df483c4eb658cf5a712468405045"
+}

@@ -105,3 +105,8 @@ Published the exact experimental 4B step-30 adapter with a dedicated MLX loader,
 ## 6 November 2026 — Bounded harness comparison completed
 
 On the same 24 reused development questions, a bounded continuation changed the unchanged 4B score from 15 to 17 and step 30 from 19 to 20. A more structured recovery scored 16 and 19. The supported gain was one shared maths problem; two other base answer gains still had faulty chemistry explanations. No previously correct answers were lost, but some final formats worsened. No further training ran. A separate short-task Chrome check used the actual 4B and step-30 factors without an inference API; full-question browser performance remains unproven. Detailed plans and review evidence remain internal.
+
+
+## 6 November 2026 — Implemented harnesses and their history published
+
+Published the original harness entry points, portable H0/H1/H2 controller, exact tested instructions, historical submission normalizer and aggregate results. The report links each method change to its own measured conditions, including rejected loop controls. Fourteen controller tests, four normalizer tests and a synthetic CLI check passed. No training or new accuracy measurement occurred in this publication step. [Methods and code](harnesses/) · [Full comparison and chronology](research/HARNESS_COMPARISON_2026_11_06.md).
