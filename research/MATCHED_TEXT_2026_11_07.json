@@ -1,0 +1,396 @@
+{
+  "development24": {
+    "questions": 24,
+    "inputs_sha256": "42342060920b6bd17aa5fc379715b78d7bddcf1fdb25addffd865e41945612f6",
+    "candidates": {
+      "qwen-step30": {
+        "direct_correct": 13,
+        "h0_correct": 21,
+        "strict_correct": 13,
+        "valid_final": 24,
+        "direct_caps": 11,
+        "terminal_caps": 0,
+        "native_stage_cost": {
+          "calls": 35,
+          "prompt_tokens": 58857,
+          "generation_tokens": 64672,
+          "seconds": 1179.155156125009
+        },
+        "median_native_stage_seconds_per_question": 38.01027654149948,
+        "peak_mlx_bytes": 4300840584,
+        "subject": {
+          "chemistry": {
+            "correct": 7,
+            "n": 8
+          },
+          "mathematics": {
+            "correct": 6,
+            "n": 8
+          },
+          "physics": {
+            "correct": 8,
+            "n": 8
+          }
+        },
+        "exam": {
+          "advanced": {
+            "correct": 9,
+            "n": 12
+          },
+          "main": {
+            "correct": 12,
+            "n": 12
+          }
+        },
+        "response_type": {
+          "multi_select": {
+            "correct": 1,
+            "n": 2
+          },
+          "numeric": {
+            "correct": 4,
+            "n": 4
+          },
+          "single_select": {
+            "correct": 16,
+            "n": 18
+          }
+        }
+      },
+      "text": {
+        "direct_correct": 5,
+        "h0_correct": 18,
+        "strict_correct": 11,
+        "valid_final": 22,
+        "direct_caps": 19,
+        "terminal_caps": 3,
+        "native_stage_cost": {
+          "calls": 43,
+          "prompt_tokens": 94052,
+          "generation_tokens": 92981,
+          "seconds": 572.3028928780077
+        },
+        "median_native_stage_seconds_per_question": 19.781716708001113,
+        "peak_mlx_bytes": 1594655782,
+        "subject": {
+          "chemistry": {
+            "correct": 5,
+            "n": 8
+          },
+          "mathematics": {
+            "correct": 6,
+            "n": 8
+          },
+          "physics": {
+            "correct": 7,
+            "n": 8
+          }
+        },
+        "exam": {
+          "advanced": {
+            "correct": 9,
+            "n": 12
+          },
+          "main": {
+            "correct": 9,
+            "n": 12
+          }
+        },
+        "response_type": {
+          "multi_select": {
+            "correct": 0,
+            "n": 2
+          },
+          "numeric": {
+            "correct": 4,
+            "n": 4
+          },
+          "single_select": {
+            "correct": 14,
+            "n": 18
+          }
+        }
+      }
+    },
+    "paired_h0": {
+      "both": 17,
+      "qwen_only": 4,
+      "lfm_only": 1,
+      "neither": 2
+    }
+  },
+  "original12": {
+    "questions": 12,
+    "inputs_sha256": "fca4a8e047b7305f595f08f4437c4b411573fe4e4b65ca563d415a77f7d2a377",
+    "candidates": {
+      "qwen-step30": {
+        "direct_correct": 8,
+        "h0_correct": 9,
+        "strict_correct": 9,
+        "valid_final": 12,
+        "direct_caps": 3,
+        "terminal_caps": 0,
+        "native_stage_cost": {
+          "calls": 15,
+          "prompt_tokens": 17042,
+          "generation_tokens": 33530,
+          "seconds": 405.8193564170215
+        },
+        "median_native_stage_seconds_per_question": 33.3421984164961,
+        "peak_mlx_bytes": 4295593608,
+        "subject": {
+          "chemistry": {
+            "correct": 3,
+            "n": 4
+          },
+          "mathematics": {
+            "correct": 4,
+            "n": 4
+          },
+          "physics": {
+            "correct": 2,
+            "n": 4
+          }
+        },
+        "exam": {
+          "Advanced-style": {
+            "correct": 4,
+            "n": 6
+          },
+          "Main-style": {
+            "correct": 5,
+            "n": 6
+          }
+        },
+        "response_type": {
+          "multi_select": {
+            "correct": 3,
+            "n": 3
+          },
+          "numeric": {
+            "correct": 2,
+            "n": 3
+          },
+          "single_select": {
+            "correct": 4,
+            "n": 6
+          }
+        }
+      },
+      "text": {
+        "direct_correct": 2,
+        "h0_correct": 7,
+        "strict_correct": 4,
+        "valid_final": 10,
+        "direct_caps": 10,
+        "terminal_caps": 3,
+        "native_stage_cost": {
+          "calls": 22,
+          "prompt_tokens": 48011,
+          "generation_tokens": 48381,
+          "seconds": 362.75185224997404
+        },
+        "median_native_stage_seconds_per_question": 31.12361274999421,
+        "peak_mlx_bytes": 1584399398,
+        "subject": {
+          "chemistry": {
+            "correct": 4,
+            "n": 4
+          },
+          "mathematics": {
+            "correct": 3,
+            "n": 4
+          },
+          "physics": {
+            "correct": 0,
+            "n": 4
+          }
+        },
+        "exam": {
+          "Advanced-style": {
+            "correct": 3,
+            "n": 6
+          },
+          "Main-style": {
+            "correct": 4,
+            "n": 6
+          }
+        },
+        "response_type": {
+          "multi_select": {
+            "correct": 1,
+            "n": 3
+          },
+          "numeric": {
+            "correct": 2,
+            "n": 3
+          },
+          "single_select": {
+            "correct": 4,
+            "n": 6
+          }
+        }
+      }
+    },
+    "paired_h0": {
+      "both": 6,
+      "qwen_only": 3,
+      "lfm_only": 1,
+      "neither": 2
+    }
+  },
+  "procedure": {
+    "development24": [
+      {
+        "questions": 24,
+        "points": 43,
+        "max_points": 48,
+        "counts_by_points": {
+          "2": 19,
+          "1": 5
+        },
+        "correct_and_sufficient": 19,
+        "loop_count_including_format": 8,
+        "loop_evidence_categories": {
+          "none": 16,
+          "reasoning": 6,
+          "task_restatement": 1,
+          "calculation": 1
+        },
+        "unresolved_verification": 5,
+        "unresolved_grade": 0,
+        "direct_answer_channel_nonempty": 24,
+        "sufficient_direct_answer_channel_work": 19
+      },
+      {
+        "questions": 24,
+        "points_out_of_48": 33,
+        "counts_by_points": {
+          "2": 11,
+          "1": 11,
+          "0": 2
+        },
+        "correct_and_sufficient": 11,
+        "correct_answers": 18,
+        "loop_count_including_format": 20,
+        "loop_evidence_categories": {
+          "calculation": 4,
+          "task_restatement": 1,
+          "reasoning": 8,
+          "format": 7,
+          "none": 4
+        },
+        "unresolved_verification": 13,
+        "unresolved_grade": 0,
+        "direct_answer_channel_work_present": 6,
+        "sufficient_direct_answer_channel_work": 5
+      }
+    ],
+    "original12": [
+      {
+        "questions": 12,
+        "points": 20,
+        "max_points": 24,
+        "counts_by_points": {
+          "2": 8,
+          "1": 4
+        },
+        "correct_and_sufficient": 8,
+        "loop_count_including_format": 3,
+        "loop_evidence_categories": {
+          "none": 9,
+          "calculation": 1,
+          "method_recheck": 2
+        },
+        "unresolved_verification": 4,
+        "unresolved_grade": 0,
+        "direct_answer_channel_nonempty": 12,
+        "sufficient_direct_answer_channel_work": 8
+      },
+      {
+        "questions": 12,
+        "points": 18,
+        "max_points": 24,
+        "counts_by_points": {
+          "1": 6,
+          "2": 6
+        },
+        "correct_and_sufficient": 6,
+        "loop_count_including_format": 11,
+        "loop_evidence_categories": {
+          "task_restatement": 2,
+          "format": 2,
+          "reasoning": 4,
+          "calculation": 3,
+          "none": 1
+        },
+        "unresolved_verification": 6,
+        "unresolved_grade": 0,
+        "direct_answer_channel_nonempty": 2,
+        "sufficient_direct_answer_channel_work": 0
+      }
+    ]
+  },
+  "browser": {
+    "scope": "One original elementary physics question; same Mac desktop Chrome WebGPU, weights served from local disk; zero phone tests and no JEE browser accuracy measurement. Shared H0 greedy/nonthinking 128 solve tokens and conditional 96 submission tokens. Two solves in the same loaded model. Native benchmark uses 4096 direct tokens and native presets.",
+    "models": {
+      "lfm": {
+        "chrome_version": "157.0.8103.38",
+        "served_bytes": 1106024719,
+        "load_seconds": 1.4834549999982118,
+        "peak_chrome_process_rss_gib": 5.2004241943359375,
+        "rss_note": "One-second sampled sum; can double-count shared mappings; not VRAM or minimum required RAM.",
+        "first_and_warm_seconds": [
+          1.941655000001192,
+          2.8703199999928475
+        ],
+        "first_output_seconds": [
+          0.6323999999910593,
+          0.49076500000059603
+        ],
+        "numerical_value": [
+          24,
+          24
+        ],
+        "correct_numeric_value": [
+          true,
+          true
+        ],
+        "strict_submit_format_valid": [
+          false,
+          false
+        ],
+        "source_receipt_sha256": "72dcdce663be94607e2cfe3f639fd9fc726f10f2fb309e56e056e226e0c71bce"
+      },
+      "qwen": {
+        "chrome_version": "157.0.8103.38",
+        "served_bytes": 2848904408,
+        "load_seconds": 5.257915000006556,
+        "peak_chrome_process_rss_gib": 6.6506195068359375,
+        "rss_note": "One-second sampled sum; can double-count shared mappings; not VRAM or minimum required RAM.",
+        "first_and_warm_seconds": [
+          66.30222499999404,
+          64.72884000000357
+        ],
+        "first_output_seconds": [
+          21.568340000003577,
+          20.333265000000598
+        ],
+        "numerical_value": [
+          12,
+          12
+        ],
+        "correct_numeric_value": [
+          false,
+          false
+        ],
+        "strict_submit_format_valid": [
+          false,
+          false
+        ],
+        "source_receipt_sha256": "10b226b8c4666021ba1d2c02cd030b10b21a7dbcae24bb23b844b903ba04aa03"
+      }
+    }
+  },
+  "notes": "Qwen and LFM configurations; scalar completed results only. No questions, model outputs or source keys."
+}

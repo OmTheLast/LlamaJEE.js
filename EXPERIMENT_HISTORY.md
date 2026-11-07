@@ -4,6 +4,8 @@ This timeline documents **experiments**, not successive releases of a proven sol
 
 The [progress graphs](charts/README.md) visualize checkpoint trajectories and the latest answer-versus-procedure tradeoff. The [original local 9B lab](local_lab/README.md) and [Transformers.js browser demo](web/README.md) are both available in this GitHub repository; they run different model sizes and runtimes.
 
+On the same 24 question texts with the same H0 submission rule, Qwen 4B step 30 scored 21/24 and LFM3-1.7B scored 18/24. Correct answers with sufficient working were 19/24 and 11/24. Keep Qwen step 30 as the main solver for now. LFM is a smaller candidate for devices that struggle with Qwen, but it returned fewer correct answers and fewer supported solutions on both sets. These results do not establish that step-30 training caused the advantage. [Matched results, new questions and browser measurement](research/MATCHED_TEXT_2026_11_07.md).
+
 | Stage | What changed | What we learned |
 |---|---|---|
 | Training engineering smoke | Six optimizer updates on image-plus-text repair examples | LoRA updates, loss calculation, checkpointing and restart worked. This was not an accuracy test. |

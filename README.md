@@ -26,6 +26,10 @@ The browser runtime includes the 4B base and step-30 checkpoint for text questio
 
 By Om Patnaik · repository created September 2026.
 
+## Matched model comparison
+
+On the same 24 question texts with the same H0 submission rule, Qwen 4B step 30 scored 21/24 and LFM3-1.7B scored 18/24. Correct answers with sufficient working were 19/24 and 11/24. Keep Qwen step 30 as the main solver for now. LFM is a smaller candidate for devices that struggle with Qwen, but it returned fewer correct answers and fewer supported solutions on both sets. These results do not establish that step-30 training caused the advantage. [Matched results, new questions and browser measurement](research/MATCHED_TEXT_2026_11_07.md).
+
 ## LFM3 side benchmark
 
 Three unchanged LiquidAI models were tested on the same 24 source-reviewed text questions with the existing harnesses. The text model plus short final submission produced 18 correct extracted answers; extra continuation did not improve that total. Formatting failures and unsupported working limit the comparison. These are native Mac results, with no LFM browser integration. [Full results, both scoring views and limitations](research/LFM3_PILOT24_2026_11_06.md) · [Aggregate data](research/LFM3_PILOT24_2026_11_06.json).
