@@ -1,0 +1,367 @@
+{
+  "date": "2026-11-08",
+  "model": "Qwen3.5-4B, 4-bit MLX",
+  "evaluation": "Corrected H0, 24 reused JEE development question images",
+  "training": {
+    "updates": 30,
+    "families": 30,
+    "solve_examples": 30,
+    "trainable_parameters": 423936,
+    "checkpoints": 31,
+    "solve_target_tokens": 9994,
+    "sequence_tokens": 19162,
+    "maximum_sequence_length": 1121,
+    "base_revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+    "adapter_sha256": "86d2fdc81de4d7a1c63dfd791d76d93ca1dc28d3573e0ade9a61aeb935905e28",
+    "original_mixed_step30_sha256": "242e26eb3d61d28983be4cd86fa136cc479fcf86a41e633b2875521523f171cb",
+    "historical_mixed_target_tokens": {
+      "solve_commit": 9994,
+      "compose_method": 7412,
+      "atomic_verify": 2788
+    },
+    "measured_first_solve_loss": 1.2526142597198486,
+    "same_first_solve_loss_as_mixed": 1.2526142597198486,
+    "seen_solve_loss_mean_before_update": 1.6427899956703187,
+    "peak_mlx_bytes": 10040169948,
+    "compute_seconds": 26.077609876010683,
+    "minimum_sampled_free_percent": 85,
+    "clip_count": 0,
+    "gradient_norm_min": 0.13344340026378632,
+    "gradient_norm_max": 0.4279994070529938,
+    "total_worker_wall_seconds": 40.09806704521179,
+    "initial_state_and_restart_verified": true
+  },
+  "study": {
+    "training_composition": {
+      "chemistry / main": 5,
+      "mathematics / main": 5,
+      "physics / main": 5,
+      "physics / advanced": 5,
+      "mathematics / advanced": 5,
+      "chemistry / advanced": 5
+    },
+    "training_development_overlap_by_source_family_and_image": 0,
+    "evaluation_source_sha256": "2fc3413a4261f8006c4d3e848820bd43bfa900cae577bdc00b63ded997727ad5",
+    "preservation_definition_sha256": "125b04b6253058d358d79707740c09b9ea3878afa29828350b252080bf9ede39",
+    "training_plan_sha256": "47d7340c8227ece6c27d26260b1e5f97887e7c388c704a3ba755c84c03081c84",
+    "evaluation_plan_sha256": "acaed9bad6920adea4b0a543b96df786a1048e6542ba5c89877be28ff01a881e"
+  },
+  "scores": {
+    "base": {
+      "n": 24,
+      "correct": 15,
+      "direct_correct": 14,
+      "raw_terminal_correct": 15,
+      "supported": 12,
+      "points": 35,
+      "loop": 8,
+      "direct_cap": 10,
+      "terminal_cap": 0,
+      "valid": 23,
+      "usable_normal_stop": 23,
+      "abstention": 0,
+      "calls": 34,
+      "input_tokens": 70833,
+      "output_tokens": 61302,
+      "seconds": 685.5577786250005,
+      "peak_gb": 5.141329506,
+      "median_output_tokens": 2583.5
+    },
+    "candidate-step030": {
+      "n": 24,
+      "correct": 19,
+      "direct_correct": 13,
+      "raw_terminal_correct": 13,
+      "supported": 12,
+      "points": 36,
+      "loop": 11,
+      "direct_cap": 11,
+      "terminal_cap": 0,
+      "valid": 24,
+      "usable_normal_stop": 24,
+      "abstention": 0,
+      "calls": 35,
+      "input_tokens": 76242,
+      "output_tokens": 63356,
+      "seconds": 821.6175865410032,
+      "peak_gb": 5.249922682,
+      "median_output_tokens": 3441.5
+    },
+    "solve-only-step030": {
+      "n": 24,
+      "correct": 17,
+      "direct_correct": 12,
+      "raw_terminal_correct": 12,
+      "supported": 11,
+      "points": 34,
+      "loop": 10,
+      "direct_cap": 10,
+      "terminal_cap": 0,
+      "valid": 23,
+      "usable_normal_stop": 23,
+      "abstention": 0,
+      "calls": 34,
+      "input_tokens": 70585,
+      "output_tokens": 62012,
+      "seconds": 1238.8058847499924,
+      "peak_gb": 5.250004602,
+      "median_output_tokens": 2964.5
+    }
+  },
+  "paired": {
+    "candidate-step030": {
+      "correct": {
+        "both": 16,
+        "new_only": 1,
+        "control_only": 3,
+        "neither": 4
+      },
+      "supported": {
+        "both": 9,
+        "new_only": 2,
+        "control_only": 3,
+        "neither": 10
+      },
+      "loop": {
+        "both": 9,
+        "new_only": 1,
+        "control_only": 2,
+        "neither": 12
+      },
+      "valid": {
+        "both": 23,
+        "new_only": 0,
+        "control_only": 1,
+        "neither": 0
+      }
+    },
+    "base": {
+      "correct": {
+        "both": 14,
+        "new_only": 3,
+        "control_only": 1,
+        "neither": 6
+      },
+      "supported": {
+        "both": 10,
+        "new_only": 1,
+        "control_only": 2,
+        "neither": 11
+      },
+      "loop": {
+        "both": 7,
+        "new_only": 3,
+        "control_only": 1,
+        "neither": 13
+      },
+      "valid": {
+        "both": 23,
+        "new_only": 0,
+        "control_only": 0,
+        "neither": 1
+      }
+    }
+  },
+  "preservation": {
+    "base": {
+      "primary_correct": 10,
+      "strict_format_correct": 10
+    },
+    "candidate-step030": {
+      "primary_correct": 10,
+      "strict_format_correct": 9
+    },
+    "solve-only-step030": {
+      "primary_correct": 9,
+      "strict_format_correct": 9
+    },
+    "candidate-step030_comparison": {
+      "both": 9,
+      "solve_only": 0,
+      "control_only": 1,
+      "neither": 0
+    },
+    "base_comparison": {
+      "both": 9,
+      "solve_only": 0,
+      "control_only": 1,
+      "neither": 0
+    }
+  },
+  "strata": {
+    "subject": {
+      "chemistry": {
+        "n": 8,
+        "base": 4,
+        "candidate-step030": 7,
+        "solve-only-step030": 7
+      },
+      "mathematics": {
+        "n": 8,
+        "base": 6,
+        "candidate-step030": 6,
+        "solve-only-step030": 5
+      },
+      "physics": {
+        "n": 8,
+        "base": 5,
+        "candidate-step030": 6,
+        "solve-only-step030": 5
+      }
+    },
+    "exam": {
+      "advanced": {
+        "n": 12,
+        "base": 6,
+        "candidate-step030": 9,
+        "solve-only-step030": 7
+      },
+      "main": {
+        "n": 12,
+        "base": 9,
+        "candidate-step030": 10,
+        "solve-only-step030": 10
+      }
+    }
+  },
+  "sensitivity": {
+    "primary": {
+      "base": {
+        "correct": 15,
+        "supported": 12,
+        "points": 35,
+        "loop": 8
+      },
+      "candidate-step030": {
+        "correct": 19,
+        "supported": 12,
+        "points": 36,
+        "loop": 11
+      },
+      "solve-only-step030": {
+        "correct": 17,
+        "supported": 11,
+        "points": 34,
+        "loop": 10
+      }
+    },
+    "new_masked_votes": {
+      "base": {
+        "correct": 15,
+        "supported": 11,
+        "points": 34,
+        "loop": 8
+      },
+      "candidate-step030": {
+        "correct": 19,
+        "supported": 14,
+        "points": 38,
+        "loop": 11
+      },
+      "solve-only-step030": {
+        "correct": 17,
+        "supported": 11,
+        "points": 34,
+        "loop": 10
+      }
+    },
+    "changed_ratings": 3,
+    "alternative_readings": [
+      {
+        "base": {
+          "correct": 15,
+          "supported": 12,
+          "points": 35,
+          "loop": 8
+        },
+        "candidate-step030": {
+          "correct": 19,
+          "supported": 13,
+          "points": 37,
+          "loop": 11
+        },
+        "solve-only-step030": {
+          "correct": 17,
+          "supported": 12,
+          "points": 35,
+          "loop": 10
+        }
+      },
+      {
+        "base": {
+          "correct": 15,
+          "supported": 12,
+          "points": 35,
+          "loop": 8
+        },
+        "candidate-step030": {
+          "correct": 19,
+          "supported": 12,
+          "points": 36,
+          "loop": 11
+        },
+        "solve-only-step030": {
+          "correct": 17,
+          "supported": 10,
+          "points": 33,
+          "loop": 10
+        }
+      },
+      {
+        "base": {
+          "correct": 15,
+          "supported": 11,
+          "points": 34,
+          "loop": 8
+        },
+        "candidate-step030": {
+          "correct": 19,
+          "supported": 11,
+          "points": 35,
+          "loop": 11
+        },
+        "solve-only-step030": {
+          "correct": 17,
+          "supported": 11,
+          "points": 34,
+          "loop": 10
+        }
+      },
+      {
+        "base": {
+          "correct": 15,
+          "supported": 12,
+          "points": 35,
+          "loop": 8
+        },
+        "candidate-step030": {
+          "correct": 19,
+          "supported": 13,
+          "points": 37,
+          "loop": 11
+        },
+        "solve-only-step030": {
+          "correct": 17,
+          "supported": 11,
+          "points": 34,
+          "loop": 10
+        }
+      }
+    ]
+  },
+  "review": {
+    "stage": "Full first-response working and looping",
+    "points_per_draft": 2,
+    "n_possible_points": 48,
+    "uncertain_new_ratings": 1,
+    "masked_calibration_disagreements": 3,
+    "adjudication_amendments": 0,
+    "expert_review": "Project reviews; no external subject-expert adjudication"
+  },
+  "receipt_sha256": {
+    "training": "43ab14cad1581989f15e746836dc6dbad51de655e52c328b732faa33461685a3",
+    "evaluation": "40049c03c106727dd37873a2b9d174e82125ca252229c9b0f3713e86a34d6021",
+    "grading": "e62e9169f5f320b80cc2282ebeb6367ccf34c0a015d796da2ec42a06df5423a5"
+  },
+  "decision": "Keep mixed step 30 as the current checkpoint. In the primary review solve-only had 1 fewer looping draft, 2 fewer correct answers and 1 fewer supported answer."
+}

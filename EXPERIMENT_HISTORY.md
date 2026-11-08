@@ -6,6 +6,8 @@ The [progress graphs](charts/README.md) visualize checkpoint trajectories and th
 
 On the same 24 question texts with the same H0 submission rule, Qwen 4B step 30 scored 21/24 and LFM3-1.7B scored 18/24. Correct answers with sufficient working were 19/24 and 11/24. Keep Qwen step 30 as the main solver for now. LFM is a smaller candidate for devices that struggle with Qwen, but it returned fewer correct answers and fewer supported solutions on both sets. These results do not establish that step-30 training caused the advantage. [Matched results, new questions and browser measurement](research/MATCHED_TEXT_2026_11_07.md).
 
+On the same 24 JEE question images, Qwen 4B answered 15 correctly before training, 19 after mixed training and 17 after training on full solutions alone. The mixed and solve-only adapters trained on the same 30 source problems. Their correct answers with sufficient working numbered 12 and 11, respectively. The mixed adapter remains the current checkpoint. [Training results and paired comparison](research/QWEN4B_SOLVE_ONLY_2026_11_08.md).
+
 | Stage | What changed | What we learned |
 |---|---|---|
 | Training engineering smoke | Six optimizer updates on image-plus-text repair examples | LoRA updates, loss calculation, checkpointing and restart worked. This was not an accuracy test. |
