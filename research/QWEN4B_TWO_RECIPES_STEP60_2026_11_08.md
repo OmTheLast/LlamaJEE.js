@@ -19,6 +19,34 @@
 
 Each question counts once. “First attempt” scores the model's initial response. “Under H0” includes a short final submission when the first response runs out of tokens. All 48 new question runs finished. Ten first attempts per step-60 model reached the token limit, and all 20 short submissions finished within their own limits. No run required a retry. A usable final answer has a readable, allowed format and can still be wrong.
 
+## Which questions made up the 19/24?
+
+The **original mixed step-30 checkpoint** answered **10 of 12 Main** and **9 of 12 Advanced** questions correctly. The **unchanged Qwen3.5-4B base** answered **15 of the same 24** correctly. All questions came from 2025 JEE papers, with four per subject in each exam. The table counts correct final answers under the same H0 submission rule. Subject, exam and answer format are three ways of grouping the same questions.
+
+| Group | Questions | Unchanged 4B | Mixed 30 | Mixed 60 | Worked solutions 30 | Worked solutions 60 |
+|---|---:|---:|---:|---:|---:|---:|
+| All questions | 24 | 15 | 19 | 18 | 17 | 17 |
+| Chemistry | 8 | 4 | 7 | 6 | 7 | 6 |
+| Mathematics | 8 | 6 | 6 | 6 | 5 | 6 |
+| Physics | 8 | 5 | 6 | 6 | 5 | 5 |
+| JEE Main | 12 | 9 | 10 | 11 | 10 | 9 |
+| JEE Advanced | 12 | 6 | 9 | 7 | 7 | 8 |
+| Select one option | 18 | 11 | 14 | 15 | 14 | 13 |
+| Select all correct options | 2 | 0 | 1 | 0 | 0 | 0 |
+| Enter a number | 4 | 4 | 4 | 3 | 3 | 4 |
+
+The mixed model gained one Main answer from step 30 to 60 (10 → 11) and lost two Advanced answers (9 → 7). The Advanced losses were an organic reaction sequence and a calculus limit. On the latter, it derived the correct value but repeated its final-answer line. With only two multiple-select questions, the scores give little evidence about that format in general.
+
+### Topics on the 24 questions
+
+| Subject | Main topics (four questions) | Advanced topics (four questions) | Original mixed step 30, Main / Advanced |
+|---|---|---|---|
+| Chemistry | Aluminium and thallium oxidation states, rate laws, solubility and precipitation, aldol ring closure | Osmotic pressure and molar mass, named organic reactions, a multistep organic synthesis, identifying metal ions with precipitation reagents | 3/4 · 4/4 |
+| Mathematics | Area between curves, range of a composite function, a trigonometric functional equation, intervals where a function increases or decreases | Vector cross products and a linear system, a limit at a specified root, complex roots of unity, a limit involving an integral and a trigonometric expansion | 3/4 · 3/4 |
+| Physics | Logic gates, dimensions of electric and magnetic flux, force on a charge between plates, wave speed on strings | Reading a Vernier scale, electric flux between coaxial cylinders, fields and potential differences from charged sheets, electron and neutron wavelengths | 4/4 · 2/4 |
+
+The original mixed checkpoint missed five questions covering **aldol ring closure**, **the vector and linear-system problem**, **the trigonometric functional equation**, **flux between coaxial cylinders**, and **fields and potentials from charged sheets**. It submitted the correct answer on the other 19. These are final-answer scores. The separate working review found sufficient justification on 14 of those 19.
+
 ## Which answers changed?
 
 * **Original mixed model.** It kept 17 answers correct, gained one and lost two. Both step-60 models newly solved the same functional-equation problem and justified the result. The mixed model lost a chemistry question when it followed an incorrect sequence of reactions. On a series-limit question, it correctly calculated 2.4 but printed its final answer twice, which the submission rule rejected.

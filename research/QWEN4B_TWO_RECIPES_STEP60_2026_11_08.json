@@ -358,5 +358,144 @@
       }
     },
     "source_sha256": "18a3c89ffecf79e4d695e3545b09e2f73f6f0d096d0d25a5d09e94381cf5ca24"
+  },
+  "question_breakdown": {
+    "year": 2025,
+    "metric": "Correct final answer under frozen H0, including its standard handling of short final submissions.",
+    "model_order": [
+      "base",
+      "candidate-step030",
+      "mixed-step060",
+      "solve-only-step030",
+      "solve-only-step060"
+    ],
+    "overall": {
+      "n": 24,
+      "base": 15,
+      "candidate-step030": 19,
+      "mixed-step060": 18,
+      "solve-only-step030": 17,
+      "solve-only-step060": 17
+    },
+    "subject": {
+      "chemistry": {
+        "n": 8,
+        "base": 4,
+        "candidate-step030": 7,
+        "mixed-step060": 6,
+        "solve-only-step030": 7,
+        "solve-only-step060": 6
+      },
+      "mathematics": {
+        "n": 8,
+        "base": 6,
+        "candidate-step030": 6,
+        "mixed-step060": 6,
+        "solve-only-step030": 5,
+        "solve-only-step060": 6
+      },
+      "physics": {
+        "n": 8,
+        "base": 5,
+        "candidate-step030": 6,
+        "mixed-step060": 6,
+        "solve-only-step030": 5,
+        "solve-only-step060": 5
+      }
+    },
+    "exam": {
+      "advanced": {
+        "n": 12,
+        "base": 6,
+        "candidate-step030": 9,
+        "mixed-step060": 7,
+        "solve-only-step030": 7,
+        "solve-only-step060": 8
+      },
+      "main": {
+        "n": 12,
+        "base": 9,
+        "candidate-step030": 10,
+        "mixed-step060": 11,
+        "solve-only-step030": 10,
+        "solve-only-step060": 9
+      }
+    },
+    "response_type": {
+      "multi_select": {
+        "n": 2,
+        "base": 0,
+        "candidate-step030": 1,
+        "mixed-step060": 0,
+        "solve-only-step030": 0,
+        "solve-only-step060": 0
+      },
+      "numeric": {
+        "n": 4,
+        "base": 4,
+        "candidate-step030": 4,
+        "mixed-step060": 3,
+        "solve-only-step030": 3,
+        "solve-only-step060": 4
+      },
+      "single_select": {
+        "n": 18,
+        "base": 11,
+        "candidate-step030": 14,
+        "mixed-step060": 15,
+        "solve-only-step030": 14,
+        "solve-only-step060": 13
+      }
+    },
+    "subject_exam": {
+      "chemistry / advanced": {
+        "n": 4,
+        "base": 1,
+        "candidate-step030": 4,
+        "mixed-step060": 3,
+        "solve-only-step030": 3,
+        "solve-only-step060": 3
+      },
+      "chemistry / main": {
+        "n": 4,
+        "base": 3,
+        "candidate-step030": 3,
+        "mixed-step060": 3,
+        "solve-only-step030": 4,
+        "solve-only-step060": 3
+      },
+      "mathematics / advanced": {
+        "n": 4,
+        "base": 3,
+        "candidate-step030": 3,
+        "mixed-step060": 2,
+        "solve-only-step030": 2,
+        "solve-only-step060": 3
+      },
+      "mathematics / main": {
+        "n": 4,
+        "base": 3,
+        "candidate-step030": 3,
+        "mixed-step060": 4,
+        "solve-only-step030": 3,
+        "solve-only-step060": 3
+      },
+      "physics / advanced": {
+        "n": 4,
+        "base": 2,
+        "candidate-step030": 2,
+        "mixed-step060": 2,
+        "solve-only-step030": 2,
+        "solve-only-step060": 2
+      },
+      "physics / main": {
+        "n": 4,
+        "base": 3,
+        "candidate-step030": 4,
+        "mixed-step060": 4,
+        "solve-only-step030": 3,
+        "solve-only-step060": 3
+      }
+    }
   }
 }
