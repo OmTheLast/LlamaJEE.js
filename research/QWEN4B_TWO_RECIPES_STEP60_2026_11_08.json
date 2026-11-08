@@ -1,0 +1,362 @@
+{
+  "date": "2026-11-08",
+  "arms": [
+    "candidate-step030",
+    "mixed-step060",
+    "solve-only-step030",
+    "solve-only-step060"
+  ],
+  "model": "Qwen3.5-4B, 4-bit MLX, LoRA on last three language layers",
+  "experiment": "Two existing step-30 adapters continued from their respective full training states through step 60. Same 30 next families, same family order and full-solution targets.",
+  "primary_input": "Same 24 previously used source-checked JEE development question images and H0 for all checkpoints",
+  "training_block": {
+    "families": 30,
+    "mixed_teaching_examples": 90,
+    "worked_solutions_teaching_examples": 30,
+    "number_per_subject_exam_combination": 5,
+    "worked_solution_target_tokens": 10097,
+    "plan_target_tokens_in_mixed": 7469,
+    "step_check_target_tokens_in_mixed": 2965,
+    "total_mixed_target_tokens": 20531,
+    "total_worked_solutions_target_tokens": 10097
+  },
+  "training_receipts": {
+    "mixed": {
+      "step30_adapter_sha256": "242e26eb3d61d28983be4cd86fa136cc479fcf86a41e633b2875521523f171cb",
+      "step60_adapter_sha256": "dc5deee28050ca6925dd2e2de36e9e3a48d472704bcaf212380a80154661160f",
+      "training_verification_sha256": "08d393325a42d16420cc7813387592d49451ca54dbb3162e61bc737a95b78c5f",
+      "evaluation_verification_sha256": "64fbcb7cd4119a62a7ceca92e4180884dd6025171e57875c0b54dc9e5da9a837"
+    },
+    "worked_solutions": {
+      "step30_adapter_sha256": "86d2fdc81de4d7a1c63dfd791d76d93ca1dc28d3573e0ade9a61aeb935905e28",
+      "step60_adapter_sha256": "a7a552bb0e5a34fcc5d99f9b7d803697dee8fdc87065a94f8e622b0d6265c024",
+      "training_verification_sha256": "72d6ff054ac60359231893fb1db2df3de8700ad3540c6f8becbd023ea29f812c",
+      "evaluation_verification_sha256": "5ebb99bb6c725f28ae1375db827399bbc12abe97360e45e431b404f1787ef332"
+    }
+  },
+  "scores": {
+    "candidate-step030": {
+      "n": 24,
+      "correct": 19,
+      "direct_correct": 13,
+      "raw_terminal_correct": 13,
+      "supported": 14,
+      "points": 38,
+      "loop": 12,
+      "valid": 24,
+      "usable_normal_stop": 24,
+      "terminal_cap": 0,
+      "direct_cap": 11,
+      "calls": 35,
+      "output_tokens": 63356,
+      "input_tokens": 76242,
+      "direct_median_tokens": 3441.5,
+      "direct_short_invalid": 0,
+      "unresolved_verification": 10,
+      "uncertain": 3
+    },
+    "mixed-step060": {
+      "n": 24,
+      "correct": 18,
+      "direct_correct": 13,
+      "raw_terminal_correct": 13,
+      "supported": 11,
+      "points": 35,
+      "loop": 12,
+      "valid": 22,
+      "usable_normal_stop": 22,
+      "terminal_cap": 0,
+      "direct_cap": 10,
+      "calls": 34,
+      "output_tokens": 69402,
+      "input_tokens": 70110,
+      "direct_median_tokens": 3807.5,
+      "direct_short_invalid": 0,
+      "unresolved_verification": 13,
+      "uncertain": 3
+    },
+    "solve-only-step030": {
+      "n": 24,
+      "correct": 17,
+      "direct_correct": 12,
+      "raw_terminal_correct": 12,
+      "supported": 10,
+      "points": 33,
+      "loop": 12,
+      "valid": 23,
+      "usable_normal_stop": 23,
+      "terminal_cap": 0,
+      "direct_cap": 10,
+      "calls": 34,
+      "output_tokens": 62012,
+      "input_tokens": 70585,
+      "direct_median_tokens": 2964.5,
+      "direct_short_invalid": 0,
+      "unresolved_verification": 14,
+      "uncertain": 2
+    },
+    "solve-only-step060": {
+      "n": 24,
+      "correct": 17,
+      "direct_correct": 13,
+      "raw_terminal_correct": 13,
+      "supported": 12,
+      "points": 37,
+      "loop": 13,
+      "valid": 23,
+      "usable_normal_stop": 23,
+      "terminal_cap": 0,
+      "direct_cap": 10,
+      "calls": 34,
+      "output_tokens": 62956,
+      "input_tokens": 70864,
+      "direct_median_tokens": 2735.0,
+      "direct_short_invalid": 0,
+      "unresolved_verification": 12,
+      "uncertain": 4
+    }
+  },
+  "paired_counts": {
+    "candidate-step030__vs__mixed-step060": {
+      "first": "candidate-step030",
+      "second": "mixed-step060",
+      "outcomes": {
+        "correct": {
+          "both": 17,
+          "first_only": 2,
+          "second_only": 1,
+          "neither": 4
+        },
+        "supported": {
+          "both": 9,
+          "first_only": 5,
+          "second_only": 2,
+          "neither": 8
+        },
+        "loop": {
+          "both": 9,
+          "first_only": 3,
+          "second_only": 3,
+          "neither": 9
+        },
+        "valid": {
+          "both": 22,
+          "first_only": 2,
+          "second_only": 0,
+          "neither": 0
+        }
+      }
+    },
+    "solve-only-step030__vs__solve-only-step060": {
+      "first": "solve-only-step030",
+      "second": "solve-only-step060",
+      "outcomes": {
+        "correct": {
+          "both": 15,
+          "first_only": 2,
+          "second_only": 2,
+          "neither": 5
+        },
+        "supported": {
+          "both": 9,
+          "first_only": 1,
+          "second_only": 3,
+          "neither": 11
+        },
+        "loop": {
+          "both": 10,
+          "first_only": 2,
+          "second_only": 3,
+          "neither": 9
+        },
+        "valid": {
+          "both": 22,
+          "first_only": 1,
+          "second_only": 1,
+          "neither": 0
+        }
+      }
+    },
+    "mixed-step060__vs__solve-only-step060": {
+      "first": "mixed-step060",
+      "second": "solve-only-step060",
+      "outcomes": {
+        "correct": {
+          "both": 16,
+          "first_only": 2,
+          "second_only": 1,
+          "neither": 5
+        },
+        "supported": {
+          "both": 8,
+          "first_only": 3,
+          "second_only": 4,
+          "neither": 9
+        },
+        "loop": {
+          "both": 11,
+          "first_only": 1,
+          "second_only": 2,
+          "neither": 10
+        },
+        "valid": {
+          "both": 21,
+          "first_only": 1,
+          "second_only": 2,
+          "neither": 0
+        }
+      }
+    },
+    "candidate-step030__vs__solve-only-step030": {
+      "first": "candidate-step030",
+      "second": "solve-only-step030",
+      "outcomes": {
+        "correct": {
+          "both": 16,
+          "first_only": 3,
+          "second_only": 1,
+          "neither": 4
+        },
+        "supported": {
+          "both": 10,
+          "first_only": 4,
+          "second_only": 0,
+          "neither": 10
+        },
+        "loop": {
+          "both": 10,
+          "first_only": 2,
+          "second_only": 2,
+          "neither": 10
+        },
+        "valid": {
+          "both": 23,
+          "first_only": 1,
+          "second_only": 0,
+          "neither": 0
+        }
+      }
+    },
+    "candidate-step030__vs__solve-only-step060": {
+      "first": "candidate-step030",
+      "second": "solve-only-step060",
+      "outcomes": {
+        "correct": {
+          "both": 16,
+          "first_only": 3,
+          "second_only": 1,
+          "neither": 4
+        },
+        "supported": {
+          "both": 11,
+          "first_only": 3,
+          "second_only": 1,
+          "neither": 9
+        },
+        "loop": {
+          "both": 9,
+          "first_only": 3,
+          "second_only": 4,
+          "neither": 8
+        },
+        "valid": {
+          "both": 23,
+          "first_only": 1,
+          "second_only": 0,
+          "neither": 0
+        }
+      }
+    }
+  },
+  "preservation": {
+    "candidate-step030": {
+      "primary_correct": 10,
+      "strict_format_correct": 9
+    },
+    "mixed-step060": {
+      "primary_correct": 9,
+      "strict_format_correct": 9
+    },
+    "solve-only-step030": {
+      "primary_correct": 9,
+      "strict_format_correct": 9
+    },
+    "solve-only-step060": {
+      "primary_correct": 9,
+      "strict_format_correct": 9
+    }
+  },
+  "six_subject_exam_cells": {
+    "chemistry / advanced": {
+      "n": 4,
+      "candidate-step030": 4,
+      "mixed-step060": 3,
+      "solve-only-step030": 3,
+      "solve-only-step060": 3
+    },
+    "chemistry / main": {
+      "n": 4,
+      "candidate-step030": 3,
+      "mixed-step060": 3,
+      "solve-only-step030": 4,
+      "solve-only-step060": 3
+    },
+    "mathematics / advanced": {
+      "n": 4,
+      "candidate-step030": 3,
+      "mixed-step060": 2,
+      "solve-only-step030": 2,
+      "solve-only-step060": 3
+    },
+    "mathematics / main": {
+      "n": 4,
+      "candidate-step030": 3,
+      "mixed-step060": 4,
+      "solve-only-step030": 3,
+      "solve-only-step060": 3
+    },
+    "physics / advanced": {
+      "n": 4,
+      "candidate-step030": 2,
+      "mixed-step060": 2,
+      "solve-only-step030": 2,
+      "solve-only-step060": 2
+    },
+    "physics / main": {
+      "n": 4,
+      "candidate-step030": 4,
+      "mixed-step060": 4,
+      "solve-only-step030": 3,
+      "solve-only-step060": 3
+    }
+  },
+  "identical_draft_grades_reconciled": 0,
+  "common_review_source_sha256": "a02139da12d25f42fbe882e9a88f45e3f90137dbc2f4a898869b5ca2774a0846",
+  "duplicate_final_offline_diagnostic": {
+    "scope": "Offline deletion-only interpretation of the 96 actual H0 terminal outputs on 24 reused question images. Zero model calls, no released scores changed.",
+    "method": "Each marker must stand alone on its line and carry the same parsed JSON object with valid question-specific type and format. Preserve the last marker and every nonmarker line. Reapply the original conditional H0 normalizer and scorer. Numeric strings and option order must be identical.",
+    "counts": {
+      "candidate-step030": {
+        "baseline_correct": 19,
+        "failed_duplicates_now_correct": 0,
+        "hypothetical_correct_after_deletion_only": 19
+      },
+      "mixed-step060": {
+        "baseline_correct": 18,
+        "failed_duplicates_now_correct": 1,
+        "hypothetical_correct_after_deletion_only": 19
+      },
+      "solve-only-step030": {
+        "baseline_correct": 17,
+        "failed_duplicates_now_correct": 0,
+        "hypothetical_correct_after_deletion_only": 17
+      },
+      "solve-only-step060": {
+        "baseline_correct": 17,
+        "failed_duplicates_now_correct": 1,
+        "hypothetical_correct_after_deletion_only": 18
+      }
+    },
+    "source_sha256": "18a3c89ffecf79e4d695e3545b09e2f73f6f0d096d0d25a5d09e94381cf5ca24"
+  }
+}

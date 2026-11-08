@@ -8,6 +8,8 @@ On the same 24 question texts with the same H0 submission rule, Qwen 4B step 30 
 
 On the same 24 JEE question images, Qwen 4B answered 15 correctly before training, 19 after mixed training and 17 after training on full solutions alone. The mixed and solve-only adapters trained on the same 30 source problems. Their correct answers with sufficient working numbered 12 and 11, respectively. The mixed adapter remains the current checkpoint. [Training results and paired comparison](research/QWEN4B_SOLVE_ONLY_2026_11_08.md).
 
+After 30 more training problems, the original mixed Qwen 4B went from 19/24 to 18/24 correct on the same JEE question images. The worked-solutions-only model stayed at 17/24, with correct answers backed by sufficient working rising from 10 to 12 on the paired review. Mixed step 30 remains the reference. [Four-checkpoint comparison](research/QWEN4B_TWO_RECIPES_STEP60_2026_11_08.md).
+
 | Stage | What changed | What we learned |
 |---|---|---|
 | Training engineering smoke | Six optimizer updates on image-plus-text repair examples | LoRA updates, loss calculation, checkpointing and restart worked. This was not an accuracy test. |
