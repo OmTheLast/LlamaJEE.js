@@ -125,13 +125,14 @@ export class Qwen4B {
       `This browser release allows ${this.maxInputTokens.toLocaleString()} input tokens per stage; this request needs ${ids.length.toLocaleString()}. Nothing was truncated. Shorten the question or use the original approach without recovery.`, 'CONTEXT_LIMIT');
     return ids;
   }
-  async generate({ userText, assistantPrefix = '', maxTokens = 768, deadlineMs = 120000, signal, onToken = () => {} }) {
+  async generate({ userText, assistantPrefix = '', maxTokens = 768, deadlineMs = 120000, signal, onProgress, onToken = () => {} }) {
     await this.load();
     const inputIds = this.prepare(userText, assistantPrefix), ids = [...inputIds], plen = ids.length;
+    onProgress?.({ phase: 'reading', processed: 0, total: plen });
     const adapters = await this.adapter(this.checkpoint, signal), cfg = this.manifest.config;
     const states = cfg.layer_types.map((kind) => kind === 'linear_attention'
       ? [zero([1, 8192, 4]), zero([1, 32, 128, 128])] : [zero([1, 4, 0, 256]), zero([1, 4, 0, 256])]);
-    const generatedIds = [], start = performance.now(), timeLimit = Math.min(120000, deadlineMs);
+    const generatedIds = [], start = performance.now(), timeLimit = onProgress ? (deadlineMs ?? Infinity) : Math.min(120000, deadlineMs ?? 120000);
     maxTokens = Math.min(1280, Math.max(1, maxTokens));
     let hidden = null, finishReason = 'length', text = '', processedInputTokens = 0, firstTokenScore = null;
     this.callCount++;
@@ -152,7 +153,11 @@ export class Qwen4B {
             hidden = out.hidden_out;
             states[i] = recurrent ? [out.conv_out, out.state_out] : [out.key_out, out.value_out];
           }
-          if (pos < plen) processedInputTokens++;
+          if (pos < plen) {
+            processedInputTokens++;
+            onProgress?.({ phase: 'reading', processed: processedInputTokens, total: plen });
+            if (pos === plen - 1) onProgress?.({ phase: 'writing', processed: 0, total: maxTokens });
+          }
           if (pos >= plen - 1) {
             let best = -Infinity, id = 0;
             for (let i = 0; i < 16; i++) {
@@ -164,12 +169,13 @@ export class Qwen4B {
             if (!Number.isFinite(best)) throw new Error('The device returned invalid model scores. Release and reload the model.');
             if (firstTokenScore === null) firstTokenScore = { id, logit: best };
             generatedIds.push(id); text = this.tokenizer.decode(generatedIds, { skip_special_tokens: true });
+            onProgress?.({ phase: 'writing', processed: generatedIds.length, total: maxTokens });
             await onToken(text);
             if ([248044, 248046].includes(id)) { finishReason = 'stop'; break; }
             if (repeatingTail(generatedIds)) { finishReason = 'repetition'; break; }
             if (generatedIds.length >= maxTokens) break;
             ids.push(id);
-          } else if (pos % 10 === 0) this.status(`Reading this stage: ${pos + 1} / ${plen} input tokens…`);
+          } else if (!onProgress && pos % 10 === 0) this.status(`Reading this stage: ${pos + 1} / ${plen} input tokens…`);
         } finally { hidden?.dispose(); hidden = null; cos.dispose(); sin.dispose(); }
       }
       return { text, finishReason, stopReason: finishReason, tokens: generatedIds.length, generatedIds,

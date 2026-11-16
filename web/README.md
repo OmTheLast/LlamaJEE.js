@@ -5,6 +5,7 @@ Load a model, choose how it should work through the question, and enter a proble
 - [Open the solver](https://ompatnaik.com/llamajee/)
 - [Alternate address](https://llamajee.ompatnaik.com/)
 - [Harness code and completed comparison](../harnesses/README.md)
+- [Chrome test of reading, writing and timeout behavior](../research/BROWSER_PROGRESS_2026_11_16.md)
 
 ## Models
 
@@ -38,7 +39,9 @@ These are browser adaptations of the completed native comparison. Browser prompt
 
 The direct output choices are 128, 384, **768 by default**, or 1,280 tokens. A token is a small piece of text. H0 may add 96 output tokens. H1 allows 512 continuation tokens plus 96 submission tokens. H2 allows 96 state tokens, 416 recovery tokens and 96 submission tokens, with the documented fallback policy.
 
-The 4B runtime accepts at most 1,536 prepared input tokens per stage, including any continued assistant response. It rejects larger inputs rather than truncating the question. Each 4B stage is bounded to 120 seconds; the state and submission stages have their shorter 90-second limits. Repetition detection also stops recurring token spans. These are application limits, not claims about the model's maximum context.
+For either 4B checkpoint, the page shows how many input tokens the model has read, then how many output tokens it has written. The timer restarts each time either count advances. A stage stops after two minutes without an advancing token count. Active reading and writing can continue until the stage finishes or reaches its token limit. A recovery stage gets its own timer and progress counts. You can stop a run at any time.
+
+Each 4B stage accepts up to 1,536 prepared input tokens, including a previous draft when recovery is requested. An oversized input shows an error. Repeated output can also stop generation. If a run stops, you can read any working it has already produced.
 
 New recovery approaches on the older models also use bounded stages. The original 9B one-response option retains its earlier ten-minute generation limit and 1,536-token input bound. The original 0.8B option has a ten-minute controller bound.
 

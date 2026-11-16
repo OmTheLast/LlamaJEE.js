@@ -1,4 +1,5 @@
 import { PROMPTS } from './prompts.js';
+import { stageWatchdog } from './stage-watchdog.js';
 
 export const HARNESS_VERSION = 'recovery01-portable-v1';
 export const MODES = Object.freeze(['direct', 'h0', 'h1', 'h2']);
@@ -95,13 +96,17 @@ function receipt(raw, maxTokens) {
  * and keep the model/adapter fixed for this entire invocation. No grading callback exists.
  */
 export async function runHarness({ mode = 'h0', question, generate, signal, onEvent = () => {}, directMaxTokens = 4096,
-  directPrompt, initialDraft, initialH0, images = [], maxStageMs = Infinity, directDeadlineMs = DEADLINES_MS.direct } = {}) {
+  directPrompt, initialDraft, initialH0, images = [], progressTimeout, maxStageMs = Infinity, directDeadlineMs = DEADLINES_MS.direct } = {}) {
   if (!MODES.includes(mode)) throw new TypeError('Unknown harness mode.');
   if (typeof generate !== 'function') throw new TypeError('A generation adapter is required.');
   if (!Number.isInteger(directMaxTokens) || directMaxTokens < 1 || directMaxTokens > 4096) throw new TypeError('directMaxTokens must be 1–4096.');
   if (!(maxStageMs > 0)) throw new TypeError('maxStageMs must be positive.');
   if (!Number.isFinite(directDeadlineMs) || directDeadlineMs <= 0 || directDeadlineMs > 600000) throw new TypeError('directDeadlineMs must be positive and at most 600000.');
   if (mode !== 'direct' && directDeadlineMs !== DEADLINES_MS.direct) throw new TypeError('The legacy direct deadline override is only available in direct mode.');
+  if (progressTimeout && (!Number.isSafeInteger(progressTimeout.idleMs) ||
+      progressTimeout.idleMs < 1 || progressTimeout.idleMs > 2147483647)) {
+    throw new TypeError('The idle timeout must be a positive timer delay in milliseconds.');
+  }
   const prompts = makePrompts(question, directPrompt);
   const stages = [], warnings = [];
   const harnessId = HARNESS_VERSION + ':' + mode;
@@ -115,37 +120,59 @@ export async function runHarness({ mode = 'h0', question, generate, signal, onEv
     if (signal?.aborted) throw interrupted('ABORTED', 'Cancelled by user.');
     activeStage = stage; partial = '';
     const maxTokens = stage === 'direct' ? directMaxTokens : BUDGETS[stage];
-    const deadlineMs = Math.min(stage === 'direct' ? directDeadlineMs : DEADLINES_MS[stage], maxStageMs);
+    const fixedDeadline = stage === 'direct' ? directDeadlineMs : DEADLINES_MS[stage];
+    const limitMs = progressTimeout ? maxStageMs : Math.min(fixedDeadline, maxStageMs);
+    const deadlineMs = Number.isFinite(limitMs) ? limitMs : null;
+    const idleTimeoutMs = progressTimeout?.idleMs;
     const controller = new AbortController();
     let rejectStop;
     const stop = new Promise((_, reject) => { rejectStop = reject; });
-    const abort = () => { controller.abort(); rejectStop(interrupted('ABORTED', 'Cancelled by user.')); };
+    const halt = (code, message) => {
+      if (controller.signal.aborted) return;
+      const error = interrupted(code, message);
+      rejectStop(error);
+      controller.abort(error);
+    };
+    const abort = () => halt('ABORTED', 'Cancelled by user.');
     signal?.addEventListener('abort', abort, { once: true });
-    const timer = setTimeout(() => { controller.abort(); rejectStop(interrupted('DEADLINE', 'Stage deadline reached.')); }, deadlineMs);
+    const clock = stageWatchdog({ deadlineMs, idleTimeoutMs, maxTokens, onTimeout: halt,
+      onProgress: progress => emit({ type: 'stage-progress', stage, ...progress }) });
     emit({ type: 'stage-start', stage, maxTokens, deadlineMs });
     const started = performance.now();
     try {
-      const pending = Promise.resolve().then(() => generate({ stage, userText, assistantPrefix, maxTokens, deadlineMs,
-        signal: controller.signal, images, temperature: 0, enableThinking: false,
-        onToken: text => {
-          if (controller.signal.aborted) return;
-          partial += String(text);
-          if (partial.length > MAX_TEXT_CHARS) { controller.abort(); rejectStop(interrupted('OUTPUT_LIMIT', 'Response exceeded the size guard.')); return; }
-          emit({ type: 'token', stage, text: String(text) });
-        } }));
+      const pending = Promise.resolve().then(() => {
+        controller.signal.throwIfAborted();
+        return generate({
+          stage, userText, assistantPrefix, maxTokens, deadlineMs,
+          signal: controller.signal, images, temperature: 0, enableThinking: false,
+          onProgress: idleTimeoutMs ? progress => { if (!controller.signal.aborted) clock.progress(progress); } : undefined,
+          onToken: text => {
+            if (controller.signal.aborted) return;
+            partial += String(text);
+            if (partial.length > MAX_TEXT_CHARS) { halt('OUTPUT_LIMIT', 'Response exceeded the size guard.'); return; }
+            emit({ type: 'token', stage, text: String(text) });
+          },
+        });
+      });
       const raw = await Promise.race([pending, stop]);
+      if (idleTimeoutMs) { clock.check(); controller.signal.throwIfAborted(); }
       if (typeof raw?.text === 'string') partial = raw.text;
       const value = receipt(raw, maxTokens);
       if (signal?.aborted) throw interrupted('ABORTED', 'Cancelled by user.');
       const record = { ...value, stage, status: 'completed', maxTokens, deadlineMs, assistantPrefix,
         userText, measuredSeconds: (performance.now() - started) / 1000 };
+      if (idleTimeoutMs) Object.assign(record, { idleTimeoutMs, progress: clock.latest });
       stages.push(record); emit({ type: 'stage-complete', stage, receipt: record }); return record;
     } catch (error) {
+      // A backend can fail at the same instant as a delayed browser timer.
+      if (idleTimeoutMs && !controller.signal.aborted) clock.check();
+      if (controller.signal.aborted && controller.signal.reason?.code) error = controller.signal.reason;
       controller.abort();
       stages.push({ stage, status: 'interrupted', code: error.code || error.name, partialText: partial, maxTokens, deadlineMs,
+        ...(idleTimeoutMs ? { idleTimeoutMs, progress: clock.latest } : {}),
         userText, assistantPrefix, measuredSeconds: (performance.now() - started) / 1000 });
       throw error;
-    } finally { clearTimeout(timer); signal?.removeEventListener('abort', abort); }
+    } finally { clock.close(); signal?.removeEventListener('abort', abort); }
   }
 
   async function submit(text) {

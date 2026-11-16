@@ -77,6 +77,7 @@ self.onmessage = async ({ data }) => {
   if (busy) { post({ type: 'error', message: 'A model operation is already running.' }); return; }
   busy = true;
   const pending = new Set();
+  let draining = false;
   try {
     const checkpoint = data.checkpoint || '4b-step30';
     if (data.type === 'solve') activeAbort = new AbortController();
@@ -116,7 +117,8 @@ self.onmessage = async ({ data }) => {
     const result = await runHarness({ mode: data.harness || 'direct', question: data.questionContract || data.prompt,
       directPrompt: data.prompt, directMaxTokens: data.maxNewTokens,
       directDeadlineMs: runtime !== '4b' && (data.harness || 'direct') === 'direct' ? 600000 : undefined,
-      maxStageMs: runtime !== '4b' && (data.harness || 'direct') === 'direct' ? 600000 : 120000,
+      progressTimeout: runtime === '4b' ? { idleMs: 120000 } : undefined,
+      maxStageMs: runtime === '4b' ? undefined : (data.harness || 'direct') === 'direct' ? 600000 : 120000,
       generate, signal: activeAbort.signal,
       onEvent: (event) => {
         if (event.type === 'stage-start') {
@@ -126,18 +128,26 @@ self.onmessage = async ({ data }) => {
           if (event.stage === 'submit') display += '\n\nFINAL_ANSWER:';
           else if (event.stage === 'recover') display += '\n\nRecovery working:\n';
         }
+        if (event.type === 'stage-progress') {
+          post({ type: 'solve-progress', stage: event.stage, phase: event.phase, processed: event.processed, total: event.total });
+        }
         if (event.type === 'token' && event.stage !== 'state') { display += event.text; post({ type: 'token', fullText: display }); }
       } });
-    // Wait for cooperative backend cleanup before accepting another request.
-    await Promise.allSettled([...pending]);
+    // Show a 4B interruption immediately, even if the last WebGPU dispatch is still outstanding.
+    draining = runtime === '4b' && result.status !== 'completed' && pending.size > 0;
+    if (!draining) await Promise.allSettled([...pending]);
     const text = result.terminalText && result.terminalText !== result.workingText
       ? `${result.workingText}\n\n${result.terminalText}` : result.workingText || result.text;
     const completed = result.stages.filter((stage) => stage.status === 'completed');
     const seconds = result.stages.reduce((sum, stage) => sum + (stage.measuredSeconds || 0), 0);
-    post({ type: 'complete', text, harness: result, warnings: result.warnings,
+    post({ type: 'complete', draining, text, harness: result, warnings: result.warnings,
       tokens: result.status === 'completed' ? completed.reduce((sum, stage) => sum + stage.tokens, 0) : null, seconds,
       stopReason: result.status === 'cancelled' ? 'cancelled' : result.status === 'blocked' ? 'blocked' : result.finishReason,
       checkpoint, runtime, modelLoads: small?.loadCount, lastStage });
   } catch (error) { post({ type: 'error', message: String(error?.message || error) }); }
-  finally { await Promise.allSettled([...pending]); activeAbort = null; generationSink = null; busy = false; }
+  finally {
+    await Promise.allSettled([...pending]);
+    activeAbort = null; generationSink = null; busy = false;
+    if (draining) post({ type: 'drain-complete' });
+  }
 };

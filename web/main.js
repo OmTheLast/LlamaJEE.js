@@ -11,11 +11,13 @@ const modelName = () => QWEN4B_MODELS[selection()] || ARCHIVED_MODELS[selection(
 let modelReady = false;
 let modelLoading = false;
 let solving = false;
+let draining = false;
 let selectedFile = null;
 let previewUrl = null;
 let streamed = '';
 let currentAnswerType = 'infer';
 let currentQuestion = '';
+let lastSolveProgress = null;
 const fileProgress = new Map();
 
 function state(label, kind = '') {
@@ -26,19 +28,21 @@ function status(message) { $('model-status').textContent = message; }
 function refreshControls() {
   $('load-button').disabled = !navigator.gpu || modelReady || modelLoading || solving;
   $('load-button').textContent = modelReady ? 'Model loaded' : modelLoading ? 'Loading model…' : 'Download and load model';
-  $('solve-button').disabled = !modelReady || solving;
-  $('model-choice').disabled = modelLoading || solving;
-  $('harness-choice').disabled = modelLoading || solving;
+  $('solve-button').disabled = !modelReady || solving || draining;
+  $('model-choice').disabled = modelLoading || solving || draining;
+  $('harness-choice').disabled = modelLoading || solving || draining;
   $('cancel-button').disabled = !solving;
   $('stop-button').disabled = !modelLoading && !solving && !modelReady;
 }
 function showError(message) {
   modelLoading = false;
   solving = false;
+  $('solve-progress').hidden = true;
   state('Needs attention', 'error');
   status(message);
   $('result-empty').hidden = true;
   $('result-content').hidden = false;
+  $('working-label').hidden = !streamed.trim();
   $('raw-output').textContent = streamed || message;
   refreshControls();
 }
@@ -51,11 +55,75 @@ function showProgress({ file, loaded, total }) {
   status(`Downloading ${file.split('/').at(-1)} · ${Math.round(loaded / 1e6)} / ${Math.round(total / 1e6)} MB (this file)`);
 }
 
+const stagePhases = {
+  direct: ['Reading the question', 'Writing the answer'],
+  plain: ['Reading the question and draft', 'Continuing the answer'],
+  state: ['Reading the question and draft', 'Identifying the remaining task'],
+  recover: ['Reading the question and task', 'Working on the remaining task'],
+  submit: ['Reading the draft for a final answer', 'Writing the final answer'],
+};
+
+function showSolveProgress(progress) {
+  const { phase, stage, processed, total } = progress;
+  const reading = phase === 'reading';
+  const label = stagePhases[stage][reading ? 0 : 1];
+  const heading = $('solve-phase');
+  // Only announce phase changes. The live token count remains available on demand.
+  if (heading.textContent !== label || lastSolveProgress?.stage !== stage) {
+    heading.textContent = label;
+    status(label + '…');
+  }
+  $('solve-progress').hidden = false;
+  $('solve-count').textContent = reading
+    ? `${processed} of ${total} input tokens`
+    : `${processed} tokens written · limit ${total}`;
+  const bar = $('reading-progress');
+  bar.hidden = !reading;
+  if (reading) { bar.max = total; bar.value = processed; }
+  lastSolveProgress = progress;
+}
+
+function showInterruption(data, raw) {
+  const { status: outcome, errorCode, interruptedStage, stages } = data.harness;
+  const record = stages?.at(-1);
+  const progress = record?.progress || (lastSolveProgress?.stage === interruptedStage ? lastSolveProgress : null);
+  const phase = progress && stagePhases[interruptedStage]?.[progress.phase === 'reading' ? 0 : 1];
+  const when = phase ? ' while ' + phase.toLowerCase() : '';
+  const elapsed = Number.isFinite(data.seconds) ? ` · ${data.seconds.toFixed(1)} s` : '';
+  $('output-model').textContent += elapsed;
+  const reasons = {
+    STALL_TIMEOUT: 'The model stopped making progress' + when + '.',
+    HARD_TIMEOUT: 'The stage reached its maximum time' + when + '.',
+    DEADLINE: 'The stage reached its time limit' + when + '.',
+    TIME_LIMIT: 'The stage reached its time limit' + when + '.',
+    REPETITION: 'The model stopped after repeating its working.',
+  };
+  let reason = reasons[errorCode] || data.harness.warnings?.at(-1)?.replace(/ Saved working is unverified; no successful recovery is claimed\.$/, '') || 'Generation stopped.';
+  if (outcome === 'cancelled') reason = 'You stopped generation.';
+  const hasWorking = Boolean(raw.trim());
+  const notice = $('format-checks');
+  notice.hidden = false;
+  notice.textContent = reason + (hasWorking ? ' The partial working is shown below.' : ' No answer text was returned.');
+  $('working-label').hidden = !hasWorking;
+  $('working-label').textContent = 'Partial working · unverified';
+  $('final-card').hidden = true;
+  state(outcome === 'cancelled' ? 'Stopped' : 'Interrupted', 'error');
+  status(draining ? 'Waiting for the device to finish the last operation. You can release the model now.' : 'The model is still loaded. You can generate another answer.');
+}
+
 function createWorker() {
 worker = new Worker(new URL('./model.worker.js', import.meta.url), { type: 'module' });
-worker.addEventListener('message', ({ data }) => {
+worker.addEventListener('message', ({ data, currentTarget }) => {
+  if (currentTarget !== worker) return;
+  if (data.type === 'drain-complete') {
+    draining = false;
+    status('The model is ready for another question.');
+    refreshControls();
+    return;
+  }
   if (data.type === 'status') status(data.message);
   if (data.type === 'progress') showProgress(data);
+  if (data.type === 'solve-progress' && solving) showSolveProgress(data);
   if (data.type === 'ready') {
     modelReady = true;
     modelLoading = false;
@@ -68,16 +136,26 @@ worker.addEventListener('message', ({ data }) => {
     streamed = data.fullText ?? (streamed + (data.text || ''));
     $('result-empty').hidden = true;
     $('result-content').hidden = false;
+    $('working-label').hidden = !streamed.trim();
     $('raw-output').textContent = streamed;
     $('raw-output').scrollTop = $('raw-output').scrollHeight;
   }
   if (data.type === 'complete') {
     solving = false;
     $('download-track').hidden = true;
-    const raw = data.text || streamed;
-    if (typeof data.tokens === 'number') $('output-model').textContent += ` · ${data.tokens} tokens · ${data.seconds.toFixed(1)} s`;
-    $('result-content').dataset.modelLoads = String(data.modelLoads ?? '');
+    $('solve-progress').hidden = true;
+    draining = Boolean(data.draining);
+    const interrupted = ['cancelled', 'blocked'].includes(data.harness?.status);
+    const raw = interrupted ? streamed || data.text || '' : data.text || streamed;
     $('raw-output').textContent = raw;
+    $('working-label').hidden = !raw.trim();
+    $('result-content').dataset.modelLoads = String(data.modelLoads ?? '');
+    if (interrupted) {
+      showInterruption(data, raw);
+      refreshControls();
+      return;
+    }
+    if (typeof data.tokens === 'number') $('output-model').textContent += ` · ${data.tokens} tokens · ${data.seconds.toFixed(1)} s`;
     const check = inspectSolution(raw, currentAnswerType);
     const finalDisplay = displayFinalAnswer(check.final);
     const calculation = checkRestAccelerationDisplacement(currentQuestion, finalDisplay);
@@ -90,14 +168,14 @@ worker.addEventListener('message', ({ data }) => {
     $('format-checks').replaceChildren();
     if (issues.length) {
       const title = document.createElement('strong');
-      title.textContent = 'Items to check:';
+      title.textContent = 'Items to check';
       const list = document.createElement('ul');
       for (const issue of issues) { const item = document.createElement('li'); item.textContent = issue; list.append(item); }
       $('format-checks').append(title, list);
     }
     const needsReview = !check.formatComplete || issues.length > 0;
     state(needsReview ? 'Review needed' : 'Finished · unverified', needsReview ? 'error' : 'active');
-    status(data.harness?.status === 'cancelled' ? 'Stopped. Saved working is unverified. The model is still loaded.' : data.harness?.status === 'blocked' ? 'The selected approach stopped at a limit. Saved working remains available and is unverified.' : calculation?.issue ? 'A narrow independent browser calculation disagrees with the model. Inspect the working.' : `Completed. ${check.formatComplete ? 'The requested sections are present.' : 'Some requested sections are missing.'} Most mathematical steps remain unverified.`);
+    status(calculation?.issue ? 'A narrow independent browser calculation disagrees with the model. Inspect the working.' : `Completed. ${check.formatComplete ? 'The requested sections are present.' : 'Some requested sections are missing.'} Most mathematical steps remain unverified.`);
     refreshControls();
   }
   if (data.type === 'error') showError(data.message);
@@ -105,8 +183,8 @@ worker.addEventListener('message', ({ data }) => {
 worker.addEventListener('error', (error) => showError(`Model worker failed: ${error.message}`));
 }
 function resetWorker() {
-  worker?.terminate(); createWorker(); modelReady = false; modelLoading = false; solving = false;
-  fileProgress.clear(); $('download-track').hidden = true; refreshControls();
+  worker?.terminate(); createWorker(); modelReady = false; modelLoading = false; solving = false; draining = false;
+  fileProgress.clear(); $('download-track').hidden = true; $('solve-progress').hidden = true; refreshControls();
 }
 createWorker();
 function describeModel() {
@@ -178,7 +256,7 @@ $('example-button').addEventListener('click', () => {
 });
 $('solve-form').addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!modelReady || solving) return;
+  if (!modelReady || solving || draining) return;
   const question = $('question').value.trim();
   if (runtimeFor(selection()) === '4b' && selectedFile) return showError('The 4B browser release accepts text only. Remove the image and paste the full question, or select a 9B/0.8B model.');
   if (question.length > MAX_QUESTION_CHARS) return showError(`Keep the question under ${MAX_QUESTION_CHARS} characters.`);
@@ -192,6 +270,11 @@ $('solve-form').addEventListener('submit', async (event) => {
   const classification = suggestSubject(question, $('subject').value);
   const imageBuffer = selectedFile ? await selectedFile.arrayBuffer() : null;
   streamed = '';
+  lastSolveProgress = null;
+  $('solve-progress').hidden = true;
+  $('solve-phase').textContent = '';
+  $('working-label').textContent = 'Model explanation';
+  $('working-label').hidden = true;
   $('raw-output').textContent = '';
   $('final-card').hidden = true;
   $('format-checks').hidden = true;

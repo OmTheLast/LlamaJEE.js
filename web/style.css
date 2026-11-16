@@ -10,3 +10,9 @@
 .harness-control { margin: 1rem 0; }
 .harness-control select { width: 100%; }
 #image:disabled { opacity: .5; cursor: not-allowed; }
+
+.solve-progress { padding: 11px 13px; margin: 0 0 14px; background: var(--soft); border-radius: 4px; }
+.progress-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 10px; }
+#solve-phase { font-size: 14px; color: #244d51; }
+#solve-count { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#reading-progress { display: block; width: 100%; height: 6px; margin-top: 8px; accent-color: var(--accent); }
