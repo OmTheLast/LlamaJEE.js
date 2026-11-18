@@ -95,6 +95,7 @@ export function displayFinalAnswer(raw) {
     const value = JSON.parse(raw);
     if (typeof value === 'string') return value;
     if (value?.type === 'numeric' && typeof value.value === 'string') return value.value;
+    if (value?.type === 'text' && typeof value.value === 'string') return value.value;
     if (value?.type === 'options' && Array.isArray(value.selected_options) && value.selected_options.every((v) => typeof v === 'string')) return value.selected_options.join(', ');
     if (value?.type === 'abstain') return 'The model did not establish a supported answer.';
   } catch { /* Original free-text answers remain readable as supplied. */ }
@@ -109,6 +110,7 @@ export function inspectRecoveryAnswer(terminalText, answerType = 'infer') {
     const answer = JSON.parse(String(terminalText).replace(/^\s*FINAL_ANSWER:\s*/, ''));
     if (!answer || typeof answer !== 'object' || Array.isArray(answer)) return warning;
     if (answer.type === 'abstain' && Object.keys(answer).length === 1) return '';
+    if (answer.type === 'text' && Object.keys(answer).length === 2 && typeof answer.value === 'string' && answer.value.trim() && answerType === 'infer') return '';
     if (answer.type === 'numeric' && Object.keys(answer).length === 2 && typeof answer.value === 'string' && /^-?\d+(?:\.\d+)?$/.test(answer.value) && ['infer', 'numeric'].includes(answerType)) return '';
     const labels = answer.selected_options;
     if (answer.type === 'options' && Object.keys(answer).length === 2 && Array.isArray(labels) && labels.length > 0 && labels.every(v => typeof v === 'string' && v.trim()) && new Set(labels).size === labels.length && answerType !== 'numeric' && (answerType !== 'single' || labels.length === 1)) return '';

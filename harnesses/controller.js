@@ -96,9 +96,10 @@ function receipt(raw, maxTokens) {
  * and keep the model/adapter fixed for this entire invocation. No grading callback exists.
  */
 export async function runHarness({ mode = 'h0', question, generate, signal, onEvent = () => {}, directMaxTokens = 4096,
-  directPrompt, initialDraft, initialH0, images = [], progressTimeout, maxStageMs = Infinity, directDeadlineMs = DEADLINES_MS.direct } = {}) {
+  directPrompt, initialDraft, initialH0, images = [], progressTimeout, prepareSubmission, maxStageMs = Infinity, directDeadlineMs = DEADLINES_MS.direct } = {}) {
   if (!MODES.includes(mode)) throw new TypeError('Unknown harness mode.');
   if (typeof generate !== 'function') throw new TypeError('A generation adapter is required.');
+  if (prepareSubmission !== undefined && typeof prepareSubmission !== 'function') throw new TypeError('prepareSubmission must be a function.');
   if (!Number.isInteger(directMaxTokens) || directMaxTokens < 1 || directMaxTokens > 4096) throw new TypeError('directMaxTokens must be 1–4096.');
   if (!(maxStageMs > 0)) throw new TypeError('maxStageMs must be positive.');
   if (!Number.isFinite(directDeadlineMs) || directDeadlineMs <= 0 || directDeadlineMs > 600000) throw new TypeError('directDeadlineMs must be positive and at most 600000.');
@@ -116,7 +117,7 @@ export async function runHarness({ mode = 'h0', question, generate, signal, onEv
     terminalText: terminal?.text ?? '', workingText, finishReason: terminal?.finishReason ?? draft?.finishReason,
     stages, warnings, ...extra });
 
-  async function call(stage, userText, assistantPrefix = '') {
+  async function call(stage, userText, assistantPrefix = '', promptBudget) {
     if (signal?.aborted) throw interrupted('ABORTED', 'Cancelled by user.');
     activeStage = stage; partial = '';
     const maxTokens = stage === 'direct' ? directMaxTokens : BUDGETS[stage];
@@ -160,7 +161,8 @@ export async function runHarness({ mode = 'h0', question, generate, signal, onEv
       const value = receipt(raw, maxTokens);
       if (signal?.aborted) throw interrupted('ABORTED', 'Cancelled by user.');
       const record = { ...value, stage, status: 'completed', maxTokens, deadlineMs, assistantPrefix,
-        userText, measuredSeconds: (performance.now() - started) / 1000 };
+        userText, measuredSeconds: (performance.now() - started) / 1000,
+        ...(promptBudget ? { promptBudget } : {}) };
       if (idleTimeoutMs) Object.assign(record, { idleTimeoutMs, progress: clock.latest });
       stages.push(record); emit({ type: 'stage-complete', stage, receipt: record }); return record;
     } catch (error) {
@@ -170,13 +172,26 @@ export async function runHarness({ mode = 'h0', question, generate, signal, onEv
       controller.abort();
       stages.push({ stage, status: 'interrupted', code: error.code || error.name, partialText: partial, maxTokens, deadlineMs,
         ...(idleTimeoutMs ? { idleTimeoutMs, progress: clock.latest } : {}),
+        ...(promptBudget ? { promptBudget } : {}),
         userText, assistantPrefix, measuredSeconds: (performance.now() - started) / 1000 });
       throw error;
     } finally { clock.close(); signal?.removeEventListener('abort', abort); }
   }
 
   async function submit(text) {
-    const value = await call('submit', prompts.submit(text), FINAL_PREFIX);
+    activeStage = 'submit'; partial = '';
+    let prepared;
+    try {
+      prepared = prepareSubmission
+        ? prepareSubmission({ question, draft: text, assistantPrefix: FINAL_PREFIX })
+        : { userText: prompts.submit(text) };
+    } catch (error) {
+      stages.push({ stage: 'submit', status: 'interrupted', code: error.code || error.name,
+        preparationFailed: true, maxTokens: BUDGETS.submit, measuredSeconds: 0 });
+      throw error;
+    }
+    if (prepared.promptBudget?.omittedDraftCharacters) warnings.push('The final-answer step used a shortened copy of the draft to fit. The full working is shown below.');
+    const value = await call('submit', prepared.userText, FINAL_PREFIX, prepared.promptBudget);
     return { ...value, text: FINAL_PREFIX + value.text };
   }
   async function reference() {

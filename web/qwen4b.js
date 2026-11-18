@@ -116,11 +116,14 @@ export class Qwen4B {
     }
     return values;
   }
-  prepare(userText, assistantPrefix = '') {
+  encodePrompt(userText, assistantPrefix = '') {
     const chat = this.tokenizer.apply_chat_template([{ role: 'user', content: [{ type: 'text', text: userText }] }],
       { tokenize: false, add_generation_prompt: true, enable_thinking: false });
     // A literal assistant prefix continues the same response, not a new user turn.
-    const ids = this.tokenizer(chat + assistantPrefix, { add_special_tokens: false }).input_ids.tolist()[0].map(Number);
+    return this.tokenizer(chat + assistantPrefix, { add_special_tokens: false }).input_ids.tolist()[0].map(Number);
+  }
+  prepare(userText, assistantPrefix = '') {
+    const ids = this.encodePrompt(userText, assistantPrefix);
     if (ids.length > this.maxInputTokens) throw errorWithCode(
       `This browser release allows ${this.maxInputTokens.toLocaleString()} input tokens per stage; this request needs ${ids.length.toLocaleString()}. Nothing was truncated. Shorten the question or use the original approach without recovery.`, 'CONTEXT_LIMIT');
     return ids;

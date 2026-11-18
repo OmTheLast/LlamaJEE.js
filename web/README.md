@@ -6,6 +6,7 @@ Load a model, choose how it should work through the question, and enter a proble
 - [Alternate address](https://llamajee.ompatnaik.com/)
 - [Harness code and completed comparison](../harnesses/README.md)
 - [Chrome test of reading, writing and timeout behavior](../research/BROWSER_PROGRESS_2026_11_16.md)
+- [Final-answer input limit and Chrome retest](../research/BROWSER_ANSWER_ROOM_2026_11_18.md)
 
 ## Models
 
@@ -41,7 +42,9 @@ The direct output choices are 128, 384, **768 by default**, or 1,280 tokens. A t
 
 For either 4B checkpoint, the page shows how many input tokens the model has read, then how many output tokens it has written. The timer restarts each time either count advances. A stage stops after two minutes without an advancing token count. Active reading and writing can continue until the stage finishes or reaches its token limit. A recovery stage gets its own timer and progress counts. You can stop a run at any time.
 
-Each 4B stage accepts up to 1,536 prepared input tokens, including a previous draft when recovery is requested. An oversized input shows an error. Repeated output can also stop generation. If a run stops, you can read any working it has already produced.
+Each 4B stage accepts up to 1,536 prepared input tokens. Before a final-answer call, the browser counts the complete question, instructions, draft and chat formatting. It uses the full draft when it fits. If needed, it removes part of the draft's middle, keeps the opening and latest work, and shows a notice. The original working stays visible. A question too large to fit still shows an error. Repeated output can also stop generation.
+
+When the answer format is inferred, the final-answer step can return an equation, coordinates or a written answer. An explicit option or numeric format still requires that format. The final-answer step allows 96 output tokens separately from its input limit.
 
 New recovery approaches on the older models also use bounded stages. The original 9B one-response option retains its earlier ten-minute generation limit and 1,536-token input bound. The original 0.8B option has a ten-minute controller bound.
 

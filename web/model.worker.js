@@ -3,6 +3,7 @@ import { Qwen4B } from './qwen4b.js';
 import { ARCHIVE_ROOT } from './archive-config.js';
 import { QWEN4B_ROOT } from './qwen4b-config.js';
 import { runHarness } from '../harnesses/controller.js';
+import { prepareBrowserSubmission } from './recovery-prompt.js';
 import { AutoProcessor, Qwen3_5ForConditionalGeneration, RawImage, TextStreamer, InterruptableStoppingCriteria } from '@huggingface/transformers';
 import { MODEL_ID, MODEL_REVISION } from './harness.js';
 
@@ -118,6 +119,10 @@ self.onmessage = async ({ data }) => {
       directPrompt: data.prompt, directMaxTokens: data.maxNewTokens,
       directDeadlineMs: runtime !== '4b' && (data.harness || 'direct') === 'direct' ? 600000 : undefined,
       progressTimeout: runtime === '4b' ? { idleMs: 120000 } : undefined,
+      prepareSubmission: runtime === '4b' ? ({ question, draft, assistantPrefix }) => prepareBrowserSubmission({
+        question, draft, maxInputTokens: small.maxInputTokens,
+        countInputTokens: text => small.encodePrompt(text, assistantPrefix).length,
+      }) : undefined,
       maxStageMs: runtime === '4b' ? undefined : (data.harness || 'direct') === 'direct' ? 600000 : 120000,
       generate, signal: activeAbort.signal,
       onEvent: (event) => {
