@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-22",
+  "status": "Completed experimental comparison; no further training in this round.",
+  "dataset": {
+    "questions": 24,
+    "responses": 48,
+    "questions_per_subject_exam_cell": 4,
+    "numeric": 8,
+    "single_choice": 8,
+    "multiple_choice": 8,
+    "source_papers": 6,
+    "source_years": [
+      2015,
+      2016,
+      2025
+    ],
+    "freshness_scope": "Disjoint from the recorded target-model exposure ledger and frozen training/reserved-confirmation question IDs. Shared source papers and unknown base-pretraining exposure prevent an unseen-paper or unseen-pretraining claim.",
+    "reserved_confirmation_120_evaluated": false,
+    "reserved_2026_evaluated": false,
+    "difficulty_calibrated": false
+  },
+  "conditions": {
+    "model_family": "Qwen3.5-4B",
+    "base": "Browser base graph with zero adapter factors",
+    "adapted": "Original mixed step-30 adapter",
+    "execution": "Chrome WebGPU; text inputs; fresh generation state",
+    "model_repository": "OmTheLast/LlamaJEE-4B-ONNX-WebGPU",
+    "model_revision": "5871c9b3254effce078432f1ea98c4896c4a22d3",
+    "source_commit": "a4f698ac32ddd6765939bcd802e36d49912bfd34",
+    "harness": "h0",
+    "direct_output_budget": 1280,
+    "recovery_output_budget": 96,
+    "input_limit": 1536,
+    "greedy": true,
+    "thinking_enabled": false,
+    "order": "Alternating globally, 12 base-first and 12 step-first; not counterbalanced within subject/exam cells."
+  },
+  "models": {
+    "4b-base": {
+      "correct": 12,
+      "correct_and_supported": 9,
+      "format_valid": 16,
+      "correct_with_valid_format": 8,
+      "browser_format_accepted": 19,
+      "correct_with_browser_accepted_format": 10,
+      "draft_correct": 9,
+      "loop": 2,
+      "recovery": 16,
+      "direct_capped": 16,
+      "abstained": 1,
+      "missing_final": 0,
+      "procedure_distribution": {
+        "1": 12,
+        "2": 10,
+        "0": 2
+      },
+      "stage_calls": 40,
+      "failed_stage_calls": 0,
+      "answer_status": {
+        "invalid": 3,
+        "numeric": 6,
+        "abstain": 1,
+        "options": 10,
+        "manual": 4
+      },
+      "stop_reasons": {
+        "stop": 24
+      },
+      "harness_status": {
+        "completed": 24
+      },
+      "recovery_correct": 7,
+      "recovery_correct_and_supported": 4,
+      "recovery_gained_answer": 4,
+      "recovery_lost_answer": 0,
+      "total_output_tokens": 28269,
+      "processed_input_tokens": 31414,
+      "measured_stage_output_tokens": 28269,
+      "recovery_drafts_shortened": 4,
+      "recovery_draft_counters_missing": 0,
+      "omitted_draft_characters": 930,
+      "maximum_stage_input": 1536,
+      "median_seconds": 585.3009999999999,
+      "total_seconds": 12125.64
+    },
+    "4b-step30": {
+      "correct": 10,
+      "correct_and_supported": 8,
+      "format_valid": 17,
+      "correct_with_valid_format": 8,
+      "browser_format_accepted": 19,
+      "correct_with_browser_accepted_format": 9,
+      "draft_correct": 8,
+      "loop": 4,
+      "recovery": 16,
+      "direct_capped": 16,
+      "abstained": 2,
+      "missing_final": 0,
+      "procedure_distribution": {
+        "1": 12,
+        "0": 3,
+        "2": 9
+      },
+      "stage_calls": 40,
+      "failed_stage_calls": 0,
+      "answer_status": {
+        "abstain": 2,
+        "numeric": 6,
+        "invalid": 2,
+        "options": 10,
+        "manual": 4
+      },
+      "stop_reasons": {
+        "stop": 24
+      },
+      "harness_status": {
+        "completed": 24
+      },
+      "recovery_correct": 5,
+      "recovery_correct_and_supported": 3,
+      "recovery_gained_answer": 3,
+      "recovery_lost_answer": 0,
+      "total_output_tokens": 28171,
+      "processed_input_tokens": 31332,
+      "measured_stage_output_tokens": 28171,
+      "recovery_drafts_shortened": 3,
+      "recovery_draft_counters_missing": 0,
+      "omitted_draft_characters": 571,
+      "maximum_stage_input": 1536,
+      "median_seconds": 590.1479999999999,
+      "total_seconds": 11468.565
+    }
+  },
+  "paired": {
+    "both_correct": 10,
+    "base_only": 2,
+    "step30_only": 0,
+    "neither": 12
+  },
+  "subject_exam_cells": {
+    "physics/main": {
+      "4b-base": {
+        "correct": 2,
+        "correct_and_supported": 2,
+        "out_of": 4
+      },
+      "4b-step30": {
+        "correct": 2,
+        "correct_and_supported": 2,
+        "out_of": 4
+      }
+    },
+    "physics/advanced": {
+      "4b-base": {
+        "correct": 2,
+        "correct_and_supported": 1,
+        "out_of": 4
+      },
+      "4b-step30": {
+        "correct": 1,
+        "correct_and_supported": 1,
+        "out_of": 4
+      }
+    },
+    "chemistry/main": {
+      "4b-base": {
+        "correct": 2,
+        "correct_and_supported": 1,
+        "out_of": 4
+      },
+      "4b-step30": {
+        "correct": 2,
+        "correct_and_supported": 1,
+        "out_of": 4
+      }
+    },
+    "chemistry/advanced": {
+      "4b-base": {
+        "correct": 3,
+        "correct_and_supported": 3,
+        "out_of": 4
+      },
+      "4b-step30": {
+        "correct": 2,
+        "correct_and_supported": 2,
+        "out_of": 4
+      }
+    },
+    "mathematics/main": {
+      "4b-base": {
+        "correct": 3,
+        "correct_and_supported": 2,
+        "out_of": 4
+      },
+      "4b-step30": {
+        "correct": 3,
+        "correct_and_supported": 2,
+        "out_of": 4
+      }
+    },
+    "mathematics/advanced": {
+      "4b-base": {
+        "correct": 0,
+        "correct_and_supported": 0,
+        "out_of": 4
+      },
+      "4b-step30": {
+        "correct": 0,
+        "correct_and_supported": 0,
+        "out_of": 4
+      }
+    }
+  },
+  "answer_types": {
+    "numeric": {
+      "4b-base": {
+        "correct": 4,
+        "correct_and_supported": 3,
+        "format_valid": 5,
+        "out_of": 8
+      },
+      "4b-step30": {
+        "correct": 3,
+        "correct_and_supported": 2,
+        "format_valid": 5,
+        "out_of": 8
+      }
+    },
+    "single": {
+      "4b-base": {
+        "correct": 5,
+        "correct_and_supported": 4,
+        "format_valid": 6,
+        "out_of": 8
+      },
+      "4b-step30": {
+        "correct": 5,
+        "correct_and_supported": 4,
+        "format_valid": 6,
+        "out_of": 8
+      }
+    },
+    "multiple": {
+      "4b-base": {
+        "correct": 3,
+        "correct_and_supported": 2,
+        "format_valid": 5,
+        "out_of": 8
+      },
+      "4b-step30": {
+        "correct": 2,
+        "correct_and_supported": 2,
+        "format_valid": 6,
+        "out_of": 8
+      }
+    }
+  },
+  "paired_text_observation": {
+    "direct_pairs_available": 24,
+    "identical_direct_text": 16,
+    "direct_token_pairs_available": 24,
+    "identical_direct_token_ids": 16,
+    "identical_terminal_text": 17
+  },
+  "measurement_notes": [
+    "Correct means the delivered terminal answer passes the frozen scientific rule. Correct content left only in a draft does not rescue a wrong final.",
+    "Procedure 2 means decisive steps support the answer, not that every incidental sentence is certified.",
+    "Canonical formatting and browser format acceptance are distinct from scientific correctness.",
+    "Draft-to-recovery changes are descriptive transitions, not a causal H0-versus-no-H0 estimate.",
+    "Automated source-based review with identities hidden where practical; coordinator operational order access limits blinding. No expert human certification claimed.",
+    "Small balanced diagnostic, not a general JEE accuracy estimate or checkpoint-promotion test.",
+    "Timing includes orchestration on a shared Mac under variable load; it is not a controlled speed comparison. Exact cached model files used local static transport; inference ran in Chrome."
+  ],
+  "evidence_hashes": {
+    "frozen_sha256": "e742f9a684191ee4329be7e55f4c566d32e54adc7423e2a3957150bc10efdd0d",
+    "rubric_sha256": "21352531cf1027fb5752585392c232975ff427ddecd629f65dc91906e2eb753e",
+    "extractor_sha256": "f4bc060d31fb09cdecbf879f765e0ee1da32f585dcd73cb8f07509e9a9d5f811",
+    "aggregation_sha256": "ccd5a399e3d1ced4fa3ccc7107e9de6556c2648f99438b109e5727da001e2bb1",
+    "input_source_sha256": "1d28698ad75c7d0defb6a84cbf76f001c1e477907cbed31e23e80dff2edb9195"
+  }
+}
