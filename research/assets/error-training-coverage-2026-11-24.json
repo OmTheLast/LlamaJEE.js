@@ -1,0 +1,336 @@
+{
+  "summary": {
+    "date": "2026-11-24",
+    "analysis_only": true,
+    "new_inference_or_training": false,
+    "score_change": false,
+    "composition": {
+      "release120": {
+        "denominator": 120,
+        "format": {
+          "single": 69,
+          "multiple": 23,
+          "numeric": 24,
+          "matching": 3,
+          "unknown": 1
+        },
+        "subject_exam": {
+          "chemistry/advanced": 20,
+          "chemistry/main": 20,
+          "mathematics/advanced": 20,
+          "mathematics/main": 20,
+          "physics/advanced": 20,
+          "physics/main": 20
+        }
+      },
+      "consumed30": {
+        "denominator": 30,
+        "format": {
+          "single": 19,
+          "multiple": 4,
+          "numeric": 6,
+          "matching": 1
+        },
+        "subject_exam": {
+          "chemistry/advanced": 5,
+          "chemistry/main": 5,
+          "mathematics/advanced": 5,
+          "mathematics/main": 5,
+          "physics/advanced": 5,
+          "physics/main": 5
+        }
+      },
+      "test24": {
+        "denominator": 24,
+        "format": {
+          "numeric": 8,
+          "single": 8,
+          "multiple": 8
+        },
+        "subject_exam": {
+          "physics/main": 4,
+          "chemistry/main": 4,
+          "mathematics/main": 4,
+          "physics/advanced": 4,
+          "chemistry/advanced": 4,
+          "mathematics/advanced": 4
+        }
+      }
+    },
+    "misses": {
+      "physics/main": {
+        "tested": 4,
+        "4b-base": 2,
+        "4b-step30": 2
+      },
+      "physics/advanced": {
+        "tested": 4,
+        "4b-base": 2,
+        "4b-step30": 3
+      },
+      "chemistry/main": {
+        "tested": 4,
+        "4b-base": 2,
+        "4b-step30": 2
+      },
+      "chemistry/advanced": {
+        "tested": 4,
+        "4b-base": 1,
+        "4b-step30": 2
+      },
+      "mathematics/main": {
+        "tested": 4,
+        "4b-base": 1,
+        "4b-step30": 1
+      },
+      "mathematics/advanced": {
+        "tested": 4,
+        "4b-base": 4,
+        "4b-step30": 4
+      },
+      "numeric": {
+        "tested": 8,
+        "4b-base": 4,
+        "4b-step30": 5
+      },
+      "single": {
+        "tested": 8,
+        "4b-base": 3,
+        "4b-step30": 3
+      },
+      "multiple": {
+        "tested": 8,
+        "4b-base": 5,
+        "4b-step30": 6
+      }
+    },
+    "overall": {
+      "tested": 24,
+      "base_misses": 12,
+      "step30_misses": 14,
+      "shared_misses": 12,
+      "new_step30_misses": 2,
+      "step30_only_correct": 0
+    },
+    "limits": [
+      "Source answer format, not the format of a teaching view.",
+      "Training counts refer to families, not independent teaching views.",
+      "Topic labels are provisional; same chapter does not establish the same method.",
+      "This comparison cannot identify the cause of errors or calibrate difficulty.",
+      "The benchmark questions remain reserved; this analysis does not add them to training."
+    ]
+  },
+  "primary_chapter_groups": {
+    "primary_chapter_present": {
+      "tested_questions": 11,
+      "base_misses": 6,
+      "step30_misses": 7
+    },
+    "no_primary_chapter_match": {
+      "tested_questions": 13,
+      "base_misses": 6,
+      "step30_misses": 7
+    }
+  },
+  "failure_categories": {
+    "4b-base": {
+      "scientific_or_assumption_error": 5,
+      "unfinished_solve": 3,
+      "abstention": 1,
+      "wrong_requested_quantity": 1,
+      "invalid_empty_selection": 1,
+      "arithmetic_or_algebra_error": 1
+    },
+    "4b-step30": {
+      "scientific_or_assumption_error": 5,
+      "unfinished_solve": 4,
+      "abstention": 2,
+      "wrong_requested_quantity": 1,
+      "invalid_empty_selection": 1,
+      "arithmetic_or_algebra_error": 1
+    }
+  },
+  "topic_comparison": [
+    {
+      "subject": "physics",
+      "primary_chapter": "Atomic and nuclear physics",
+      "training30_families": 0,
+      "release120_families": 2,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "physics",
+      "primary_chapter": "Current electricity",
+      "training30_families": 0,
+      "release120_families": 2,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "physics",
+      "primary_chapter": "Fluids",
+      "training30_families": 0,
+      "release120_families": 3,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "physics",
+      "primary_chapter": "Gravitation",
+      "training30_families": 1,
+      "release120_families": 2,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "physics",
+      "primary_chapter": "Magnetism and induction",
+      "training30_families": 0,
+      "release120_families": 1,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "physics",
+      "primary_chapter": "Optics",
+      "training30_families": 1,
+      "release120_families": 2,
+      "test_questions": 2,
+      "base_misses": 1,
+      "step30_misses": 2
+    },
+    {
+      "subject": "physics",
+      "primary_chapter": "Oscillations and waves",
+      "training30_families": 0,
+      "release120_families": 3,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "chemistry",
+      "primary_chapter": "Atomic structure",
+      "training30_families": 1,
+      "release120_families": 2,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "chemistry",
+      "primary_chapter": "Chemical bonding",
+      "training30_families": 0,
+      "release120_families": 1,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 1
+    },
+    {
+      "subject": "chemistry",
+      "primary_chapter": "Coordination compounds",
+      "training30_families": 0,
+      "release120_families": 2,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "chemistry",
+      "primary_chapter": "Organic reaction mechanisms",
+      "training30_families": 0,
+      "release120_families": 4,
+      "test_questions": 2,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "chemistry",
+      "primary_chapter": "Solutions",
+      "training30_families": 1,
+      "release120_families": 2,
+      "test_questions": 2,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "chemistry",
+      "primary_chapter": "d- and f-block elements",
+      "training30_families": 0,
+      "release120_families": 2,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Conic sections",
+      "training30_families": 1,
+      "release120_families": 3,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Differential calculus",
+      "training30_families": 1,
+      "release120_families": 2,
+      "test_questions": 2,
+      "base_misses": 2,
+      "step30_misses": 2
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Differential equations",
+      "training30_families": 2,
+      "release120_families": 3,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Functions and equations",
+      "training30_families": 0,
+      "release120_families": 1,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Integral calculus",
+      "training30_families": 0,
+      "release120_families": 1,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Sequences and series",
+      "training30_families": 0,
+      "release120_families": 1,
+      "test_questions": 1,
+      "base_misses": 0,
+      "step30_misses": 0
+    },
+    {
+      "subject": "mathematics",
+      "primary_chapter": "Vectors and 3D geometry",
+      "training30_families": 1,
+      "release120_families": 3,
+      "test_questions": 1,
+      "base_misses": 1,
+      "step30_misses": 1
+    }
+  ],
+  "labels": "provisional source-based diagnostic categories; not calibrated difficulty or causal estimates"
+}

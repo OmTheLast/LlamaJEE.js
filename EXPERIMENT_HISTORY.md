@@ -4,6 +4,8 @@ This timeline documents **experiments**, not successive releases of a proven sol
 
 The [progress graphs](charts/README.md) visualize checkpoint trajectories and the latest answer-versus-procedure tradeoff. The [original local 9B lab](local_lab/README.md) and [Transformers.js browser demo](web/README.md) are both available in this GitHub repository; they run different model sizes and runtimes.
 
+The [missed-question inventory comparison](research/ERRORS_AND_TRAINING_COVERAGE_2026_11_24.md) separates the full 120-family training package from the 30 families actually consumed by step 30. Subject balance held, but answer formats and topic coverage differed. Half of the 14 trained-model misses had a primary chapter represented in training; this does not establish why the questions were missed. The saved scores are unchanged.
+
 On 24 fresh question texts in the same Chrome H0 harness, the unchanged Qwen 4B scored **12/24** and original mixed step 30 **10/24**. Correct answers with sufficient working were **9/24 and 8/24**. There were two losses and no gains; this does not support a training-improvement claim. These browser results are a different condition from the older native scores below. [Fresh browser comparison and graph](research/FRESH_BROWSER_COMPARISON_2026_11_22.md).
 
 On the same 24 question texts with the same H0 submission rule, Qwen 4B step 30 scored 21/24 and LFM3-1.7B scored 18/24. Correct answers with sufficient working were 19/24 and 11/24. Keep Qwen step 30 as the main solver for now. LFM is a smaller candidate for devices that struggle with Qwen, but it returned fewer correct answers and fewer supported solutions on both sets. These results do not establish that step-30 training caused the advantage. [Matched results, new questions and browser measurement](research/MATCHED_TEXT_2026_11_07.md).
@@ -138,3 +140,8 @@ Completed 270 local calls for three unchanged models and four policies on the sa
 ## 22 November 2026 — Fresh balanced browser comparison
 
 The base and original mixed step 30 answered the same 24 questions in Chrome using frozen H0 settings. Correct answers were 12/24 versus 10/24; correct answers with sufficient working were 9/24 versus 8/24. Both were correct on 10, only the base on 2, only step 30 on 0, and neither on 12. Repetition flags were 2 versus 4; both hit the direct output limit on 16. All 48 solves and 80 generation calls completed. The separate 120-question confirmation and 2026 remain unevaluated. Source-paper overlap and review/runtime limits are disclosed. No new training, model promotion or website change. [Full report and graph](research/FRESH_BROWSER_COMPARISON_2026_11_22.md) · [Aggregate data](research/FRESH_BROWSER_COMPARISON_2026_11_22.json).
+
+
+## 24 November 2026 — Missed questions and actual training coverage
+
+Compared saved results with the original training graph and committed training records. Step 30 consumed 30 families and 90 related exercises, versus 120 families in the prepared package. Source formats were 19 single-choice, four multiple-choice, six numerical and one matching problem. The 24-question test had eight of each first three formats. All four Advanced Mathematics questions were shared misses. Failure types and primary-chapter matches are descriptive diagnostics, not a causal explanation or a new accuracy measurement. [Report and composition chart](research/ERRORS_AND_TRAINING_COVERAGE_2026_11_24.md).
