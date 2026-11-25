@@ -2,6 +2,8 @@
 
 Load a model, choose how it should work through the question, and enter a problem. The model runs on your device. The public solver has no inference API and does not require an API key.
 
+The interface is a chat layout: saved chats on the left (kept in this browser's local storage), the conversation in the middle and the question box at the bottom. Model, solving approach, question hints, response limit and theme live in the Settings panel. Each message is still solved as an independent question; earlier messages are not sent to the model. Dark and bright themes follow the ompatnaik.com palette. During `npm run dev`, adding `?preview` to the URL shows clearly labelled sample chats for layout review; this block is removed from production builds.
+
 - [Open the solver](https://ompatnaik.com/llamajee/)
 - [Alternate address](https://llamajee.ompatnaik.com/)
 - [Harness code and completed comparison](../harnesses/README.md)
