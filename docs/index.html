@@ -2,69 +2,144 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f8f9fa" />
-  <link rel="icon" href="data:," />
-  <meta name="description" content="Choose a model, load it in your browser, and ask a JEE question using text or an image." />
-  <title>LlamaJEE.js — JEE problem solver</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#080908" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080908'/%3E%3Ctext x='32' y='42' text-anchor='middle' fill='%23dfff3f' font-family='monospace' font-size='30'%3Elj%3C/text%3E%3C/svg%3E" />
+  <script>
+    // Apply the saved theme before first paint to avoid a flash. Default: dark, matching ompatnaik.com.
+    (function () {
+      var pref = 'dark';
+      try { pref = localStorage.getItem('llamajee.theme') || 'dark'; } catch (e) {}
+      var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    })();
+  </script>
+  <style>html{--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark;background:#080908}html[data-theme=light]{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;background:#f5f6f1}.settings{visibility:hidden}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <meta name="description" content="Ask a JEE question and get step-by-step working from a model that runs entirely in your browser." />
+  <title>LlamaJEE.js — JEE solver in your browser</title>
   <link rel="canonical" href="https://ompatnaik.com/llamajee/" />
-  <script type="module" crossorigin src="./assets/index-BcnUkIfA.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DqTLgm9X.css">
+  <script type="module" crossorigin src="./assets/index-B0797VSC.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CFtQ_pEd.css">
 </head>
 <body>
-  <a class="skip-link" href="#solver">Skip to solver</a>
-  <div id="app">
-    <header class="topbar shell"><a class="brand" href="#solver">LlamaJEE.js</a><span class="app-subtitle">JEE problem solver</span></header>
-    <main id="top" class="shell">
-      <section id="solver" class="page-section" aria-labelledby="solver-title">
-        <div class="section-heading"><h1 id="solver-title">Solve a JEE question</h1><p>Choose a model, load it, then enter your question or add an image.</p></div>
-        <div class="model-setup">
-          <div class="model-selection">
-            <label for="model-choice">1. Choose a model</label>
-            <select id="model-choice" aria-describedby="model-detail download-size">
-<option value="4b-step30" selected>4B · trained step 30</option><option value="4b-base">4B · unchanged base</option><option value="base">9B · unchanged base</option><option value="coverage16-step060">9B · 30 families · 16 layers · step 60</option><option value="data60-step060">9B · 60 families · 3 layers · step 60</option><option value="reliable01-step030">9B · 30 families · 3 layers · step 30</option><option value="reliable01-step060">9B · 30 families · 3 layers · step 60</option><option value="reliable01-step090">9B · 30 families · 3 layers · step 90</option><option value="demo">0.8B · separate demo</option></select>
-            <div class="model-band"><strong id="model-label"></strong><small id="model-detail"></small></div>
-          </div>
-          <div class="model-loading">
-            <p class="setup-label">2. Load it on this device</p>
-            <p id="download-size" class="download-size"></p>
-            <div class="load-actions"><button id="load-button" class="button button-primary" type="button">Download and load model</button><button id="stop-button" class="button button-light" type="button" disabled>Release model</button></div>
-            <div id="model-status" class="model-status" role="status" aria-live="polite">Checking browser support…</div>
-            <div class="download-track" id="download-track" hidden><div id="download-bar"></div></div>
-          </div>
-        </div>
-        <p class="runtime-note">Your question is processed on this device. Model files download when you load a model.</p>
-        <div class="workspace">
-          <div class="input-card card">
-            <div class="card-title-row"><h3>3. Enter a question</h3></div>
-            <form id="solve-form">
-                <label for="question">Problem text <span class="muted">(optional with image)</span></label>
-                <textarea id="question" maxlength="9000" placeholder="Paste the full question, including values and answer options."></textarea>
-                <div class="image-control"><label for="image" class="upload-label"><span><strong>Add a question image</strong><small id="image-guidance">PNG or JPEG · up to 10 MB</small></span></label><input id="image" type="file" accept="image/png,image/jpeg" aria-describedby="image-guidance" /><div id="image-preview" class="image-preview" hidden></div></div>
-                <div class="harness-control"><label for="harness-choice">Solving approach</label><select id="harness-choice"><option value="direct">Original · one response</option><option value="h0" selected>Final-answer recovery · H0</option><option value="h1">Continue an unfinished response · H1</option><option value="h2">Identify the remaining task · H2</option></select><small class="field-note" id="harness-detail">If the response reaches its token limit, ask the same model to write a final answer.</small></div>
-                <div class="form-grid">
-                  <div><label for="subject">Subject</label><select id="subject"><option value="auto">Let the model decide</option><option value="mathematics">Mathematics</option><option value="physics">Physics</option><option value="chemistry">Chemistry</option></select></div>
-                  <div><label for="exam">Exam</label><select id="exam"><option value="unspecified">Unspecified</option><option value="main">JEE Main</option><option value="advanced">JEE Advanced</option></select></div>
-                  <div><label for="answer-type">Answer format</label><select id="answer-type"><option value="infer">Infer from question</option><option value="single">Single option</option><option value="multiple">One or more options</option><option value="numeric">Numeric</option></select></div>
-                  <div><label for="budget">Response limit</label><select id="budget"><option value="128">128 tokens</option><option value="384">384 tokens</option><option value="768" selected>768 tokens</option><option value="1280">1,280 tokens</option></select><small class="field-note">Tokens are pieces of text. A longer response uses more time and memory.</small></div>
-                </div>
-                <div class="input-actions"><button id="solve-button" class="button button-primary" type="submit" disabled>Generate answer</button><button id="cancel-button" class="button button-light" type="button" disabled>Stop generation</button><button id="example-button" class="button button-light" type="button">Insert example</button></div>
-              </form>
-          </div>
-          <div class="output-card card">
-            <div class="card-title-row"><h3>Model response</h3><span id="result-state" class="state-pill">Waiting</span></div>
-            <div id="result-empty" class="result-empty"><h4>No response yet</h4><p>Load a model and submit a question. Its answer and working will appear here.</p></div>
-            <div id="solve-progress" class="solve-progress" hidden>
-              <div class="progress-heading"><strong id="solve-phase" role="status"></strong><span id="solve-count"></span></div>
-              <progress id="reading-progress" aria-labelledby="solve-phase" hidden></progress>
-              <small class="field-note">Progress gives this stage more time automatically.</small>
-            </div>
-            <div id="result-content" hidden><div id="final-card" class="final-card" hidden><span>Answer from the model</span><strong id="final-answer"></strong></div><div id="format-checks" class="format-checks" hidden></div><p id="output-model" class="download-note"></p><h4 id="working-label" class="output-label" hidden>Model explanation</h4><pre id="raw-output"></pre></div>
-          </div>
-        </div>
-      </section>
+  <a class="skip-link" href="#question">Skip to question box</a>
+  <div id="app" class="app">
+    <aside id="sidebar" class="sidebar" aria-label="Chats">
+      <div class="sidebar-top">
+        <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">lj</span><span>llamajee.js</span></a>
+        <button id="sidebar-close" class="icon-button only-mobile" type="button" aria-label="Close chat list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <button id="new-chat" class="new-chat" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New chat</button>
+      <p class="sidebar-label mono-label">Chats</p>
+      <nav id="chat-list" class="chat-list" aria-label="Previous chats"></nav>
+      <div class="sidebar-foot">
+        <button id="open-settings-side" class="side-link" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Settings</button>
+        <a class="side-link" href="https://github.com/OmTheLast/LlamaJEE.js" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>About the project</a>
+        <a class="side-link" href="https://ompatnaik.com/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>om patnaik</a>
+        <p class="side-note">Runs on your device · Experimental</p>
+      </div>
+    </aside>
+    <div id="scrim" class="scrim" hidden></div>
 
+    <main id="solver" class="main">
+      <header class="topbar">
+        <button id="sidebar-open" class="icon-button only-mobile" type="button" aria-label="Open chat list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        <h1 id="chat-title" class="chat-title">New chat</h1>
+        <div class="topbar-actions">
+          <span id="result-state" class="state-pill">Not loaded</span>
+          <button id="model-pill" class="model-pill" type="button" data-state="idle" title="Model settings"><span class="dot" aria-hidden="true"></span><span id="model-pill-label">4B · trained step 30</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></button>
+          <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg></button>
+          <button id="open-settings" class="icon-button" type="button" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
+        </div>
+      </header>
+
+      <div id="scroller" class="scroller">
+        <section id="empty-state" class="empty-state" aria-labelledby="empty-title">
+          <div class="hero-mark" aria-hidden="true">lj</div>
+          <p class="empty-kicker mono-label">JEE Main &amp; Advanced · runs in your browser</p>
+          <h2 id="empty-title">What are we solving today?</h2>
+          <p class="lede">Paste a physics, chemistry or maths question. The model works through it step by step on your own device.</p>
+          <div id="examples" class="examples"></div>
+        </section>
+        <div id="thread" class="thread" hidden></div>
+      </div>
+
+      <div class="dock">
+        <div id="model-bar" class="model-bar" data-state="idle">
+          <div class="model-bar-text">
+            <strong id="load-title">Load 4B · trained step 30</strong>
+            <span id="load-size" class="load-size"></span>
+            <span id="model-status" class="model-status" role="status" aria-live="polite">Checking browser support…</span>
+          </div>
+          <button id="load-button" class="button button-primary" type="button">Download and load</button>
+          <div id="download-track" class="download-track" hidden><div id="download-bar"></div></div>
+        </div>
+        <form id="solve-form" class="composer">
+          <div id="image-preview" class="image-preview" hidden></div>
+          <label for="question" class="sr-only">Question</label>
+          <textarea id="question" rows="1" maxlength="9000" placeholder="Paste a JEE question, including values and answer options…"></textarea>
+          <div class="composer-row">
+            <label for="image" id="attach-button" class="icon-button attach" title="Attach a question image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5l-7.8 7.8a5 5 0 01-7.1-7.1l8.1-8.1a3.3 3.3 0 014.7 4.7l-8.1 8.1a1.7 1.7 0 01-2.4-2.4l7.4-7.4"/></svg><span class="sr-only">Attach a question image</span></label>
+            <input id="image" class="sr-only" type="file" accept="image/png,image/jpeg" />
+            <span id="composer-model" class="composer-model"></span>
+            <button id="cancel-button" class="send-button" type="button" aria-label="Stop generation" title="Stop generation" hidden disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/></svg></button>
+            <button id="solve-button" class="send-button" type="submit" aria-label="Send question" title="Send (Enter)" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></button>
+          </div>
+        </form>
+        <p id="composer-hint" class="composer-hint"></p>
+      </div>
     </main>
+
+    <aside id="settings" class="settings" aria-label="Settings" aria-hidden="true" inert>
+      <div class="settings-head">
+        <h2>Settings</h2>
+        <button id="settings-close" class="icon-button" type="button" aria-label="Close settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="settings-body">
+        <section class="settings-group">
+          <h3>Model</h3>
+          <label for="model-choice">Choose a model</label>
+          <select id="model-choice">
+            <option value="4b-step30" selected>4B · trained step 30</option><option value="4b-base">4B · unchanged base</option><option value="base">9B · unchanged base</option><option value="coverage16-step060">9B · 30 families · 16 layers · step 60</option><option value="data60-step060">9B · 60 families · 3 layers · step 60</option><option value="reliable01-step030">9B · 30 families · 3 layers · step 30</option><option value="reliable01-step060">9B · 30 families · 3 layers · step 60</option><option value="reliable01-step090">9B · 30 families · 3 layers · step 90</option><option value="demo">0.8B · separate demo</option>
+          </select>
+          <p class="settings-note"><strong id="model-label"></strong> <span id="model-detail"></span></p>
+          <p id="download-size" class="settings-note"></p>
+          <button id="stop-button" class="button button-light" type="button" disabled>Release model from memory</button>
+        </section>
+        <section class="settings-group">
+          <h3>Solving approach</h3>
+          <label for="harness-choice">Approach used when the response runs long</label>
+          <select id="harness-choice"><option value="direct">Original · one response</option><option value="h0" selected>Final-answer recovery · H0</option><option value="h1">Continue an unfinished response · H1</option><option value="h2">Identify the remaining task · H2</option></select>
+          <small id="harness-detail" class="field-note">If the response reaches its token limit, ask the same model to write a final answer.</small>
+        </section>
+        <section class="settings-group">
+          <h3>Question hints</h3>
+          <p class="settings-note">Optional. Leave these on automatic unless the model misreads the question.</p>
+          <div class="settings-grid">
+            <div><label for="subject">Subject</label><select id="subject"><option value="auto">Let the model decide</option><option value="mathematics">Mathematics</option><option value="physics">Physics</option><option value="chemistry">Chemistry</option></select></div>
+            <div><label for="exam">Exam</label><select id="exam"><option value="unspecified">Unspecified</option><option value="main">JEE Main</option><option value="advanced">JEE Advanced</option></select></div>
+            <div><label for="answer-type">Answer format</label><select id="answer-type"><option value="infer">Infer from question</option><option value="single">Single option</option><option value="multiple">One or more options</option><option value="numeric">Numeric</option></select></div>
+          </div>
+        </section>
+        <section class="settings-group">
+          <h3>Response length</h3>
+          <label for="budget">Response limit</label>
+          <select id="budget"><option value="128">128 tokens</option><option value="384">384 tokens</option><option value="768" selected>768 tokens</option><option value="1280">1,280 tokens</option></select>
+          <small class="field-note">Tokens are pieces of text. A longer limit gives more room for working but takes more time and memory.</small>
+        </section>
+        <section class="settings-group">
+          <h3>Appearance</h3>
+          <label for="theme-choice">Theme</label>
+          <select id="theme-choice"><option value="dark">Dark</option><option value="light">Bright</option><option value="system">Match my device</option></select>
+        </section>
+        <section class="settings-group settings-about">
+          <p>Your questions are processed on this device; nothing is sent to a server. Model files download from Hugging Face when you load a model and may stay in this browser’s cache. Answers are experimental and can be wrong.</p>
+        </section>
+      </div>
+    </aside>
   </div>
 </body>
 </html>

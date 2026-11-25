@@ -198,7 +198,24 @@ a:focus-visible, button:focus-visible, select:focus-visible, textarea:focus-visi
 .working summary::-webkit-details-marker { display: none; }
 .working summary::before { content: ""; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .15s; margin-right: 3px; }
 .working[open] summary::before { transform: rotate(45deg); }
-.working-text { margin-top: 10px; font-size: 15px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.working-text { margin-top: 10px; font-size: 15px; line-height: 1.75; overflow-wrap: anywhere; }
+.formatted p { margin: 0 0 12px; }
+.formatted ul, .formatted ol { margin: 0 0 12px; padding-left: 22px; }
+.formatted li { margin: 2px 0; }
+.formatted li::marker { color: var(--faint); }
+.formatted code { padding: 1px 5px; border: 1px solid var(--line); background: var(--surface); font: .85em var(--mono); }
+.formatted strong { font-weight: 600; }
+.fmt-heading { margin: 18px 0 8px; color: var(--accent-text); font: 500 .68rem/1.6 var(--mono); text-transform: uppercase; letter-spacing: .055em; }
+.formatted > .fmt-heading:first-child { margin-top: 2px; }
+.formatted .katex { font-size: 1.08em; }
+.formatted .katex-display { margin: 6px 0; padding: 2px 0; overflow-x: auto; overflow-y: hidden; }
+.formatted .fmt-math { margin: 0 0 4px; }
+.formatted .fmt-math + p, .formatted .fmt-math + .fmt-heading { margin-top: 10px; }
+.formatted .fmt-math .katex-display { margin: 4px 0; }
+.final-card .katex { font-size: 1em; }
+.working-raw { margin: 10px 0 0; padding: 12px 14px; border: 1px solid var(--line); background: var(--surface); font: .82rem/1.7 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.foot-toggle { padding: 2px 0; border: 0; background: none; color: var(--muted); font: .68rem/1.6 var(--mono); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: .25em; }
+.foot-toggle:hover { color: var(--accent-text); }
 .msg-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; color: var(--faint); font: .68rem/1.6 var(--mono); }
 .msg-foot:empty { display: none; }
 .foot-state { font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }

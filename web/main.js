@@ -1,4 +1,6 @@
+import 'katex/dist/katex.min.css';
 import './style.css';
+import { formatSolution, formatInline } from './format.js';
 import { ARCHIVED_MODELS } from './archive-config.js';
 import { QWEN4B_MODELS } from './qwen4b-config.js';
 import { buildSolverPrompt, checkRestAccelerationDisplacement, inspectSolution, displayFinalAnswer, inspectRecoveryAnswer, MAX_QUESTION_CHARS, suggestSubject } from './harness.js';
@@ -223,7 +225,9 @@ function assistantMessage(m) {
   const checks = role(el('div', 'format-checks'), 'format-checks');
   const working = role(el('details', 'working'), 'working');
   working.open = true;
-  working.append(role(el('summary', '', 'Working'), 'working-label'), role(el('div', 'working-text'), 'raw-output'));
+  const raw = role(el('pre', 'working-raw'), 'raw-output');
+  raw.hidden = true;
+  working.append(role(el('summary', '', 'Working'), 'working-label'), role(el('div', 'working-text formatted'), 'formatted'), raw);
   const foot = role(el('div', 'msg-foot'), 'foot');
 
   body.append(meta, progress, finalCard, checks, working, foot);
@@ -255,6 +259,15 @@ function renderFoot(row, m) {
   foot.append(el('span', `foot-state ${m.state}`, labels[m.state] || ''));
   if (m.stats) foot.append(el('span', 'foot-stats', m.stats));
   if ((m.raw || '').trim()) {
+    const view = el('button', 'foot-toggle', m.view === 'raw' ? 'Show formatted' : 'Show raw text');
+    view.type = 'button';
+    view.addEventListener('click', () => {
+      m.view = m.view === 'raw' ? 'formatted' : 'raw';
+      paintWorking(row, m);
+      view.textContent = m.view === 'raw' ? 'Show formatted' : 'Show raw text';
+      saveChats();
+    });
+    foot.append(view);
     const copy = el('button', 'icon-button foot-copy');
     copy.type = 'button';
     copy.innerHTML = COPY_ICON;
@@ -270,12 +283,27 @@ function renderFoot(row, m) {
     foot.append(copy);
   }
 }
+function paintWorking(row, m) {
+  const raw = m.raw || '';
+  const showRaw = m.view === 'raw';
+  part(row, 'raw-output').textContent = raw;
+  part(row, 'raw-output').hidden = !showRaw;
+  part(row, 'formatted').hidden = showRaw;
+  if (!showRaw) part(row, 'formatted').innerHTML = formatSolution(raw);
+}
+// Formatting runs at most once per animation frame while text streams in.
+let formatFrame = 0;
+function scheduleWorking(row, m) {
+  part(row, 'raw-output').textContent = m.raw || '';
+  if (formatFrame) return;
+  formatFrame = requestAnimationFrame(() => { formatFrame = 0; if (row.isConnected) paintWorking(row, m); });
+}
 function paintAssistant(row, m) {
   const raw = m.raw || '';
-  part(row, 'raw-output').textContent = raw;
+  paintWorking(row, m);
   setWorking(row, Boolean(raw.trim()), m.workingLabel || 'Working');
   part(row, 'final-card').hidden = !m.final;
-  part(row, 'final-answer').textContent = m.final || '';
+  part(row, 'final-answer').innerHTML = formatInline(m.final || '');
   renderChecks(part(row, 'format-checks'), m.notice, m.issues);
   const pending = m.state === 'pending';
   part(row, 'solve-progress').hidden = !pending;
@@ -443,7 +471,7 @@ function createWorker() {
       const row = liveRow();
       if (row) {
         const stick = nearBottom();
-        part(row, 'raw-output').textContent = streamed;
+        if (liveMsg) scheduleWorking(row, liveMsg);
         setWorking(row, Boolean(streamed.trim()), 'Working');
         if (stick) scrollToBottom(true);
       }
@@ -714,7 +742,7 @@ if (import.meta.env.DEV && new URLSearchParams(location.search).has('preview')) 
     { id: 'preview-1', title: 'A particle starts from rest and moves with a constant…', createdAt: now, updatedAt: now, messages: [
       { role: 'user', text: EXAMPLES[0].text },
       { role: 'assistant', model: sampleNote, harness: 'Final-answer recovery · H0', state: 'done', final: '9', stats: '412 tokens · 38.2 s',
-        raw: 'Given: initial velocity u = 0, acceleration a = 2 m/s², time t = 3 s.\n\nMethod: with constant acceleration, use s = ut + ½at².\n\nSubstitute: s = 0 × 3 + ½ × 2 × 3² = 9 m.\n\nCheck: the units are (m/s²)(s²) = m. The final velocity is v = at = 6 m/s, so the average velocity is (0 + 6)/2 = 3 m/s, and 3 m/s × 3 s = 9 m, which agrees.\n\nFINAL ANSWER: 9' },
+        raw: 'PLAN:\nUse the constant-acceleration equation for displacement.\n\nWORK:\nGiven $u = 0$, $a = 2\\,\\text{m/s}^2$ and $t = 3\\,\\text{s}$.\n$$s = ut + \\tfrac{1}{2}at^2$$\n$$s = 0 \\times 3 + \\tfrac{1}{2} \\times 2 \\times 3^2 = 9\\,\\text{m}$$\n\nCHECK:\n- Units: $(\\text{m/s}^2)(\\text{s}^2) = \\text{m}$.\n- Final velocity $v = at = 6\\,\\text{m/s}$, so average velocity is $\\frac{0 + 6}{2} = 3\\,\\text{m/s}$ and $3 \\times 3 = 9\\,\\text{m}$, which agrees.\n\nFINAL_ANSWER:\n9' },
     ] },
     { id: 'preview-2', title: 'Find the number of real solutions of the equation…', createdAt: now - 3600e3, updatedAt: now - 3600e3, messages: [
       { role: 'user', text: EXAMPLES[1].text },

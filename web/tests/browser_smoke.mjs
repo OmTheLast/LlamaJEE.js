@@ -21,7 +21,7 @@ try {
   await page.screenshot({ path: new URL('page.png', resultDir).pathname, fullPage: true });
   if (!(await page.evaluate(() => Boolean(navigator.gpu)))) throw new Error('WebGPU unavailable in the smoke browser');
   await page.locator('#load-button').click();
-  const deadline = Date.now() + 8 * 60 * 1000;
+  const deadline = Date.now() + Number(process.env.JEE_LOAD_TIMEOUT_MS || 8 * 60 * 1000);
   while (Date.now() < deadline) {
     const label = await page.locator('#result-state').textContent();
     const detail = await page.locator('#model-status').textContent();
@@ -49,7 +49,7 @@ try {
     await page.locator('#example-button').click();
   }
   await page.locator('#solve-button').click();
-  const solveDeadline = Date.now() + 3 * 60 * 1000;
+  const solveDeadline = Date.now() + Number(process.env.JEE_SOLVE_TIMEOUT_MS || 3 * 60 * 1000);
   while (Date.now() < solveDeadline) {
     const label = await page.locator('#result-state').textContent();
     if (label?.toUpperCase().includes('FINISHED') || label?.toUpperCase().includes('REVIEW NEEDED')) break;
@@ -57,6 +57,8 @@ try {
     await new Promise(resolve => setTimeout(resolve, 5000));
   }
   await save('complete');
+  await page.screenshot({ path: new URL(imageMode ? 'image-solved.png' : 'solved.png', resultDir).pathname });
+  if (!(await page.locator('.msg-assistant .formatted').last().innerHTML()).trim()) throw new Error('Formatted working is empty');
   const final = await page.locator('#final-answer').textContent();
   const signals = await page.locator('#format-checks').textContent();
   if (!imageMode && !final) throw new Error('Final answer was not extracted');

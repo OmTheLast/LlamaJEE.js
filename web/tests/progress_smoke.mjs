@@ -27,6 +27,8 @@ try {
   }, data);
   const progress = (stage, phase, processed, total) => send({ type: 'solve-progress', stage, phase, processed, total });
   const selector = id => page.locator('#' + id);
+  // The chat composer clears after each question, so later questions are typed again.
+  const typeQuestion = () => selector('question').fill('A particle starts from rest with acceleration 2 m/s². Find its displacement in 3 s.');
   await selector('load-button').click();
   await selector('example-button').click();
   await selector('solve-button').click();
@@ -49,6 +51,7 @@ try {
   assert.ok(await selector('solve-button').isDisabled());
   assert.ok(await selector('stop-button').isEnabled());
   await send({ type: 'drain-complete' });
+  await typeQuestion();
   assert.ok(await selector('solve-button').isEnabled());
 
   await selector('solve-button').click();
@@ -67,13 +70,15 @@ try {
   assert.match(await selector('format-checks').innerText(), /maximum time while writing the final answer/);
   assert.equal(await selector('raw-output').textContent(), partial);
   assert.ok(await selector('final-card').isHidden());
-  assert.equal(await selector('working-label').innerText(), 'Partial working · unverified');
+  assert.equal(await selector('working-label').textContent(), 'Partial working · unverified');
 
+  await typeQuestion();
   await selector('solve-button').click();
   await selector('cancel-button').click();
   assert.ok(await page.evaluate(() => window.cancelRequested));
   await send({ type: 'complete', text: '', seconds: 2, harness: { status: 'cancelled' } });
   assert.match(await selector('format-checks').innerText(), /You stopped generation/);
+  await typeQuestion();
   assert.ok(await selector('solve-button').isEnabled());
 
   await selector('solve-button').click();
