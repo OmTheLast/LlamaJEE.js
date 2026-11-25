@@ -41,11 +41,10 @@ For the main problems encountered while building and testing this system, read [
 
 ## Current 4B-class model selection and export work
 
-The next model is not being chosen by parameter label or one accuracy number. The [staged selection plan](research/MODEL_SELECTION_4B_PLAN.md) screens Qwen3.5-4B, Gemma3n E4B-it and LFM2.5-VL-3B, with narrowly chosen challengers, on reasoning, procedure, image fidelity, completion, memory, latency, licensing, trainability and a reproducible trained-weight browser path. Exact model revisions are recorded in the [candidate manifest](research/candidate-manifest-v1.json).
+The [completed small-model comparison](research/SMALL_MODEL_SELECTION_RESULT.md) records the tested candidates, results and runtime limitations. Exact model revisions are recorded in the [candidate manifest](research/candidate-manifest-v1.json).
 
 The [9B portability experiment](research/EXPORT09B01_STAGE_B_RESULT.md) successfully mapped an MLX adapter to PEFT and verified native text/image behavior. It then stopped honestly: current public Qwen3.5 tooling can run community ONNX builds but does not expose a reproducible exporter for our trained weights. No 9B browser model is claimed. The representation converter is retained in [`conversion_lab/`](conversion_lab/README.md).
 
-The first browser product should use its solver model's integrated vision. A second small visual model remains a [three-condition hybrid ablation](research/VISION_FRONTEND_ABLATION.md), because OCR help must outweigh extra memory/latency and the risk of losing diagram relations.
 
 The first unchanged-model screen and matched 24-question development pilot are now complete. [Qwen3.5-4B remains a conditional survivor](research/SMALL_MODEL_SELECTION_RESULT.md): it scored 13/24 against the unchanged 9B control's 15/24, but failed Chemistry Advanced and completion gates. LFM2.5-VL-3B and Qwen3-VL-4B-Thinking failed the six-item screen; Gemma3n E4B remains access-gated.
 

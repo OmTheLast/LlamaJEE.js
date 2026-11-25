@@ -6,3 +6,32 @@ web/node_modules/
 web/dist/
 
 web/node_modules
+
+# Local agent instructions, memory and operational records are private.
+AGENTS.md
+AGENTS.override.md
+agents.md
+CLAUDE.md
+GEMINI.md
+MEMORY.md
+memory.md
+SKILL.md
+.codex/
+.claude/
+.agents/
+.cursor/
+.opencode/
+.cursorrules
+.clinerules/
+opencode.json
+opencode.jsonc
+work_logs/
+recovery/
+plan/
+plans/
+PROJECT_LOG.md
+PROBLEMS_AND_NOTES.md
+.env
+.env.*
+research/*_PLAN.md
+research/VISION_FRONTEND_ABLATION.md
